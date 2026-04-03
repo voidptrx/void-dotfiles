@@ -1,0 +1,130 @@
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+  font-family:
+    "JetBrainsMono NFP SemiBold", "Noto Sans CJK JP SemiBold" !important;
+}
+
+:root {
+  --toolbar-bgcolor: #000000 !important;
+  --lwt-accent-color: #000000 !important;
+  --tabpanel-background-color: #000000 !important;
+  --arrowpanel-background: #000000 !important;
+  --arrowpanel-border-color: #333333 !important;
+  --lwt-toolbar-field-background-color: #111111 !important;
+}
+
+/* Toolbar */
+#navigator-toolbox {
+  background-color: #000000 !important;
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* Sıralama: titlebar → urlbar → tabbar */
+#titlebar {
+  order: 0 !important;
+}
+#nav-bar {
+  order: 1 !important;
+}
+
+/* Sekme çubuğu — alta sabitlenmiş */
+#TabsToolbar {
+  background-color: #000000 !important;
+  order: 2 !important;
+  position: fixed !important;
+  bottom: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  z-index: 100 !important;
+}
+
+/* Aktif sekme */
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: #1a1a1a !important;
+}
+
+/* Pasif sekmeler */
+.tabbrowser-tab .tab-background {
+  background-color: #000000 !important;
+}
+
+/* URL bar */
+#urlbar-background {
+  background-color: #111111 !important;
+}
+
+/* Açılır paneller */
+.panel-subview-body,
+.panel-viewstack,
+.panel-viewcontainer,
+#appMenu-popup {
+  background-color: #111111 !important;
+}
+
+/* Tab çubuğu yüksekliği kadar boşluk bırak */
+#browser {
+  margin-bottom: 44px !important;
+}
+
+#navigator-toolbox,
+#nav-bar,
+#TabsToolbar,
+#titlebar,
+.browser-toolbar {
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.toolbar-items {
+  box-shadow: none !important;
+}
+
+#nav-bar {
+  border-top: none !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+#urlbar-results,
+.urlbarView,
+.urlbarView-body-inner,
+.urlbarView-row,
+.urlbarView-results {
+  background-color: #111111 !important;
+  color: #ffffff !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Seçili/hover satır */
+.urlbarView-row[selected],
+.urlbarView-row:hover {
+  background-color: #1a1a1a !important;
+}
+
+/* Mavi highlight rengi */
+.urlbarView-row[selected] .urlbarView-title,
+.urlbarView-row[selected] .urlbarView-url {
+  color: #ffffff !important;
+}
+
+/* Mavi focus ring'i kaldır */
+#urlbar[focused] > #urlbar-background {
+  box-shadow: none !important;
+  border-color: #333333 !important;
+}
+
+/* Açılır panel gölgesi */
+.urlbarView {
+  box-shadow: none !important;
+  border: 1px solid #333333 !important;
+}
+
+.urlbarView {
+  display: none !important;
+}
