@@ -1,21 +1,3 @@
-# Tokyo Night Color Scheme
-# set $bg-color      #1A1B26
-# set $fg-color      #A9B1D6
-#
-# set $blue          #7AA2F7
-# set $green         #9ECE6A
-# set $red           #F7768E
-# set $yellow        #E0AF68
-# set $purple        #BB9AF7
-#
-# set $dark-blue     #34548A
-# set $dark-green    #485E30
-# set $dark-red      #8C4351
-# set $dark-yellow   #8F5E15
-# set $dark-purple   #5A4A78
-
-#----------------------------
-
 # Kanagawa Color Scheme
 set $bg-color      #16161d
 set $fg-color      #dcd7ba
