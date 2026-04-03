@@ -4,7 +4,7 @@
   "output": "eDP-1",
   "modules-left": ["custom/launcher", "sway/workspaces", "mpris"],
   "modules-center": ["clock", "custom/weather"],
-  "modules-right": ["tray", "upower", "pulseaudio#speaker", "pulseaudio#mic"],
+  "modules-right": ["tray", "pulseaudio#speaker", "pulseaudio#mic", "battery"],
   //-------------
   // modules-left
   //------------
@@ -12,7 +12,7 @@
     "on-click": "nwg-bar -p 'left' -ml 10",
     "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
     "on-click-middle": "fuzzel",
-    "format": "",
+    "format": "<span font-size='large'>[]</span>",
     "tooltip": false,
   },
   "sway/workspaces": {
@@ -100,7 +100,7 @@
   // modules-right
   //--------------
   "tray": {
-    "icon-size": 14,
+    "icon-size": 13,
     "spacing": 5,
   },
   "pulseaudio#speaker": {
@@ -134,5 +134,14 @@
     "tooltip": true,
     "tooltip-format": "{percentage}",
     "tooltip-spacing": 20,
+  },
+  "battery": {
+    // "bat": "BAT0",
+    "interval": 60,
+    "format": "<span font-size='large'>{icon}</span>",
+    "format-icons": {
+      "default": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
+      "charging": ["󰢟", "󰢜", "󰂆", "󰂇", "󰂈", "󰢝", "󰂉", "󰢞", "󰂊", "󰂋", "󰂅"],
+    },
   },
 }
