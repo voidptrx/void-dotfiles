@@ -1,0 +1,61 @@
+/* @define-color kngw-bg-color #000000; */
+/* @define-color kngw-fg-color #dcd7ba; */
+/* @define-color kngw-green #76946a; */
+/* @define-color kngw-red #c34043; */
+/* @define-color kngw-blue #7e9cd8; */
+/* @define-color kngw-yellow #c0a36e; */
+/* @define-color kngw-purple #957fb8; */
+/* @define-color kngw-grey #727169; */
+
+@define-color bg-color #000000;
+@define-color fg-color #c5c9c5;
+@define-color green #76946a;
+@define-color red #c34043;
+@define-color blue #7e9cd8;
+@define-color yellow #c0a36e;
+@define-color purple #957fb8;
+@define-color grey #54546d;
+
+window {
+  background: transparent;
+  color: @fg-color;
+  border-radius: 0px;
+  font-family: "JetBrainsMono NFP";
+  font-weight: bold;
+  font-size: 13px;
+}
+
+/* Outer bar container, takes all the window width/height */
+#outer-box {
+  border: 2px solid @green;
+  border-radius: 0px;
+  padding: 0px;
+  margin-bottom: 705px;
+  background: @bg-color;
+}
+
+/* Inner bar container, surrounds buttons */
+#inner-box {
+  background: @bg-color;
+  border-radius: 0px;
+}
+
+button,
+image {
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+
+button {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin: 0px;
+  color: @fg-color;
+}
+
+button:hover {
+  background: @green;
+  color: @bg-color;
+  border-radius: 0px;
+}

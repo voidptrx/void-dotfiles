@@ -1,0 +1,130 @@
+/* tokyonight color scheme */
+/* @define-color bg-color #1a1b26; */
+/* @define-color fg-color #a9b1d6; */
+/* @define-color green #9ece6a; */
+/* @define-color red #f7768e; */
+/* @define-color blue #7aa2f7; */
+/* @define-color yellow #e0af68; */
+/* @define-color purple #bb9af7; */
+/* @define-color grey #343b58; */
+
+/* kanagawa color scheme */
+@define-color bg-color #000000;
+@define-color fg-color #dcd7ba;
+@define-color green #76946a;
+@define-color red #c34043;
+@define-color blue #7e9cd8;
+@define-color yellow #c0a36e;
+@define-color purple #957fb8;
+@define-color grey #54546d;
+
+/* Global Styles */
+* {
+  font-family: JetBrainsMono NFP SemiBold;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* Waybar */
+#waybar {
+  background: @bg-color;
+  color: @fg-color;
+}
+
+/* Tooltips */
+tooltip {
+  color: @fg-color;
+  background: @bg-color;
+  border: 2px solid @blue;
+}
+
+/* Modules */
+#tray,
+#clock,
+#clock.date,
+#mpris,
+#upower,
+#language,
+#workspaces,
+#pulseaudio.speaker,
+#pulseaudio.mic,
+#pulseaudio.speaker.muted,
+#pulseaudio.mic.source-muted,
+#custom-timer,
+#custom-updates,
+#custom-weather,
+#custom-launcher {
+  margin: 0px;
+  padding: 2px;
+}
+
+/* Specific Module Styling */
+#mpris {
+  margin: 0px 5px;
+}
+
+.modules-center {
+  margin: 0px 2px;
+  padding: 0 4px;
+}
+
+#tray {
+  padding: 3px;
+}
+
+#pulseaudio.speaker {
+  min-width: 13px;
+}
+
+#pulseaudio.mic {
+  color: @green;
+  min-width: 13px;
+}
+
+#pulseaudio.speaker.muted {
+  color: @red;
+}
+
+#pulseaudio.mic.source-muted {
+  background: none;
+  color: @fg-color;
+}
+
+#pulseaudio.mic,
+#pulseaudio.mic.source-muted {
+  margin-right: 10px;
+}
+
+#custom-launcher {
+  color: @green;
+  margin: 0px 0px 0px 10px;
+  border-radius: 0px;
+}
+
+#upower.charging {
+  color: @green;
+}
+
+#workspaces {
+  margin: 0px;
+  padding: 0px;
+}
+
+#workspaces button {
+  padding: 0px;
+  min-width: 17px;
+  color: @fg-color;
+  border-radius: 0px;
+}
+
+#workspaces button label {
+  font-size: 12px;
+}
+
+#workspaces button.empty {
+  color: @grey;
+}
+
+#workspaces button.focused {
+  color: @blue;
+}
