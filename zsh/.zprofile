@@ -1,9 +1,14 @@
-[[ -f "$HOME/.cargo/env" ]] && . "$HOME/.cargo/env"
+typeset -U path
 
-# Programming
-export PATH="$HOME/.local/bin:$PATH"
-export CARGO_HOME="$HOME/.cargo"
-export GOPATH="$HOME/.local/go"
+path=(
+  "$HOME/.local/bin"
+  "$HOME/.cargo/bin"
+  $path
+)
+
+export PATH
+
+[[ -f "$CARGO_HOME/env" ]] && . "$CARGO_HOME/env"
 
 # Wayland
 export GDK_BACKEND="wayland"

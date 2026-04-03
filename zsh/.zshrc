@@ -46,17 +46,17 @@ zstyle ':vcs_info:git:*' enable git
 zstyle ':vcs_info:git:*' formats '%b'
 zstyle ':vcs_info:git:*' actionformats '%b|%a'
 
-add-zsh-hook precmd _nim_precmd
+add-zsh-hook precmd precmd
 
-_nim_last_status=0
+last_status=0
 
-_nim_precmd() {
-    _nim_last_status=$?
+precmd() {
+    last_status=$?
     vcs_info
-    _nim_build_prompt
+    built_prompt
 }
 
-_nim_prompt_wrapper() {
+prompt_wrapper() {
     local retc="$1"
     local field_name="$2"
     local field_value="$3"
@@ -66,9 +66,9 @@ _nim_prompt_wrapper() {
     echo -n "$out"
 }
 
-_nim_build_prompt() {
+built_prompt() {
     local retc=green
-    [[ $_nim_last_status -ne 0 ]] && retc=red
+    [[ $last_status -ne 0 ]] && retc=red
 
     local p=""
 
@@ -92,11 +92,11 @@ _nim_build_prompt() {
     p+="%B%F{white}:%b%F{$retc}%~%B%F{green}]%b%f"
 
     # Date
-    p+="$(_nim_prompt_wrapper $retc '' $(date +%X))"
+    p+="$(prompt_wrapper $retc '' $(date +%X))"
 
     # Virtual Env
     if [[ -n "$VIRTUAL_ENV" ]]; then
-        p+="$(_nim_prompt_wrapper $retc 'V' $(basename "$VIRTUAL_ENV"))"
+        p+="$(prompt_wrapper $retc 'V' $(basename "$VIRTUAL_ENV"))"
     fi
 
     # Git
@@ -109,25 +109,24 @@ _nim_build_prompt() {
             local ahead behind
             ahead=$(git rev-list @{u}..HEAD 2>/dev/null | wc -l | tr -d ' ')
             behind=$(git rev-list HEAD..@{u} 2>/dev/null | wc -l | tr -d ' ')
-            [[ $ahead -gt 0 ]]  && git_info+="↑${ahead}"
-            [[ $behind -gt 0 ]] && git_info+="↓${behind}"
+            [[ $ahead -gt 0 ]]  && git_info+=" ${ahead}"
+            [[ $behind -gt 0 ]] && git_info+=" ${behind}"
         fi
 
         local staged unstaged untracked
         staged=$(git diff --cached --numstat 2>/dev/null | wc -l | tr -d ' ')
         unstaged=$(git diff --numstat 2>/dev/null | wc -l | tr -d ' ')
         untracked=$(git ls-files --others --exclude-standard 2>/dev/null | wc -l | tr -d ' ')
-        [[ $staged -gt 0 ]]    && git_info+="|●${staged}"
-        [[ $unstaged -gt 0 ]]  && git_info+="|✚${unstaged}"
-        [[ $untracked -gt 0 ]] && git_info+="|…${untracked}"
-
-        p+="$(_nim_prompt_wrapper $retc 'G' "$git_info")"
+        [[ $staged -gt 0 ]]    && git_info+="| ${staged}"
+        [[ $unstaged -gt 0 ]]  && git_info+="| ${unstaged}"
+        [[ $untracked -gt 0 ]] && git_info+="| ${untracked}"
+        p+="$(prompt_wrapper $retc 'G' "$git_info")"
     fi
 
     # Battery
     if command -v acpi &>/dev/null; then
         if acpi -a 2>/dev/null | grep -q 'off-line'; then
-            p+="$(_nim_prompt_wrapper $retc 'B' "$(acpi -b | cut -d' ' -f4-)")"
+            p+="$(prompt_wrapper $retc 'B' "$(acpi -b | cut -d' ' -f4-)")"
         fi
     fi
 
@@ -147,3 +146,4 @@ _nim_build_prompt() {
 # ── Autostart ────────────────────────────────────────────────
 fastfetch
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
