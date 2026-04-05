@@ -1,5 +1,6 @@
 {
   "reload_style_on_change": true,
+  "height": 30,
   "fixed-center": true,
   "output": "Lenovo Group Limited L27m-30 UPB67FNK",
   "modules-left": ["custom/launcher", "sway/workspaces", "mpris"],
@@ -12,7 +13,7 @@
     "on-click": "nwg-bar -p 'left' -ml 10",
     "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
     "on-click-middle": "fuzzel",
-    "format": "<span font-size='large'></span>",
+    "format": "<span font-size='x-large'></span>",
     "tooltip": false,
   },
   "sway/workspaces": {
@@ -53,10 +54,10 @@
     "dynamic-order": ["title", "artist"],
     "interval": 1,
     "player-icons": {
-      "default": "<span color='#76946a'></span>",
+      "default": "<span color='#76946a' font-size='large'></span>",
     },
     "status-icons": {
-      "paused": "<span color='#c34043'></span>",
+      "paused": "<span color='#c34043' font-size='large'></span>",
     },
     "ignored-players": ["firefox", "kdeconnect"],
   },
@@ -119,7 +120,7 @@
   },
   "pulseaudio#mic": {
     "format": "<span font-size='large'>{format_source}</span>",
-    "format-source": "",
+    "format-source": "󰍬",
     "format-source-muted": "󰍭",
     "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
     "on-click-middle": "$TERMINAL -e pulsemixer",

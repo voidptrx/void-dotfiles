@@ -10,9 +10,9 @@
 
 /* Global Styles */
 * {
-  font-family: JetBrainsMono NFP SemiBold;
+  font-family: JetBrainsMono NFP;
   font-weight: bold;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 /* Waybar */
@@ -41,7 +41,7 @@ tooltip {
 #custom-weather,
 #custom-launcher {
   margin: 0px 2px;
-  padding: 4px 3px;
+  padding: 2px;
 }
 
 /* Specific Module Styling */
@@ -61,17 +61,24 @@ tooltip {
   margin-left: 0px;
 }
 
+#pulseaudio.speaker {
+  font-size: 13px;
+}
+
 #pulseaudio.mic {
   color: @red;
   min-width: 13px;
+  font-size: 13px;
 }
 
 #pulseaudio.speaker.muted {
   color: @red;
+  font-size: 13px;
 }
 
 #pulseaudio.mic.source-muted {
   color: @fg-color;
+  font-size: 13px;
 }
 
 #custom-launcher {
@@ -86,8 +93,9 @@ tooltip {
 }
 
 #workspaces {
-  margin: 0px;
+  margin: 0px 0px 0px 5px;
   padding: 0px;
+  font-size: 15px;
 }
 
 #workspaces button {
@@ -95,7 +103,6 @@ tooltip {
   min-width: 17px;
   color: @fg-color;
   border-radius: 0px;
-  padding-bottom: 2px;
 }
 
 #workspaces button.empty {
@@ -103,6 +110,7 @@ tooltip {
 }
 
 #workspaces button.focused {
+  padding-top: 2px;
   color: @blue;
   border-bottom: 2px solid @blue;
 }
