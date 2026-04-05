@@ -3,3 +3,7 @@
 -- Add any additional options here
 
 vim.o.winborder = "single"
+vim.opt.backup = false
+vim.opt.writebackup = false
+vim.opt.swapfile = false
+vim.opt.backupcopy = "yes"
