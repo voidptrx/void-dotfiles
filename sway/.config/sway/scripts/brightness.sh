@@ -6,18 +6,21 @@ STEP_SIZE=1
 get_profile() {
   hour=$(date +%H)
   case $hour in
-  20 | 21 | 22 | 23 | 00 | 01 | 02 | 03 | 04 | 05 | 06) echo 10 ;;
+  22 | 23 | 00 | 01 | 02 | 03 | 04 | 05 | 06) echo 10 ;;
   07 | 08) echo 35 ;;
   09 | 10) echo 55 ;;
-  11 | 12 | 13 | 14 | 15) echo 85 ;;
-  16 | 17) echo 65 ;;
+  11 | 12 | 13 | 14 | 15) echo 100 ;;
+  16 | 17) echo 90 ;;
   18 | 19) echo 40 ;;
-  *) echo 35 ;;
+  20) echo 30 ;;
+  21) echo 20 ;;
   esac
 }
 
 get_laptop() {
-  brightnessctl -m | cut -d, -f4 | tr -d '%'
+  brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
+  max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
+  echo $((brightness * 100 / max))
 }
 
 get_monitor() {
@@ -50,7 +53,14 @@ transition_monitor() {
 last=""
 while true; do
   target=$(get_profile)
-  if [ "$target" != "$last" ]; then
+  cur_laptop=$(get_laptop)
+  cur_monitor=$(get_monitor)
+  echo "$(date): target=$target last=$last cur_laptop=$cur_laptop cur_monitor=$cur_monitor" >&2
+
+  if [ "$target" != "$last" ] ||
+    [ $((cur_laptop - target)) -gt 3 ] || [ $((target - cur_laptop)) -gt 3 ] ||
+    { [ -n "$cur_monitor" ] && { [ $((cur_monitor - target)) -gt 3 ] || [ $((target - cur_monitor)) -gt 3 ]; }; }; then
+    echo "$(date): triggering transition" >&2
     transition_laptop "$target" &
     transition_monitor "$target" &
     last=$target
