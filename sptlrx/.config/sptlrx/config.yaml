@@ -6,16 +6,16 @@ style:
   hAlignment: center
   before:
     background: ""
-    foreground: ""
+    foreground: "#54546d"
     bold: true
     italic: false
     underline: false
     strikethrough: false
     blink: false
-    faint: false
+    faint: true
   current:
     background: ""
-    foreground: ""
+    foreground: "#76946a"
     bold: true
     italic: false
     underline: false
@@ -24,13 +24,13 @@ style:
     faint: false
   after:
     background: ""
-    foreground: ""
+    foreground: "#54546d"
     bold: false
     italic: false
     underline: false
     strikethrough: false
     blink: false
-    faint: true
+    faint: false
 pipe:
   length: 0
   overflow: word
