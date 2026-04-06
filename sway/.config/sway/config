@@ -40,3 +40,4 @@ exec kdeconnectd && kdeconnect-indicator
 # 10. Last — delayed scripts
 exec --no-startup-id mpv $HOME/.config/sway/audio/pc_startup.ogg 2>/dev/null
 exec sleep 5 && $HOME/.config/sway/scripts/wallpaper.sh
+exec $HOME/.config/sway/scripts/brightness.sh
