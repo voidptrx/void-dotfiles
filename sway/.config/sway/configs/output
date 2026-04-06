@@ -1,16 +1,16 @@
 output * scale_filter smart
 output * adaptive_sync on
-# output "*" bg "$(find $HOME/Pictures/Wallpapers/ | shuf -n 1)" fill
+output "*" bg "$(find $HOME/Pictures/Wallpapers/ | shuf -n 1)" fit
 
 workspace 1 output eDP-1
-workspace 2 output DP-3
-workspace 3 output DP-3
-workspace 4 output DP-3
-workspace 5 output DP-3
-workspace 6 output DP-3
-workspace 7 output DP-3
-workspace 8 output DP-3
-workspace 9 output DP-3
-workspace 10 output DP-3
+workspace 2 output DP-*
+workspace 3 output DP-*
+workspace 4 output DP-*
+workspace 5 output DP-*
+workspace 6 output DP-*
+workspace 7 output DP-*
+workspace 8 output DP-*
+workspace 9 output DP-*
+workspace 10 output DP-*
 
-focus output DP-3
+focus output DP-*
