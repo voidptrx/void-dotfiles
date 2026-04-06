@@ -19,12 +19,19 @@ _comp_options+=(globdots)
 setopt AUTO_CD
 setopt CORRECT
 bindkey -v
+
 bindkey '^ ' autosuggest-accept        # Ctrl+Space
 bindkey '^f' autosuggest-accept        # Ctrl+F
+
 bindkey '^[[A' history-substring-search-up
 bindkey '^[[B' history-substring-search-down
+
 bindkey -M viins '^[[A' history-substring-search-up
 bindkey -M viins '^[[B' history-substring-search-down
+
+zle -N paste-clipboard
+bindkey -M viins '^P' paste-clipboard
+bindkey -M vicmd 'p' paste-clipboard
 
 # ── Environment ───────────────────────────────────────────────
 export EDITOR='nvim'
@@ -41,6 +48,11 @@ alias rusty-rain='rusty-rain -g jap -s'
 # ── Functions ─────────────────────────────────────────────────
 timer() {
     command timer "$@" -f && paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+}
+
+function paste-clipboard() {
+  LBUFFER+="$(wl-paste --no-newline)"
+  zle redisplay
 }
 
 # ── Prompt ────────────────────────────────────────────────────
