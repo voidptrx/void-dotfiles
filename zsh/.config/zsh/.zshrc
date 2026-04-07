@@ -9,9 +9,9 @@ setopt HIST_IGNORE_SPACE
 setopt SHARE_HISTORY
 
 # ── Completion ────────────────────────────────────────────────
+fpath+=$ZDOTDIR/.zfunc
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
-autoload -Uz compinit
-compinit
+autoload -Uz compinit && compinit
 autoload -U colors && colors
 _comp_options+=(globdots)
 
@@ -48,6 +48,14 @@ alias rusty-rain='rusty-rain -g jap -s'
 # ── Functions ─────────────────────────────────────────────────
 timer() {
     command timer "$@" -f && paplay /usr/share/sounds/freedesktop/stereo/complete.oga
+}
+
+# topgrade command with ssh
+tgs() {
+  eval $(ssh-agent)
+  trap 'ssh-agent -k > /dev/null; unset SSH_AUTH_SOCK SSH_AGENT_PID; echo "[-] SSH Agent closed."' EXIT INT TERM
+  ssh-add ~/.ssh/id_ed25519 || { echo "[-] Failed to add key, exiting."; return 1; }
+  topgrade "$@"
 }
 
 function paste-clipboard() {
