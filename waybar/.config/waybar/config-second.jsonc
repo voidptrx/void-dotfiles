@@ -54,10 +54,10 @@
     "dynamic-order": ["title", "artist"],
     "interval": 1,
     "player-icons": {
-      "default": "<span color='#76946a'></span>",
+      "default": "<span color='#76946a' font-size='large'></span>",
     },
     "status-icons": {
-      "paused": "<span color='#c34043'></span>",
+      "paused": "<span color='#c34043' font-size='large'></span>",
     },
     "ignored-players": ["firefox", "kdeconnect"],
   },
@@ -65,7 +65,7 @@
   // modules-center
   //---------------
   "clock": {
-    "format": "[{:%d/%m/%y [%a] %T}]",
+    "format": "{:%d %a %H:%M}",
     "interval": 1,
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
@@ -91,7 +91,7 @@
     },
   },
   "custom/weather": {
-    "format": "[{}]",
+    "format": "{}",
     "tooltip": true,
     "interval": 1800,
     "exec": "wttrbar --date-format '%A, %d %b %Y' --location Luleburgaz --hide-conditions --observation-time",

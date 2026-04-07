@@ -53,14 +53,6 @@ tooltip {
   margin-right: 10px;
 }
 
-#clock {
-  margin-right: 0px;
-}
-
-#custom-weather {
-  margin-left: 0px;
-}
-
 #pulseaudio.speaker {
   font-size: 13px;
 }
