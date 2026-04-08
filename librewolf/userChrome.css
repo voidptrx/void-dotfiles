@@ -4,127 +4,122 @@
   border-radius: 0 !important;
   font-family:
     "JetBrainsMono NFP SemiBold", "Noto Sans CJK JP SemiBold" !important;
+  color: #dcd7ba !important;
 }
-
 :root {
-  --toolbar-bgcolor: #000000 !important;
-  --lwt-accent-color: #000000 !important;
-  --tabpanel-background-color: #000000 !important;
-  --arrowpanel-background: #000000 !important;
-  --arrowpanel-border-color: #333333 !important;
-  --lwt-toolbar-field-background-color: #111111 !important;
+  --kanagawa-bone: #dcd7ba;
+  --kanagawa-green: #93a283;
+  --bg-black: #000000;
+  --bg-dark-grey: #1a1a1a;
+  --toolbar-bgcolor: var(--bg-black) !important;
+  --lwt-accent-color: var(--bg-black) !important;
+  --tabpanel-background-color: var(--bg-black) !important;
+  --arrowpanel-background: var(--bg-black) !important;
+  --arrowpanel-border-color: #93a283 !important;
+  --lwt-toolbar-field-background-color: #000000 !important;
+  --lwt-toolbar-field-color: var(--kanagawa-bone) !important;
+  --toolbarbutton-icon-fill: var(--kanagawa-bone) !important;
+  --lwt-toolbarbutton-icon-fill: var(--kanagawa-bone) !important;
+  --toolbar-field-focus-border-color: #93a283 !important;
+  --toolbar-field-background-color: #000000 !important;
 }
-
-/* Toolbar */
 #navigator-toolbox {
-  background-color: #000000 !important;
+  background-color: var(--bg-black) !important;
   display: flex !important;
   flex-direction: column !important;
+  border: none !important;
 }
-
-/* Sıralama: titlebar → urlbar → tabbar */
 #titlebar {
   order: 0 !important;
 }
 #nav-bar {
   order: 1 !important;
 }
-
-/* Sekme çubuğu — alta sabitlenmiş */
 #TabsToolbar {
-  background-color: #000000 !important;
   order: 2 !important;
+  background-color: var(--bg-black) !important;
   position: fixed !important;
   bottom: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  width: 100vw !important;
   z-index: 100 !important;
 }
-
-/* Aktif sekme */
-.tabbrowser-tab[selected="true"] .tab-background {
-  background-color: #1a1a1a !important;
-}
-
-/* Pasif sekmeler */
-.tabbrowser-tab .tab-background {
-  background-color: #000000 !important;
-}
-
-/* URL bar */
-#urlbar-background {
-  background-color: #111111 !important;
-}
-
-/* Açılır paneller */
-.panel-subview-body,
-.panel-viewstack,
-.panel-viewcontainer,
-#appMenu-popup {
-  background-color: #111111 !important;
-}
-
-/* Tab çubuğu yüksekliği kadar boşluk bırak */
 #browser {
   margin-bottom: 44px !important;
 }
-
 #navigator-toolbox,
 #nav-bar,
 #TabsToolbar,
 #titlebar,
-.browser-toolbar {
-  border-top: none !important;
-  border-bottom: none !important;
+.browser-toolbar,
+.toolbar-items {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  fill: var(--kanagawa-bone) !important;
+}
+#navigator-toolbox:-moz-window-inactive,
+#nav-bar:-moz-window-inactive,
+#TabsToolbar:-moz-window-inactive,
+.tabbrowser-tab:-moz-window-inactive .tab-background,
+#urlbar-background:-moz-window-inactive {
+  background-color: var(--bg-black) !important;
+  opacity: 1 !important;
+}
+.tabbrowser-tab .tab-background {
+  background-color: var(--bg-black) !important;
+}
+.tabbrowser-tab[selected="true"] .tab-background {
+  background-color: var(--bg-dark-grey) !important;
+}
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--kanagawa-bone) !important;
+}
+#urlbar-background {
+  background-color: #000000 !important;
+  box-shadow: none !important;
+}
+#urlbar[focused] > #urlbar-background {
+  background-color: #000000 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+#urlbar {
+  background-color: #000000 !important;
   box-shadow: none !important;
   outline: none !important;
 }
-
-.toolbar-items {
-  box-shadow: none !important;
+#urlbar-input-container {
+  background-color: #000000 !important;
+  border: none !important;
 }
-
-#nav-bar {
-  border-top: none !important;
-  border-bottom: none !important;
-  box-shadow: none !important;
+#urlbar-input {
+  color: #dcd7ba !important;
+  background-color: #000000 !important;
 }
-
-#urlbar-results,
 .urlbarView,
 .urlbarView-body-inner,
+.urlbarView-results,
 .urlbarView-row,
-.urlbarView-results {
-  background-color: #111111 !important;
-  color: #ffffff !important;
-  border: none !important;
-  box-shadow: none !important;
+.urlbarView-row-inner,
+.urlbarView-no-wrap,
+.urlbarView-url,
+.urlbarView-title,
+.search-panel-container,
+#urlbar-results,
+#urlbar-panel {
+  background-color: #000000 !important;
+  color: #dcd7ba !important;
 }
-
-/* Seçili/hover satır */
-.urlbarView-row[selected],
-.urlbarView-row:hover {
+.urlbarView {
+  border: 1px solid #93a283 !important;
+  border-top: none !important;
+}
+.urlbarView-row:hover > .urlbarView-row-inner,
+.urlbarView-row[selected] > .urlbarView-row-inner {
   background-color: #1a1a1a !important;
 }
-
-/* Mavi highlight rengi */
-.urlbarView-row[selected] .urlbarView-title,
-.urlbarView-row[selected] .urlbarView-url {
-  color: #ffffff !important;
-}
-
-/* Mavi focus ring'i kaldır */
-#urlbar[focused] > #urlbar-background {
-  box-shadow: none !important;
-  border-color: #333333 !important;
-}
-
-/* Açılır panel gölgesi */
-.urlbarView {
-  box-shadow: none !important;
-  border: 1px solid #333333 !important;
-}
-
-.urlbarView {
-  display: none !important;
+#urlbar *,
+#urlbar-results *,
+.urlbarView * {
+  background-color: #000000 !important;
 }
