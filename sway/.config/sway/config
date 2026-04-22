@@ -11,7 +11,7 @@ exec pipewire-pulse
 exec wireplumber
 
 # 2. X resources (must be loaded before applications start)
-exec xrdb -load $HOME/.Xresources
+# exec xrdb -load $HOME/.Xresources
 
 # 3. Display & screen management
 exec kanshi
@@ -35,7 +35,7 @@ exec swayosd-server
 
 # 9. Tray applications
 exec nm-applet --indicator
-exec kdeconnectd && kdeconnect-indicator
+exec kdeconnectd ; kdeconnect-indicator
 
 # 10. Last — delayed scripts
 exec --no-startup-id mpv $HOME/.config/sway/audio/pc_startup.ogg 2>/dev/null

@@ -37,7 +37,7 @@ input "1739:0:Synaptics_TM3276-022" {
     middle_emulation enabled
 }
 
-seat * xcursor_theme Simp1e-Tokyo-Night 30
+seat * xcursor_theme Notwaita-Black 30
 
 # Property Name          Border        BG            Text       Indicator   Child Border
 client.focused           $green        $green        $bg-color  $yellow     $blue
