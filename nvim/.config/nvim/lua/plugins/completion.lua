@@ -51,7 +51,6 @@ return {
 					auto_show = true,
 					auto_show_delay_ms = 200,
 					window = {
-						border = "single",
 						winhighlight = "Normal:BlinkCmpDoc,FloatBorder:BlinkCmpDocBorder,CursorLine:BlinkCmpDocCursorLine,Search:None",
 					},
 				},
@@ -91,4 +90,3 @@ return {
 		},
 	},
 }
--- vim: ts=2 sts=2 sw=2 et

@@ -42,9 +42,13 @@ return {
 						LineNr = { bg = "#000000" },
 						CursorLine = { bg = "#000000" },
 						CursorLineNr = { bg = "#000000" },
+						DiagnosticSignError = { bg = "#000000" },
+						DiagnosticSignWarn = { bg = "#000000" },
+						DiagnosticSignHint = { bg = "#000000" },
+						DiagnosticSignInfo = { bg = "#000000" },
 					}
 				end,
-				theme = "wave",
+				theme = "dragon",
 				background = { dark = "wave", light = "lotus" },
 			})
 			vim.cmd.colorscheme("kanagawa-dragon")
@@ -66,34 +70,7 @@ return {
 		config = function()
 			require("mini.ai").setup({ n_lines = 500 })
 			require("mini.surround").setup()
-		end,
-	},
-
-	{
-		"nvim-tree/nvim-tree.lua",
-		enabled = false,
-		config = function()
-			require("nvim-tree").setup({
-				view = {
-					width = 50,
-				},
-				filters = {
-					dotfiles = false,
-				},
-				renderer = {
-					group_empty = true,
-				},
-			})
-			vim.keymap.set("n", "<leader>e", function()
-				require("nvim-tree.api").tree.toggle()
-			end, { desc = "Toggle NvimTree" })
-
-			vim.api.nvim_set_hl(0, "NvimTreeNormalNC", { bg = "none" })
-			vim.api.nvim_set_hl(0, "SignColumn", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NvimTreeSignColumn", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NvimTreeNormal", { bg = "none" })
-			vim.api.nvim_set_hl(0, "NvimTreeWinSeparator", { fg = "#2a2a2a", bg = "none" })
-			vim.api.nvim_set_hl(0, "NvimTreeEndOfBuffer", { bg = "none" })
+			require("mini.pairs").setup()
 		end,
 	},
 
@@ -108,7 +85,7 @@ return {
 				search = false,
 				cwd = function()
 					local dir = vim.fn.expand("%:p:h")
-					return dir ~= "" and dir or vim.loop.cwd()
+					return dir ~= "" and dir or vim.uv.cwd()
 				end,
 			},
 			indent = { enabled = true },
@@ -143,9 +120,18 @@ return {
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
+            { icon = " ", key = "c", desc = "Config", 
+              action = function()
+                local real_path = vim.fn.resolve(vim.fn.stdpath("config"))
+                vim.api.nvim_set_current_dir(real_path)
+                Snacks.dashboard.pick('files', {
+                  cwd = real_path,
+                  follow = true,
+                  hidden = true
+                })
+              end
+            },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
             { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },
           },
@@ -270,13 +256,30 @@ return {
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = function()
 			local icons = {
-				git = { added = " ", modified = " ", removed = " " },
-				diagnostics = { Error = " ", Warn = " ", Hint = " ", Info = " " },
+				git = { added = "+", modified = "~", removed = "-" },
+				diagnostics = { Error = "X", Warn = "!", Hint = "?", Info = "i" },
+			}
+
+			local black_theme = {
+				normal = {
+					a = { bg = "#000000", gui = "bold" },
+					b = { bg = "#000000" },
+					c = { bg = "#000000" },
+				},
+				insert = { a = { fg = "#76946a", bg = "#000000", gui = "bold" } },
+				visual = { a = { fg = "#957fb8", bg = "#000000", gui = "bold" } },
+				replace = { a = { fg = "#c0a36e", bg = "#000000", gui = "bold" } },
+				command = { a = { fg = "#c34043", bg = "#000000", gui = "bold" } },
+				inactive = {
+					a = { bg = "#000000" },
+					b = { bg = "#000000" },
+					c = { bg = "#000000" },
+				},
 			}
 
 			return {
 				options = {
-					theme = "auto",
+					theme = black_theme,
 					globalstatus = true,
 					icons_enabled = true,
 					component_separators = { left = "", right = "" },
@@ -284,7 +287,25 @@ return {
 					disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
 				},
 				sections = {
-					lualine_a = { { "mode", icon = { "" }, color = { gui = "bold" } } },
+					lualine_a = {
+						{
+							"mode",
+							fmt = function(str)
+								return str:lower()
+							end,
+							icon = { "" },
+							color = { gui = "bold" },
+						},
+					},
+					lualine_b = {
+						{
+							"filename",
+							file_status = true,
+							path = 4,
+							icon_only = true,
+							padding = { left = 1, right = 0 },
+						},
+					},
 					lualine_c = {
 						{ "branch", color = { gui = "bold" } },
 						{
@@ -307,36 +328,8 @@ return {
 							color = { gui = "bold" },
 						},
 					},
-					lualine_b = {
-						{
-							"filename",
-							file_status = true,
-							path = 4,
-							icon_only = true,
-							padding = { left = 1, right = 0 },
-						},
-					},
 					lualine_x = {},
 					lualine_y = {
-						{
-							function()
-								return _G.Snacks.profiler.status()
-							end,
-							cond = function()
-								return _G.Snacks and _G.Snacks.profiler
-							end,
-						},
-						{
-							function()
-								return require("noice").api.status.mode.get()
-							end,
-							cond = function()
-								return package.loaded["noice"] and require("noice").api.status.mode.has()
-							end,
-							color = function()
-								return { fg = _G.Snacks.util.color("Constant") }
-							end,
-						},
 						{
 							function()
 								local msg = "No Active Lsp"
@@ -344,7 +337,7 @@ return {
 								if not clients or #clients == 0 then
 									return " " .. msg
 								end
-								return "  " .. clients[1].name
+								return " " .. clients[1].name
 							end,
 						},
 					},
@@ -357,5 +350,3 @@ return {
 		end,
 	},
 }
-
--- vim: ts=2 sts=2 sw=2 et
