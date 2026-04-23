@@ -48,4 +48,4 @@ client.placeholder       $bg-color     $bg-color     $fg-color  $bg-color   $bg-
 client.background        $fg-color
 
 # Font
-font pango:JetBrainsMono NFP Bold 9
+font pango:Terminess Nerd Font Mono 10
