@@ -11,12 +11,16 @@
     },
   },
   "display": {
-    "separator": "  ",
+    "separator": ": ",
+    "color": {
+      "keys": "blue",
+      "title": "red",
+    },
     "constants": [
-      "──────", // {$1}, used in Custom module
+      "─────────", // {$1}, used in Custom module
     ],
     "key": {
-      "type": "icon",
+      "width": 14,
       "paddingLeft": 3,
     },
   },
@@ -25,7 +29,7 @@
       "type": "custom", // HardwareStart
       "format": "┌{$1} Hardware Information {$1}┐",
     },
-    "host",
+    { "type": "host", "format": "{family}" },
     {
       "type": "cpu",
       "format": "{name}",
@@ -47,7 +51,7 @@
     "uptime",
     {
       "type": "custom",
-      "format": "└──────────────────────────────────┘",
+      "format": "└────────────────────────────────────────┘",
     },
     "colors",
   ],
