@@ -11,44 +11,48 @@
     },
   },
   "display": {
-    "separator": ": ",
+    "separator": "  ",
     "color": {
-      "keys": "blue",
-      "title": "red",
+      "keys": "green",
     },
-    "constants": [
-      "─────────", // {$1}, used in Custom module
-    ],
+    "constants": ["─────────"],
     "key": {
       "width": 14,
       "paddingLeft": 3,
     },
   },
   "modules": [
+    "break",
     {
-      "type": "custom", // HardwareStart
+      "type": "custom",
       "format": "┌{$1} Hardware Information {$1}┐",
     },
-    { "type": "host", "format": "{family}" },
+    {
+      "type": "host",
+      "key": "Host",
+      "format": "{family}",
+    },
     {
       "type": "cpu",
+      "key": "CPU",
       "format": "{name}",
     },
     {
       "type": "gpu",
-      "format": "{vendor}{name}",
+      "key": "GPU",
+      "format": "{vendor} {name}",
     },
     {
-      "type": "custom", // SoftwareStart
+      "type": "custom",
       "format": "├{$1} Software Information {$1}┤",
     },
-    "os",
-    "kernel",
-    "wm",
-    "shell",
-    "terminal",
-    "packages",
-    "uptime",
+    { "type": "os", "key": "OS" },
+    { "type": "kernel", "key": "Kernel" },
+    { "type": "wm", "key": "WM" },
+    { "type": "shell", "key": "Shell" },
+    { "type": "terminal", "key": "Terminal" },
+    { "type": "packages", "key": "Packages" },
+    { "type": "uptime", "key": "Uptime" },
     {
       "type": "custom",
       "format": "└────────────────────────────────────────┘",
