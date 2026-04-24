@@ -3,14 +3,14 @@
 *::after {
   border-radius: 0 !important;
   font-family:
-    "JetBrainsMono NFP SemiBold", "Noto Sans CJK JP SemiBold" !important;
+    "Terminess Nerd Font Propo", "Noto Sans CJK JP SemiBold" !important;
+  /* font-weight: bold; */
+  font-size: 16px;
   color: #dcd7ba !important;
 }
-
 :root {
-  --main-bg-color: #000000;
   --kanagawa-bone: #dcd7ba;
-  --kanagawa-green: #93a283;
+  --kanagawa-green: #76946a;
   --bg-black: #000000;
   --bg-dark-grey: #1a1a1a;
   --toolbar-bgcolor: var(--bg-black) !important;
@@ -33,7 +33,7 @@
 }
 #main-window {
   height: calc(100% - var(--tab-min-height)) !important;
-  background-color: var(--main-bg-color) !important;
+  background-color: var(--bg-black) !important;
   margin-bottom: calc(10px - var(--tab-min-height));
 }
 #main-window[sizemode="maximized"] #titlebar {
@@ -42,60 +42,56 @@
 #main-window #titlebar {
   margin-bottom: calc(2px - var(--tab-min-height));
 }
-
 #navigator-toolbox {
   display: block;
   width: 100vw;
 }
-
 #main-window[sizemode="fullscreen"] #nav-bar {
   display: none;
 }
-
 #main-window[sizemode="normal"] #toolbar-menubar[autohide="true"] {
   height: calc(var(--tab-min-height) + var(--space-above-tabbar)) !important;
 }
-
 #TabsToolbar {
   display: grid;
   position: fixed;
   width: 100%;
   bottom: 0;
   grid-template-columns: repeat(3, auto);
-  background-color: var(--main-bg-color) !important;
+  background-color: var(--bg-black) !important;
 }
-
 #TabsToolbar .titlebar-spacer {
   display: none;
 }
 #TabsToolbar .toolbar-items {
   grid-column: 1 / 100;
 }
-
+#tabbrowser-tabs .tabbrowser-tab[selected="true"] .tab-background {
+  border: 1px solid var(--kanagawa-green) !important;
+  background-color: var(--bg-black) !important;
+}
+.tabbrowser-tab[selected="true"] .tab-label {
+  color: var(--kanagawa-green) !important;
+}
 #main-window[privatebrowsingmode="temporary"] #TabsToolbar .toolbar-items {
   margin-bottom: -25px;
 }
-
 .private-browsing-indicator {
   grid-column: 99;
 }
-
 #TabsToolbar #window-controls,
 #TabsToolbar .titlebar-buttonbox-container {
   grid-column: 100;
 }
-
 #main-window[sizemode="normal"]
   #titlebar
   #toolbar-menubar
   .titlebar-buttonbox-container[skipintoolbarset="true"] {
   display: none;
 }
-
 #main-window {
   height: calc(100% - calc(var(--tab-min-height) + 8px)) !important;
 }
-
 .urlbarView,
 .urlbarView-body-inner,
 .urlbarView-results,
