@@ -13,7 +13,7 @@
     "on-click": "nwg-bar -p 'left' -ml 10",
     "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
     "on-click-middle": "fuzzel",
-    "format": "<span font-size='x-large'></span>",
+    "format": "<span font-size='large'></span>",
     "tooltip": false,
   },
   "sway/workspaces": {
@@ -32,18 +32,6 @@
       "8": [],
       "9": [],
       "10": [],
-    },
-    "format-icons": {
-      "1": "一",
-      "2": "二",
-      "3": "三",
-      "4": "四",
-      "5": "五",
-      "6": "六",
-      "7": "七",
-      "8": "八",
-      "9": "九",
-      "10": "十",
     },
   },
   "mpris": {
