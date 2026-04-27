@@ -5,6 +5,6 @@ profile main {
 }
 
 profile laptop {
-  output eDP-1 mode 1920x1080@60Hz position 1920,0
+  output eDP-1 mode 1920x1080@60Hz position 0,0
   exec pkill waybar; waybar -c $HOME/.config/waybar/rcm/main.jsonc -s $HOME/.config/waybar/rcm/style.css
 }
