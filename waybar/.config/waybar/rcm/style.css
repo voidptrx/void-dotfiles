@@ -1,0 +1,135 @@
+/* ============================================================
+   RCM — REVACHOL CENTRAL MAINFRAME
+   UNIT-01 & UNIT-02
+   ============================================================ */
+
+@define-color de-black      #000000;
+@define-color de-grey       #1e2530;
+@define-color de-mute       #2e4255;
+@define-color de-bone       #cfcfcf;
+@define-color de-intellect  #5a9ab5;
+@define-color de-psyche     #8a5ab0;
+@define-color de-physique   #b03838;
+@define-color de-motorics   #c8a020;
+
+* {
+  font-family: Terminess Nerd Font Propo;
+  font-size: 14px;
+  border-radius: 0;
+}
+
+window#waybar {
+  background: @de-black;
+  color: @de-bone;
+  border-bottom: 2px solid @de-grey;
+}
+
+#custom-rcm-branding,
+#workspaces,
+#mpris,
+#clock,
+#custom-weather,
+#pulseaudio,
+#upower,
+#network
+#tray {
+  background: @de-black;
+  border-left: 1px solid @de-grey;
+  border-right: 1px solid @de-grey;
+  margin: 0px;
+  padding: 0px 10px;
+}
+
+#custom-rcm-branding {
+  color: @de-intellect;
+  border-left: 2px solid @de-intellect;
+}
+
+#workspaces button {
+  color: @de-bone;
+  padding: 0px;
+  border-bottom: 2px solid transparent;
+  min-width: 17px;
+}
+
+#workspaces button.focused {
+  background: @de-intellect;
+  color: @de-black;
+  font-weight: bold;
+}
+
+#workspaces button.empty {
+  color: @de-mute;
+}
+
+#workspaces button.urgent {
+  background: @de-physique;
+}
+
+#mpris {
+  color: @de-psyche;
+  border-bottom: 1px solid @de-psyche;
+}
+
+#clock {
+  color: @de-bone;
+}
+
+#custom-weather {
+  color: @de-motorics;
+}
+
+#tray {
+  color: @de-motorics;
+}
+
+#tray > .passive {
+  -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+  -gtk-icon-effect: highlight;
+  background: @de-physique;
+}
+
+#pulseaudio {
+  color: @de-bone;
+}
+
+#pulseaudio.muted {
+  color: @de-physique;
+  border-bottom: 1px solid @de-physique;
+}
+
+#network {
+  color: @de-intellect;
+  background: @de-black;
+  border-left: 1px solid @de-grey;
+  border-right: 1px solid @de-grey;
+  margin: 0px;
+  padding: 0px 10px;
+
+}
+
+#network.disconnected {
+  color: @de-physique;
+  border-bottom: 2px solid @de-physique;
+}
+
+#upower {
+  color: @de-motorics;
+  border-right: 2px solid @de-motorics;
+}
+
+#upower.warning {
+  color: @de-physique;
+}
+
+tooltip {
+  background: @de-black;
+  border: 1px solid @de-intellect;
+}
+
+tooltip label {
+  color: @de-bone;
+}

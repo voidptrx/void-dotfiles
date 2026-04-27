@@ -1,0 +1,107 @@
+/* kanagawa color scheme */
+@define-color bg-color #000000;
+@define-color fg-color #dcd7ba;
+@define-color green #76946a;
+@define-color red #c34043;
+@define-color blue #7e9cd8;
+@define-color yellow #c0a36e;
+@define-color purple #957fb8;
+@define-color grey #54546d;
+
+/* Global Styles */
+* {
+  font-family: Terminess Nerd Font Propo;
+  font-size: 14px;
+}
+
+/* Waybar */
+#waybar {
+  background: @bg-color;
+  color: @fg-color;
+}
+
+/* Tooltips */
+tooltip {
+  color: @fg-color;
+  background: @bg-color;
+  border: 2px solid @blue;
+}
+
+/* Modules */
+#tray,
+#clock,
+#mpris,
+#upower,
+#workspaces,
+#pulseaudio.speaker,
+#pulseaudio.speaker.muted,
+#pulseaudio.mic,
+#pulseaudio.mic.source-muted,
+#custom-weather,
+#custom-launcher {
+  margin: 0px 2px;
+  padding: 2px;
+}
+
+/* Specific Module Styling */
+#mpris {
+  margin: 0px 5px;
+}
+
+#upower {
+  margin-right: 10px;
+}
+
+#pulseaudio.speaker {
+  font-size: 13px;
+}
+
+#pulseaudio.mic {
+  color: @red;
+  min-width: 13px;
+  font-size: 13px;
+}
+
+#pulseaudio.speaker.muted {
+  color: @red;
+  font-size: 13px;
+}
+
+#pulseaudio.mic.source-muted {
+  color: @fg-color;
+  font-size: 13px;
+}
+
+#custom-launcher {
+  color: @green;
+  margin: 0px 0px 0px 10px;
+  padding-left: 0px;
+  border-radius: 0px;
+}
+
+#upower.charging {
+  color: @green;
+}
+
+#workspaces {
+  margin: 0px 0px 0px 5px;
+  padding: 0px;
+  font-size: 15px;
+}
+
+#workspaces button {
+  padding: 0px;
+  min-width: 17px;
+  color: @fg-color;
+  border-radius: 0px;
+}
+
+#workspaces button.empty {
+  color: @grey;
+}
+
+#workspaces button.focused {
+  padding-top: 2px;
+  color: @blue;
+  border-bottom: 2px solid @blue;
+}
