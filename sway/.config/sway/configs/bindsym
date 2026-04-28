@@ -192,9 +192,6 @@ bindsym $mod+Shift+r mode "resize"
     # Capslock (If you don't want to use the backend)
     bindsym --release Caps_Lock exec swayosd-client --caps-lock
 
-    # sway notification center control
-    bindsym $mod+Shift+n exec swaync-client -t -sw
-
     # Take screenshot
     bindsym $mod+Shift+p exec swayshot display
     bindsym $mod+Ctrl+p  exec swayshot window
