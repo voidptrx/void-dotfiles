@@ -1,21 +1,21 @@
 [
   {
-    "label": "_Lock",
+    "label": "[ _LOCK ]",
     "exec": "swaylock-corrupter",
     "icon": "system-lock-screen-symbolic"
   },
   {
-    "label": "L_ogout",
+    "label": "[ L_OGOUT ]",
     "exec": "swaymsg exit",
     "icon": "system-log-out-symbolic"
   },
   {
-    "label": "_Reboot",
+    "label": "[ _REBOOT ]",
     "exec": "loginctl reboot",
     "icon": "system-reboot-symbolic"
   },
   {
-    "label": "_Shutdown",
+    "label": "[ _SHUTDOWN ]",
     "exec": "loginctl poweroff",
     "icon": "system-shutdown-symbolic"
   }

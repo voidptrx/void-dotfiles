@@ -1,42 +1,29 @@
-/* @define-color kngw-bg-color #000000; */
-/* @define-color kngw-fg-color #dcd7ba; */
-/* @define-color kngw-green #76946a; */
-/* @define-color kngw-red #c34043; */
-/* @define-color kngw-blue #7e9cd8; */
-/* @define-color kngw-yellow #c0a36e; */
-/* @define-color kngw-purple #957fb8; */
-/* @define-color kngw-grey #727169; */
-
-@define-color bg-color #000000;
-@define-color fg-color #c5c9c5;
-@define-color green #76946a;
-@define-color red #c34043;
-@define-color blue #7e9cd8;
-@define-color yellow #c0a36e;
-@define-color purple #957fb8;
-@define-color grey #54546d;
+@define-color de-black     #0a0f18;
+@define-color de-bone      #dcd7ba;
+@define-color de-intellect #5a9ab5;
+@define-color de-physique  #b03838;
 
 window {
   background: transparent;
-  color: @fg-color;
+  color: @de-bone;
   border-radius: 0px;
-  font-family: "JetBrainsMono NFP";
+  font-family: "Terminess Nerd Font Mono";
   font-weight: bold;
-  font-size: 13px;
+  font-size: 14px;
 }
 
 /* Outer bar container, takes all the window width/height */
 #outer-box {
-  border: 2px solid @green;
+  border: 2px solid @de-intellect;
   border-radius: 0px;
   padding: 0px;
   margin-bottom: 705px;
-  background: @bg-color;
+  background: @de-black;
 }
 
 /* Inner bar container, surrounds buttons */
 #inner-box {
-  background: @bg-color;
+  background: @de-black;
   border-radius: 0px;
 }
 
@@ -51,11 +38,11 @@ button {
   padding-left: 10px;
   padding-right: 10px;
   margin: 0px;
-  color: @fg-color;
+  color: @de-bone;
 }
 
 button:hover {
-  background: @green;
-  color: @bg-color;
+  background: @de-intellect;
+  color: @de-black;
   border-radius: 0px;
 }
