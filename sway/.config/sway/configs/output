@@ -1,16 +1,6 @@
-output * scale_filter smart
-output * adaptive_sync on
+output "Lenovo Group Limited L27m-30 UPB67FNK" scale 1 scale_filter smart adaptive_sync on
+output eDP-1 scale 1 scale_filter smart adaptive_sync off
+
 output "*" bg "$(find $HOME/Pictures/Wallpapers/ | shuf -n 1)" fit
 
 workspace 1 output eDP-1
-workspace 2 output DP-*
-workspace 3 output DP-*
-workspace 4 output DP-*
-workspace 5 output DP-*
-workspace 6 output DP-*
-workspace 7 output DP-*
-workspace 8 output DP-*
-workspace 9 output DP-*
-workspace 10 output DP-*
-
-focus output DP-*
