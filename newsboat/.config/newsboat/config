@@ -4,10 +4,10 @@ external-url-viewer "urlscan -dc -r 'librewolf {}'"
 
 bind-key j down
 bind-key k up
-bind-key j next articlelist
-bind-key k prev articlelist
-bind-key J next-feed articlelist
-bind-key K prev-feed articlelist
+bind-key j next        articlelist
+bind-key k prev        articlelist
+bind-key J next-feed   articlelist
+bind-key K prev-feed   articlelist
 bind-key G end
 bind-key g home
 bind-key d pagedown
@@ -21,6 +21,9 @@ bind-key D pb-download
 bind-key U show-urls
 bind-key x pb-delete
 
+macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
+macro w set browser "librewolf"     ; open-in-browser ; set browser linkhandler
+
 color listnormal cyan default
 color listfocus black yellow standout bold
 color listnormal_unread blue default
@@ -28,27 +31,9 @@ color listfocus_unread yellow default bold
 color info red black bold
 color article white default bold
 
-# browser linkhandler
-# macro t set browser "qndl" ; open-in-browser ; set browser linkhandler
-# macro a set browser "tsp yt-dlp --embed-metadata -xic -f bestaudio/best --restrict-filenames" ; open-in-browser ; set browser linkhandler
-macro v set browser "setsid -f mpv" ; open-in-browser ; set browser linkhandler
-macro w set browser "librewolf" ; open-in-browser ; set browser linkhandler
-# macro d set browser "dmenuhandler" ; open-in-browser ; set browser linkhandler
-# macro c set browser "echo %u | xclip -r -sel c" ; open-in-browser ; set browser linkhandler
-# macro C set browser "youtube-viewer --comments=%u" ; open-in-browser ; set browser linkhandler
-# macro p set browser "peertubetorrent %u 480" ; open-in-browser ; set browser linkhandler
-# macro P set browser "peertubetorrent %u 1080" ; open-in-browser ; set browser linkhandler
-
-# Colors
-# color listnormal         default default
-#color listnormal_unread  color1  default  bold
-#color listfocus          black   yellow   bold
-#color listfocus_unread   black   yellow   bold
-#color info               color2  black    bold
-#color article            default default
-highlight article "^(Title|Feed|Author):.*"   blue    default  bold
-#highlight article "https?://[^ ]+"            red     default  underline
-highlight article "^(Link|Date):.*"           green   default  bold
-#highlight article "\[image [0-9]+\]"          green   default  bold
-#highlight article "\[embedded flash [0-9]+\]" green   default  bold
-#highlight article "\[[0-9]+\]"                magenta default  bold
+highlight article "^(Title):.*"               yellow  default  bold
+highlight article "^(Feed|Author):.*"         cyan    default  bold
+highlight article "^(Link):.*"                blue    default  underline
+highlight article "^(Date):.*"                magenta default  bold
+highlight article "https?://[^ ]+"            red     default  underline
+highlight article "\[[0-9]+\]"                green   default  bold
