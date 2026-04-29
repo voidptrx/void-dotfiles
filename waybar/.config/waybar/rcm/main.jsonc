@@ -1,6 +1,6 @@
 {
   "reload_style_on_change": true,
-  "height": 26,
+  "height": 30,
   "fixed-center": true,
   "output": "Lenovo Group Limited L27m-30 UPB67FNK",
   "modules-left": ["custom/rcm-branding", "sway/workspaces", "mpris"],
@@ -46,7 +46,7 @@
   },
 
   "mpris": {
-    "format": " [ {player_icon} {artist} - {title} ] ",
+    "format": "[ {player_icon} {artist} >> {title} ]",
     "format-paused": " [ {status_icon} SYSTEM_PAUSED ] ",
     "player-icons": { "default": "󰐊" },
     "status-icons": { "paused": "󰏤" },
@@ -90,7 +90,7 @@
   //--------------
 
   "custom/weather": {
-    "format": "SKY_COND: {} ",
+    "format": "SKY_COND: {}",
     "exec": "wttrbar --date-format '%A, %d %b %Y' --location Luleburgaz --hide-conditions --observation-time",
     "return-type": "json",
     "interval": 1800,
@@ -130,6 +130,7 @@
   "upower": {
     "format": "POWER: {percentage}",
     "format-alt": "PWR: {percentage} // {time}",
+    "show-icon": false,
     "hide-if-empty": true,
     "tooltip": true,
     "tooltip-format": "BATTERY_STATUS: {percentage}",
