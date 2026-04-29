@@ -36,7 +36,6 @@ bindkey -M vicmd 'p' paste-clipboard
 # ── Environment ───────────────────────────────────────────────
 export EDITOR='nvim'
 export SUDO_EDITOR='nvim'
-export MYVIMRC='/home/can/.config/nvim/init.lua'
 export MANPAGER='nvim +Man!'
 
 # ── Aliases ───────────────────────────────────────────────────
