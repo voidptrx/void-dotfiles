@@ -1,8 +1,63 @@
+local icons = {
+	Error = "E:",
+	Warn = "W:",
+	Hint = "H:",
+	Info = "I:",
+}
+
+vim.diagnostic.config({
+	signs = {
+		text = {
+			[vim.diagnostic.severity.ERROR] = icons.Error,
+			[vim.diagnostic.severity.WARN] = icons.Warn,
+			[vim.diagnostic.severity.HINT] = icons.Hint,
+			[vim.diagnostic.severity.INFO] = icons.Info,
+		},
+		numhl = {
+			[vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+			[vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+		},
+	},
+	update_in_insert = false,
+	severity_sort = true,
+	float = {
+		border = "single",
+		source = "if_many",
+		format = function(diag)
+			if diag.source then
+				return string.format("[%s] %s", diag.source, diag.message)
+			end
+			return diag.message
+		end,
+	},
+	underline = { severity = { min = vim.diagnostic.severity.WARN } },
+	virtual_text = {
+		prefix = "[X]",
+	},
+	virtual_lines = false,
+	jump = {
+		on_jump = function()
+			vim.diagnostic.open_float()
+		end,
+	},
+})
+
 return {
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
-			{ "mason.nvim", opts = {} },
+			{
+				"mason.nvim",
+				opts = {
+					ui = {
+						icons = {
+							package_installed = "+",
+							package_pending = "->",
+							package_uninstalled = "x",
+						},
+					},
+				},
+			},
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 			"saghen/blink.cmp",
@@ -10,10 +65,38 @@ return {
 		config = function()
 			vim.api.nvim_create_autocmd("LspAttach", {
 				callback = function(event)
-					local opts = { buffer = event.buf }
-					vim.keymap.set("n", "grn", vim.lsp.buf.rename, opts)
-					vim.keymap.set({ "n", "x" }, "gra", vim.lsp.buf.code_action, opts)
-					vim.keymap.set("n", "grD", vim.lsp.buf.declaration, opts)
+					local client = vim.lsp.get_client_by_id(event.data.client_id)
+					if not client then
+						return
+					end
+
+					if client.name == "rust_analyzer" then
+						return
+					end
+
+					local map = function(mode, lhs, rhs, desc)
+						vim.keymap.set(mode, lhs, rhs, { buffer = event.buf, desc = desc })
+					end
+
+					map("n", "grn", vim.lsp.buf.rename, "Rename")
+					map({ "n", "x" }, "gra", vim.lsp.buf.code_action, "Code Action")
+					map("n", "grD", vim.lsp.buf.declaration, "Goto Declaration")
+					map("n", "gd", vim.lsp.buf.definition, "Goto Definition")
+					map("n", "gr", vim.lsp.buf.references, "References")
+					map("n", "gI", vim.lsp.buf.implementation, "Goto Implementation")
+					map("n", "gy", vim.lsp.buf.type_definition, "Goto Type Definition")
+					map("n", "K", vim.lsp.buf.hover, "Hover")
+					map("n", "gK", vim.lsp.buf.signature_help, "Signature Help")
+					map("i", "<c-k>", vim.lsp.buf.signature_help, "Signature Help")
+					map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, "Code Action")
+					map("n", "<leader>cc", vim.lsp.codelens.run, "Run Codelens")
+					map("n", "<leader>cr", vim.lsp.buf.rename, "Rename")
+					map("n", "<leader>co", function()
+						vim.lsp.buf.code_action({
+							apply = true,
+							context = { only = { "source.organizeImports" }, diagnostics = {} },
+						})
+					end, "Organize Imports")
 
 					local client = vim.lsp.get_client_by_id(event.data.client_id)
 					if client and client:supports_method("textDocument/inlayHint") then
@@ -24,7 +107,17 @@ return {
 
 			local servers = {
 				lua_ls = {
-					settings = { Lua = { workspace = { checkThirdParty = false } } },
+					settings = {
+						Lua = {
+							workspace = {
+								checkThirdParty = false,
+								library = vim.api.nvim_get_runtime_file("", true),
+							},
+							diagnostics = {
+								globals = { "vim" },
+							},
+						},
+					},
 				},
 				ts_ls = {},
 				marksman = {},
@@ -69,6 +162,14 @@ return {
 		},
 	},
 
+	{
+		"nvim-mini/mini.nvim",
+		config = function()
+			require("mini.ai").setup({ n_lines = 500 })
+			require("mini.surround").setup()
+			require("mini.pairs").setup()
+		end,
+	},
 	{
 		"catgoose/nvim-colorizer.lua",
 		event = "BufReadPre",

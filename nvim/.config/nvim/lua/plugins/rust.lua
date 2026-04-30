@@ -12,6 +12,9 @@ return {
 						vim.keymap.set("n", "<leader>dr", function()
 							vim.cmd.RustLsp("debuggables")
 						end, { desc = "Rust Debuggables", buffer = bufnr })
+						vim.keymap.set("n", "<leader>k", function()
+							vim.cmd.RustLsp("renderDiagnostic")
+						end, { desc = "Render Diagnostics", buffer = bufnr })
 					end,
 					default_settings = {
 						["rust-analyzer"] = {
@@ -19,6 +22,14 @@ return {
 								allFeatures = true,
 								loadOutDirsFromCheck = true,
 								buildScripts = { enable = true },
+							},
+							check = {
+								command = "clippy",
+								extraArgs = {
+									"--",
+									"-W",
+									"clippy::pedantic",
+								},
 							},
 							checkOnSave = true,
 							diagnostics = { enable = true },
@@ -45,12 +56,11 @@ return {
 		end,
 	},
 
-	{
-		"alexpasmantier/krust.nvim",
-		ft = "rust",
-		opts = {
-			keymap = "<leader>k",
-			-- float_win = { border = 'single', auto_focus = false },
-		},
-	},
+	-- {
+	-- 	"alexpasmantier/krust.nvim",
+	-- 	ft = "rust",
+	-- 	opts = {
+	-- 		keymap = "<leader>k",
+	-- 	},
+	-- },
 }

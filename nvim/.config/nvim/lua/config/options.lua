@@ -20,7 +20,7 @@ opt.fillchars = {
 opt.foldlevel = 99
 opt.foldmethod = "indent"
 opt.foldtext = ""
-opt.formatexpr = "v:lua.LazyVim.format.formatexpr()"
+opt.formatexpr = ""
 opt.formatoptions = "jcroqlnt" -- tcqj
 opt.grepformat = "%f:%l:%c:%m"
 opt.grepprg = "rg --vimgrep"
@@ -51,7 +51,6 @@ opt.spelllang = { "en" }
 opt.splitbelow = true -- Put new windows below current
 opt.splitkeep = "screen"
 opt.splitright = true -- Put new windows right of current
-opt.statuscolumn = [[%!v:lua.LazyVim.statuscolumn()]]
 opt.tabstop = 2 -- Number of spaces tabs count for
 opt.termguicolors = true -- True color support
 opt.timeoutlen = vim.g.vscode and 1000 or 300 -- Lower than default (1000) to quickly trigger which-key
@@ -62,6 +61,9 @@ opt.virtualedit = "block" -- Allow cursor to move where there is no text in visu
 opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
+opt.winborder = "single"
+opt.backup = false
+opt.writebackup = false
+opt.swapfile = false
 
--- Fix markdown indentation settings
 vim.g.markdown_recommended_style = 0

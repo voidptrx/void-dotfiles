@@ -1,79 +1,4 @@
 return {
-	{ -- Useful plugin to show you pending keybinds.
-		"folke/which-key.nvim",
-		event = "VimEnter",
-		---@module 'which-key'
-		---@type wk.Opts
-		---@diagnostic disable-next-line: missing-fields
-		opts = {
-			delay = 0,
-			icons = { mappings = vim.g.have_nerd_font },
-			spec = {
-				{ "<leader>s", group = "[S]earch", mode = { "n", "v" } },
-				{ "<leader>t", group = "[T]oggle" },
-				{ "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
-				{ "gr", group = "LSP Actions", mode = { "n" } },
-			},
-		},
-	},
-
-	{ -- Colorscheme
-		"rebelot/kanagawa.nvim",
-		priority = 1000,
-		config = function()
-			---@diagnostic disable-next-line: missing-fields
-			require("kanagawa").setup({
-				compile = false,
-				undercurl = true,
-				commentStyle = { italic = false },
-				functionStyle = {},
-				keywordStyle = { italic = false },
-				statementStyle = { bold = true },
-				typeStyle = {},
-				transparent = false,
-				dimInactive = false,
-				terminalColors = true,
-				overrides = function(_colors)
-					return {
-						Normal = { bg = "#000000" },
-						NormalFloat = { bg = "#000000" },
-						FloatBorder = { bg = "#000000" },
-						SignColumn = { bg = "#000000" },
-						LineNr = { bg = "#000000" },
-						CursorLine = { bg = "#000000" },
-						CursorLineNr = { bg = "#000000" },
-						DiagnosticSignError = { bg = "#000000" },
-						DiagnosticSignWarn = { bg = "#000000" },
-						DiagnosticSignHint = { bg = "#000000" },
-						DiagnosticSignInfo = { bg = "#000000" },
-					}
-				end,
-				theme = "dragon",
-				background = { dark = "wave", light = "lotus" },
-			})
-			vim.cmd.colorscheme("kanagawa-dragon")
-		end,
-	},
-
-	{
-		"folke/todo-comments.nvim",
-		event = "VimEnter",
-		dependencies = { "nvim-lua/plenary.nvim" },
-		---@module 'todo-comments'
-		---@type TodoOptions
-		---@diagnostic disable-next-line: missing-fields
-		opts = { signs = false },
-	},
-
-	{ -- Collection of various small independent plugins/modules
-		"nvim-mini/mini.nvim",
-		config = function()
-			require("mini.ai").setup({ n_lines = 500 })
-			require("mini.surround").setup()
-			require("mini.pairs").setup()
-		end,
-	},
-
 	{
 		"folke/snacks.nvim",
 		priority = 1000,
@@ -82,15 +7,20 @@ return {
 			bigfile = { enabled = true },
 			explorer = {
 				enabled = true,
-				search = false,
-				cwd = function()
-					local dir = vim.fn.expand("%:p:h")
-					return dir ~= "" and dir or vim.uv.cwd()
-				end,
 			},
 			indent = { enabled = true },
 			input = { enabled = true },
-			picker = { enabled = true },
+			picker = {
+				enabled = true,
+				sources = {
+					explorer = {
+						title = ">REVACHOL CENTRAL MAINFRAME<",
+						layout = {
+							preset = "sidebar",
+						},
+					},
+				},
+			},
 			notifier = { enabled = true },
 			quickfile = { enabled = true },
 			scope = { enabled = true },
@@ -100,19 +30,20 @@ return {
 			dashboard = {
 				preset = {
 					header = [[
-╔╦═══════════════════════════════════════╦╗
-  ║║  >_ REVACHOL CENTRAL MAINFRAME  _<   ║║
-  ╠╬═══════════════════════════════════════╬╣
-  ║║                                       ║║
-  ║║  ░▒▓ F.U.C.K ▓▒░▒▓ T.H.E ▓▒░         ║║
-  ║║                                       ║║
-  ║║  ░▒▓ W.O.R.L.D ▓▒░                   ║║
-  ║║                                       ║║
-  ╠╬═══════════════════════════════════════╬╣
-  ║║  [PALE ENCROACHMENT: ████████░░ 81%] ║║
-  ║║  [RCM UPLINK: OFFLINE]               ║║
-  ║║  [USER: HARRIER // BADGE: LOST]      ║║
-  ╚╩═══════════════════════════════════════╩╝
+╔╦═══════════════════════════════════════════════════╦╗
+ ║║        >_ REVACHOL CENTRAL MAINFRAME _<         ║║
+║║   >_ RCM TERMINAL // PRECINCT 41 // UNIT 57 _<   ║║
+ ╠╬═══════════════════════════════════════════════════╬╣
+ ║║              THE WORLD IS ENDING.               ║║
+ ║║                 FUCK THE WORLD                    ║║
+ ║║               SUNRISE, PARABELLUM                 ║║
+ ╠╬═══════════════════════════════════════════════════╬╣
+  ║║   [HOST: ThinkPad T480] [OS: Void Linux]           ║║
+ ║║   [STATUS: DISCO ETERNAL]                        ║║
+  ║║  [PALE ENCROACHMENT: █████░░░░░ 50%]             ║║
+  ║║  [RCM UPLINK: OFFLINE]                          ║║
+  ║║  [USER: HARRIER // BADGE: LOST]                  ║║
+ ╚╩═══════════════════════════════════════════════════╝
 ]],
           -- stylua: ignore
           keys = {
@@ -120,7 +51,7 @@ return {
             { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config", 
+            { icon = " ", key = "c", desc = "Config",
               action = function()
                 local real_path = vim.fn.resolve(vim.fn.stdpath("config"))
                 vim.api.nvim_set_current_dir(real_path)
@@ -149,33 +80,28 @@ return {
 				},
 			},
 		},
+		-- stylua: ignore
 		keys = {
-			{
-				"<leader>si",
-				function()
-					Snacks.picker.icons()
-				end,
-				desc = "Icons",
-			},
-			{
-				"<leader>e",
-				function()
-					Snacks.explorer({
-						title = "Files",
-					})
-				end,
-				desc = "Open file explorer (root dir)",
-			},
-			{
-				"<leader>E",
-				function()
-					Snacks.explorer({
-						cwd = vim.fn.expand("%:p:h"),
-						title = "Files (cwd)",
-					})
-				end,
-				desc = "Open file explorer (cwd)",
-			},
+      { "<leader>si", function() Snacks.picker.icons() end, desc = "Icons" },
+      { "<leader>E", function() Snacks.explorer() end, desc = "Explorer (root)" },
+      { "<leader>e", function() Snacks.explorer({ cwd = vim.fn.expand("%:p:h") }) end, desc = "Explorer (cwd)" },
+      { "<leader>sf", function() Snacks.picker.files() end, desc = "Find Files" },
+      { "<leader>sg", function() Snacks.picker.grep() end, desc = "Live Grep" },
+      { "<leader>sr", function() Snacks.picker.recent() end, desc = "Recent Files" },
+      { "<leader>sd", function() Snacks.picker.diagnostics() end, desc = "Diagnostics" },
+      { "<leader>sh", function() Snacks.picker.help() end, desc = "Help" },
+      { "<leader>sk", function() Snacks.picker.keymaps() end, desc = "Keymaps" },
+      { "<leader>sc", function() Snacks.picker.commands() end, desc = "Commands" },
+      { "<leader>ss", function() Snacks.picker.pickers() end, desc = "Pickers" },
+      { "<leader><leader>", function() Snacks.picker.buffers() end, desc = "Buffers" },
+      { "<leader>/", function() Snacks.picker.lines() end, desc = "Search in Buffer" },
+      { "<leader>s/", function() Snacks.picker.grep_buffers() end, desc = "Grep Open Files" },
+      { "<leader>sn", function() Snacks.picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Neovim Files" },
+      { "grr", function() Snacks.picker.lsp_references() end, desc = "References" },
+      { "gri", function() Snacks.picker.lsp_implementations() end, desc = "Implementations" },
+      { "grd", function() Snacks.picker.lsp_definitions() end, desc = "Definitions" },
+      { "gO", function() Snacks.picker.lsp_symbols() end, desc = "Document Symbols" },
+      { "grt", function() Snacks.picker.lsp_type_definitions() end, desc = "Type Definitions" },
 		},
 	},
 
@@ -187,8 +113,6 @@ return {
 			{ "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete Non-Pinned Buffers" },
 			{ "<leader>br", "<Cmd>BufferLineCloseRight<CR>", desc = "Delete Buffers to the Right" },
 			{ "<leader>bl", "<Cmd>BufferLineCloseLeft<CR>", desc = "Delete Buffers to the Left" },
-			{ "<S-h>", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
-			{ "<S-l>", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
 			{ "[b", "<cmd>BufferLineCyclePrev<cr>", desc = "Prev Buffer" },
 			{ "]b", "<cmd>BufferLineCycleNext<cr>", desc = "Next Buffer" },
 			{ "[B", "<cmd>BufferLineMovePrev<cr>", desc = "Move buffer prev" },
@@ -218,10 +142,12 @@ return {
 				hint_diagnostic_selected = { italic = false },
 			},
 			options = {
-      -- stylua: ignore
-      close_command = function(n) Snacks.bufdelete(n) end,
-      -- stylua: ignore
-      right_mouse_command = function(n) Snacks.bufdelete(n) end,
+				close_command = function(n)
+					Snacks.bufdelete(n)
+				end,
+				right_mouse_command = function(n)
+					Snacks.bufdelete(n)
+				end,
 				diagnostics = "nvim_lsp",
 				always_show_bufferline = false,
 				offsets = {
@@ -240,11 +166,10 @@ return {
 		},
 		config = function(_, opts)
 			require("bufferline").setup(opts)
-			-- Fix bufferline when restoring a session
 			vim.api.nvim_create_autocmd({ "BufAdd", "BufDelete" }, {
 				callback = function()
 					vim.schedule(function()
-						pcall(nvim_bufferline)
+						pcall(require("bufferline").refresh)
 					end)
 				end,
 			})
@@ -255,25 +180,25 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = function()
-			local icons = {
+			local symbols = {
 				git = { added = "+", modified = "~", removed = "-" },
-				diagnostics = { Error = "X", Warn = "!", Hint = "?", Info = "i" },
+				diagnostics = { Error = "ERR:", Warn = "WRN:", Hint = "HNT:", Info = "INF:" },
 			}
 
 			local black_theme = {
 				normal = {
-					a = { bg = "#000000", gui = "bold" },
-					b = { bg = "#000000" },
-					c = { bg = "#000000" },
+					a = { fg = "#dcd7ba", bg = "#000000" },
+					b = { fg = "#dcd7ba", bg = "#000000" },
+					c = { fg = "#dcd7ba", bg = "#000000" },
 				},
-				insert = { a = { fg = "#76946a", bg = "#000000", gui = "bold" } },
-				visual = { a = { fg = "#957fb8", bg = "#000000", gui = "bold" } },
-				replace = { a = { fg = "#c0a36e", bg = "#000000", gui = "bold" } },
-				command = { a = { fg = "#c34043", bg = "#000000", gui = "bold" } },
+				insert = { a = { fg = "#76946a", bg = "#000000" } },
+				visual = { a = { fg = "#957fb8", bg = "#000000" } },
+				replace = { a = { fg = "#c0a36e", bg = "#000000" } },
+				command = { a = { fg = "#c34043", bg = "#000000" } },
 				inactive = {
-					a = { bg = "#000000" },
-					b = { bg = "#000000" },
-					c = { bg = "#000000" },
+					a = { fg = "#727169", bg = "#000000" },
+					b = { fg = "#727169", bg = "#000000" },
+					c = { fg = "#727169", bg = "#000000" },
 				},
 			}
 
@@ -281,7 +206,7 @@ return {
 				options = {
 					theme = black_theme,
 					globalstatus = true,
-					icons_enabled = true,
+					icons_enabled = false,
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
 					disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
@@ -291,59 +216,81 @@ return {
 						{
 							"mode",
 							fmt = function(str)
-								return str:lower()
+								local modes = {
+									NORMAL = "DETECTIVE",
+									INSERT = "INLAND EMPIRE",
+									VISUAL = "LOGIC",
+									["V-LINE"] = "PERCEPTION",
+									["V-BLOCK"] = "SHIVERS",
+									REPLACE = "ELECTROCHEMISTRY",
+									COMMAND = "VOLITION",
+								}
+								return "[" .. (modes[str] or str) .. "]"
 							end,
-							icon = { "" },
 							color = { gui = "bold" },
 						},
 					},
 					lualine_b = {
-						{
-							"filename",
-							file_status = true,
-							path = 4,
-							icon_only = true,
-							padding = { left = 1, right = 0 },
-						},
+						{ "filetype", padding = { left = 1, right = 1 } },
+						{ "filename", path = 4, file_status = true },
 					},
 					lualine_c = {
-						{ "branch", color = { gui = "bold" } },
+						{
+							"branch",
+							fmt = function(str)
+								if str == nil or str == "" then
+									return "DETACHED_UNIT"
+								end
+								return "BRNCH:" .. str
+							end,
+							color = { fg = "#7e9cd8" },
+						},
 						{
 							"diff",
-							symbols = {
-								added = icons.git.added,
-								modified = icons.git.modified,
-								removed = icons.git.removed,
-							},
-							color = { gui = "bold" },
+							symbols = symbols.git,
+							colored = true,
 						},
+					},
+					lualine_x = {
 						{
 							"diagnostics",
 							symbols = {
-								error = icons.diagnostics.Error,
-								warn = icons.diagnostics.Warn,
-								info = icons.diagnostics.Info,
-								hint = icons.diagnostics.Hint,
+								error = symbols.diagnostics.Error,
+								warn = symbols.diagnostics.Warn,
+								info = symbols.diagnostics.Info,
+								hint = symbols.diagnostics.Hint,
 							},
-							color = { gui = "bold" },
 						},
 					},
-					lualine_x = {},
 					lualine_y = {
 						{
 							function()
-								local msg = "No Active Lsp"
 								local clients = vim.lsp.get_clients({ bufnr = 0 })
-								if not clients or #clients == 0 then
-									return " " .. msg
+								if #clients == 0 then
+									return "[UPLINK: OFFLINE]"
 								end
-								return " " .. clients[1].name
+								local names = {}
+								for _, client in ipairs(clients) do
+									table.insert(names, client.name:upper())
+								end
+								return "[UPLINK: " .. table.concat(names, "|") .. "]"
 							end,
+							color = { fg = "#76946a" },
 						},
 					},
 					lualine_z = {
-						{ "progress", color = { gui = "bold" } },
-						{ "location", color = { gui = "bold" } },
+						{
+							"location",
+							fmt = function(str)
+								return "LOC:" .. str
+							end,
+						},
+						{
+							"progress",
+							fmt = function(str)
+								return "PRG:" .. str
+							end,
+						},
 					},
 				},
 			}
