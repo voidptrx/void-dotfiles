@@ -6,16 +6,30 @@ return {
 			vim.g.rustaceanvim = {
 				server = {
 					on_attach = function(_, bufnr)
-						vim.keymap.set("n", "<leader>cR", function()
+						local map = function(lhs, rhs, desc)
+							vim.keymap.set("n", lhs, rhs, { buffer = bufnr, desc = desc })
+						end
+
+						map("<leader>cR", function()
 							vim.cmd.RustLsp("codeAction")
-						end, { desc = "Code Action", buffer = bufnr })
-						vim.keymap.set("n", "<leader>dr", function()
+						end, "Rust Code Action")
+						map("<leader>dr", function()
 							vim.cmd.RustLsp("debuggables")
-						end, { desc = "Rust Debuggables", buffer = bufnr })
-						vim.keymap.set("n", "<leader>k", function()
+						end, "Rust Debuggables")
+						map("<leader>k", function()
 							vim.cmd.RustLsp("renderDiagnostic")
-						end, { desc = "Render Diagnostics", buffer = bufnr })
+						end, "Render Diagnostics")
+						map("gd", vim.lsp.buf.definition, "Goto Definition")
+						map("gr", vim.lsp.buf.references, "References")
+						map("gI", vim.lsp.buf.implementation, "Goto Implementation")
+						map("gy", vim.lsp.buf.type_definition, "Goto Type Definition")
+						map("gK", vim.lsp.buf.signature_help, "Signature Help")
+						map("<leader>cr", vim.lsp.buf.rename, "Rename")
+						map("<leader>cc", vim.lsp.codelens.run, "Run Codelens")
+
+						vim.lsp.inlay_hint.enable(true, { bufnr = bufnr })
 					end,
+
 					default_settings = {
 						["rust-analyzer"] = {
 							cargo = {
@@ -55,12 +69,4 @@ return {
 			}
 		end,
 	},
-
-	-- {
-	-- 	"alexpasmantier/krust.nvim",
-	-- 	ft = "rust",
-	-- 	opts = {
-	-- 		keymap = "<leader>k",
-	-- 	},
-	-- },
 }
