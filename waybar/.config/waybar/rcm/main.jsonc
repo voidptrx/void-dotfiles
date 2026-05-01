@@ -46,7 +46,7 @@
   },
 
   "mpris": {
-    "format": "[ {player_icon} {artist} >> {title} ]",
+    "format": "[ {player_icon} {artist} // {title} ]",
     "format-paused": " [ {status_icon} SYSTEM_PAUSED ] ",
     "player-icons": { "default": "󰐊" },
     "status-icons": { "paused": "󰏤" },

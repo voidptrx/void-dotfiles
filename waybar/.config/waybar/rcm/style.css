@@ -31,7 +31,7 @@ window#waybar {
 #custom-weather,
 #pulseaudio,
 #upower,
-#network
+#network,
 #tray {
   background: @de-black;
   border-left: 1px solid @de-grey;

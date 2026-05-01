@@ -19,7 +19,7 @@
   //-------------
 
   "custom/rcm-branding": {
-    "format": " [RCM:UNIT-01] ",
+    "format": " [RCM:UNIT-02] ",
     "tooltip": false,
     "on-click": "nwg-bar -p 'left' -ml 10",
     "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
@@ -46,7 +46,7 @@
   },
 
   "mpris": {
-    "format": " [ {player_icon} {artist} - {title} ] ",
+    "format": " [ {player_icon} {artist} // {title} ] ",
     "format-paused": " [ {status_icon} SYSTEM_PAUSED ] ",
     "player-icons": { "default": "󰐊" },
     "status-icons": { "paused": "󰏤" },
