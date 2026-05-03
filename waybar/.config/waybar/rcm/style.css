@@ -24,15 +24,14 @@ window#waybar {
   border-bottom: 2px solid @de-grey;
 }
 
-#custom-rcm-branding,
+#custom-rcm-unit,
 #workspaces,
 #mpris,
 #clock,
 #custom-weather,
 #pulseaudio,
 #upower,
-#network,
-#tray {
+#network {
   background: @de-black;
   border-left: 1px solid @de-grey;
   border-right: 1px solid @de-grey;
@@ -40,7 +39,7 @@ window#waybar {
   padding: 0px 10px;
 }
 
-#custom-rcm-branding {
+#custom-rcm-unit {
   color: @de-intellect;
   border-left: 2px solid @de-intellect;
 }
@@ -101,15 +100,6 @@ window#waybar {
 #pulseaudio.muted {
   color: @de-physique;
   border-bottom: 1px solid @de-physique;
-}
-
-#network {
-  color: @de-intellect;
-  border-left: 1px solid @de-grey;
-  border-right: 1px solid @de-grey;
-  margin: 0px;
-  padding: 0px 10px;
-
 }
 
 #network.disconnected {

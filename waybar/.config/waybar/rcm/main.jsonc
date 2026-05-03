@@ -3,7 +3,7 @@
   "height": 30,
   "fixed-center": true,
   "output": "Lenovo Group Limited L27m-30 UPB67FNK",
-  "modules-left": ["custom/rcm-branding", "sway/workspaces", "mpris"],
+  "modules-left": ["custom/rcm-unit", "sway/workspaces", "mpris"],
   "modules-center": ["clock"],
   "modules-right": [
     "tray",
@@ -18,8 +18,8 @@
   // modules-left
   //-------------
 
-  "custom/rcm-branding": {
-    "format": " [RCM:UNIT-01] ",
+  "custom/rcm-unit": {
+    "format": "[RCM:UNIT-01]",
     "tooltip": false,
     "on-click": "nwg-bar -p 'left' -ml 10",
     "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",

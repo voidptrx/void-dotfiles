@@ -3,7 +3,7 @@
   "height": 30,
   "fixed-center": true,
   "output": "eDP-1",
-  "modules-left": ["custom/rcm-branding", "sway/workspaces", "mpris"],
+  "modules-left": ["custom/rcm-unit", "sway/workspaces", "mpris"],
   "modules-center": ["clock"],
   "modules-right": [
     "tray",
@@ -18,7 +18,7 @@
   // modules-left
   //-------------
 
-  "custom/rcm-branding": {
+  "custom/rcm-unit": {
     "format": " [RCM:UNIT-02] ",
     "tooltip": false,
     "on-click": "nwg-bar -p 'left' -ml 10",
