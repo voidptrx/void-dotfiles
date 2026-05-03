@@ -1,4 +1,5 @@
 # .zshrc
+export DO_NOT_TRACK=1
 
 # ── History ───────────────────────────────────────────────────
 HISTFILE="$ZDOTDIR/.zhistory"
