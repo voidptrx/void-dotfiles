@@ -1,15 +1,94 @@
 [plugin]
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*"
+run  = "git"
+
+[[plugin.prepend_fetchers]]
+id   = "git"
+name = "*/"
+run  = "git"
+
+# --- Previewers ---
+
 [[plugin.prepend_previewers]]
 url = "*.md"
-run = 'piper -- CLICOLOR_FORCE=1 glow -w=$w -s=dark "$1"'
+run = 'piper -- CLICOLOR_FORCE=1 mcat -c "$1"'
 
-[[plugin.prepend_fetchers]]
-id = "git"
-name = "*"
-run = "git"
+[[plugin.prepend_previewers]]
+mime = "{audio,video,image}/*"
+run  = "mediainfo"
 
-[[plugin.prepend_fetchers]]
-id = "git"
-name = "*/"
-run = "git"
+[[plugin.prepend_previewers]]
+mime = "application/subrip"
+run  = "mediainfo"
 
+[[plugin.prepend_previewers]]
+mime = "application/postscript"
+run  = "mediainfo"
+
+[[plugin.prepend_previewers]]
+mime = "application/illustrator"
+run  = "mediainfo"
+
+[[plugin.prepend_previewers]]
+mime = "application/dvb.ait"
+run  = "mediainfo"
+
+[[plugin.prepend_previewers]]
+mime = "application/vnd.adobe.illustrator"
+run  = "mediainfo"
+
+[[plugin.prepend_previewers]]
+mime = "image/x-eps"
+run  = "mediainfo"
+
+[[plugin.prepend_previewers]]
+mime = "application/eps"
+run  = "mediainfo"
+
+[[plugin.prepend_previewers]]
+url = "*.{ai,eps,ait}"
+run = "mediainfo"
+
+# --- Preloaders ---
+
+[[plugin.prepend_preloaders]]
+mime = "{audio,video,image}/*"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "application/subrip"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "application/postscript"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "application/illustrator"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "application/dvb.ait"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "application/vnd.adobe.illustrator"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "image/x-eps"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+mime = "application/eps"
+run  = "mediainfo"
+
+[[plugin.prepend_preloaders]]
+url = "*.{ai,eps,ait}"
+run = "mediainfo"
+
+[tasks]
+image_alloc = 1073741824  # 1024 MB
