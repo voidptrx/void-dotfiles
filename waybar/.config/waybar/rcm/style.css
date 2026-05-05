@@ -21,7 +21,6 @@
 window#waybar {
   background: @de-black;
   color: @de-bone;
-  border-bottom: 2px solid @de-grey;
 }
 
 #custom-rcm-unit,
