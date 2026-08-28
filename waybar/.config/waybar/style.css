@@ -37,19 +37,49 @@ tooltip {
 #pulseaudio.speaker.muted,
 #pulseaudio.mic,
 #pulseaudio.mic.source-muted,
-#custom-weather,
-#custom-launcher {
+#custom-weather {
   margin: 0px 2px;
   padding: 2px;
 }
 
 /* Specific Module Styling */
+#custom-power {
+  color: @green;
+  margin: 0px 0px 0px 10px;
+  padding-left: 0px;
+  border-radius: 0px;
+}
+
+#custom-power:hover {
+    color: @red;
+}
+
+#custom-logout,
+#custom-reboot,
+#custom-shutdown {
+padding: 0px 10px 0px 10px;
+}
+
+#custom-lock {
+  padding-left: 20px;
+  padding-right: 10px;
+}
+
+ 
 #mpris {
   margin: 0px 5px;
 }
 
 #upower {
   margin-right: 10px;
+}
+
+
+#pulseaudio.speaker,
+#pulseaudio.speaker.muted,
+#pulseaudio.mic,
+#pulseaudio.mic.source-muted {
+  margin: 0px 5px;
 }
 
 #pulseaudio.speaker {
@@ -70,13 +100,6 @@ tooltip {
 #pulseaudio.mic.source-muted {
   color: @fg-color;
   font-size: 13px;
-}
-
-#custom-launcher {
-  color: @green;
-  margin: 0px 0px 0px 10px;
-  padding-left: 0px;
-  border-radius: 0px;
 }
 
 #upower.charging {
@@ -101,6 +124,7 @@ tooltip {
 }
 
 #workspaces button.focused {
+  font-weight: bold;
   padding-top: 2px;
   color: @blue;
   border-bottom: 2px solid @blue;

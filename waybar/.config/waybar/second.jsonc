@@ -2,19 +2,30 @@
   "reload_style_on_change": true,
   "height": 30,
   "fixed-center": true,
-  "output": "Lenovo Group Limited L27m-30 UPB67FNK",
-  "modules-left": ["custom/launcher", "sway/workspaces", "mpris"],
-  "modules-center": ["clock", "custom/weather"],
-  "modules-right": ["tray", "pulseaudio#speaker", "pulseaudio#mic", "upower"],
+  "output": "eDP-1",
+  "modules-left": ["custom/power", "sway/workspaces", "mpris"],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "custom/weather",
+    "tray",
+    "pulseaudio#speaker",
+    "pulseaudio#mic",
+    "upower",
+  ],
   //-------------
   // modules-left
   //------------
-  "custom/launcher": {
-    "on-click": "nwg-bar -p 'left' -ml 10",
-    "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
-    "on-click-middle": "fuzzel",
+  "custom/power": {
     "format": "<span font-size='large'></span>",
     "tooltip": false,
+    "menu": "on-click",
+    "menu-file": "$HOME/.config/waybar/default/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "shutdown -h now",
+      "reboot": "shutdown -r now",
+      "logout": "swaymsg exit",
+      "lock": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
+    },
   },
   "sway/workspaces": {
     "format": "{icon}",
@@ -35,25 +46,22 @@
     },
   },
   "mpris": {
-    "format": "{player_icon} {dynamic}",
-    "format-paused": "{status_icon} {dynamic}",
-    "format-len": 80,
-    "dynamic-len": 80,
-    "dynamic-order": ["title", "artist"],
-    "interval": 1,
-    "player-icons": {
-      "default": "<span color='#76946a' font-size='large'></span>",
-    },
-    "status-icons": {
-      "paused": "<span color='#c34043' font-size='large'></span>",
-    },
+    "dynamic-order": ["artist", "title"],
+    "dynamic-len": 50,
+    "dynamic-separator": " // ",
+    "format": "[ {player_icon} {dynamic} ]",
+    "format-paused": " [ {status_icon} SYSTEM_STATUS::PAUSED ] ",
+    "player-icons": { "default": "󰐊" },
+    "status-icons": { "paused": "󰏤" },
+    // "artist-len": 40,
+    // "title-len": 40,
     "ignored-players": ["firefox", "kdeconnect"],
   },
   //---------------
   // modules-center
   //---------------
   "clock": {
-    "format": "{:%d %a %H:%M}",
+    "format": "{:%a  %d %b  %H:%M}",
     "interval": 1,
     "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
@@ -89,8 +97,8 @@
   // modules-right
   //--------------
   "tray": {
-    "icon-size": 13,
-    "spacing": 7,
+    "icon-size": 15,
+    "spacing": 10,
   },
   "pulseaudio#speaker": {
     "format": "<span font-size='large'>{icon}</span>",

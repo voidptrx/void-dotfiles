@@ -3,31 +3,32 @@
   "height": 30,
   "fixed-center": true,
   "output": "Lenovo Group Limited L27m-30 UPB67FNK",
-  "modules-left": ["custom/rcm-unit", "sway/workspaces", "mpris"],
+  "modules-left": ["custom/power", "sway/workspaces", "mpris"],
   "modules-center": ["clock"],
   "modules-right": [
-    "tray",
     "custom/weather",
+    "tray",
     "pulseaudio#speaker",
     "pulseaudio#mic",
-    "network",
     "upower",
   ],
-
   //-------------
   // modules-left
-  //-------------
-
-  "custom/rcm-unit": {
-    "format": "[RCM:UNIT-01]",
+  //------------
+  "custom/power": {
+    "format": "<span font-size='large'></span>",
     "tooltip": false,
-    "on-click": "nwg-bar -p 'left' -ml 10",
-    "on-click-right": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
-    "on-click-middle": "fuzzel",
+    "menu": "on-click",
+    "menu-file": "$HOME/.config/waybar/default/power_menu.xml",
+    "menu-actions": {
+      "shutdown": "loginctl poweroff",
+      "reboot": "loginctl reboot",
+      "logout": "swaymsg exit",
+      "lock": "playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh",
+    },
   },
-
   "sway/workspaces": {
-    "format": "{name}",
+    "format": "{icon}",
     "on-click": "activate",
     "all-outputs": true,
     "sort-by-number": true,
@@ -44,24 +45,25 @@
       "10": [],
     },
   },
-
   "mpris": {
-    "format": "[ {player_icon} {artist} // {title} ]",
-    "format-paused": " [ {status_icon} SYSTEM_PAUSED ] ",
+    "dynamic-order": ["title", "artist"],
+    "dynamic-len": 50,
+    "dynamic-separator": " // ",
+    "format": "[ {player_icon} {dynamic} ]",
+    "format-paused": " [ {status_icon} SYSTEM_STATUS::PAUSED ] ",
     "player-icons": { "default": "󰐊" },
     "status-icons": { "paused": "󰏤" },
-    "format-len": 25,
+    // "artist-len": 40,
+    // "title-len": 40,
     "ignored-players": ["firefox", "kdeconnect"],
   },
-
   //---------------
   // modules-center
   //---------------
-
   "clock": {
-    "format": "{:%H:%M:%S // %d-%m-%Y}",
+    "format": "{:%a %d %b %H:%M}",
     "interval": 1,
-    "tooltip-format": "<tt>{calendar}</tt>",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
     "calendar": {
       "mode": "month",
       "mode-mon-col": 3,
@@ -69,11 +71,11 @@
       "on-scroll": 1,
       "on-click-right": "mode",
       "format": {
-        "months": "<span color='#5a9ab5'>{}</span>",
+        "months": "<span color='#957fb8'>{}</span>",
         "days": "<span color='#dcd7ba'>{}</span>",
-        "weeks": "<span color='#8a5ab0'>{}</span>",
-        "weekdays": "<span color='#c8a020'>{}</span>",
-        "today": "<span background='#b03838' color='#dcd7ba'>{}</span>",
+        "weeks": "<span color='#7e9cd8'>{}</span>",
+        "weekdays": "<span color='#76946a'>{}</span>",
+        "today": "<span background='#76946a' color='#000000'>{}</span>",
       },
     },
     "actions": {
@@ -84,61 +86,51 @@
       "on-scroll-down": "shift_down",
     },
   },
-
+  "custom/weather": {
+    "format": "{} ",
+    "tooltip": true,
+    "interval": 1800,
+    "exec": "wttrbar --date-format '%A, %d %b %Y' --location Luleburgaz --hide-conditions --observation-time",
+    "return-type": "json",
+  },
   //--------------
   // modules-right
   //--------------
-
-  "custom/weather": {
-    "format": "SKY_COND: {}",
-    "exec": "wttrbar --date-format '%A, %d %b %Y' --location Luleburgaz --hide-conditions --observation-time",
-    "return-type": "json",
-    "interval": 1800,
+  "tray": {
+    "icon-size": 15,
+    "spacing": 10,
+    "reverse-direction": true,
   },
-
   "pulseaudio#speaker": {
-    "format": "AUDIO_OUT: {volume}%",
-    "format-muted": "AUDIO_OUT: ERR",
-    "format-bluetooth": "AUDIO_OUT [BT]: {volume}%",
-    "format-bluetooth-muted": "AUDIO_OUT [BT]: ERR",
+    "format": "<span font-size='x-large'>{icon}</span>",
+    "format-bluetooth": "<span font-size='x-large'>{icon} </span>",
+    "format-bluetooth-muted": "<span font-size='x-large'>{icon} </span>",
+    "format-muted": "<span font-size='x-large'>󰖁</span>",
+    "format-icons": {
+      "headphone": "󰋋",
+      "default": ["󰕿", "󰖀", "󱄠", "󰕾"],
+    },
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "on-click-middle": "pactl --format=json list sinks short | jq -cM --unbuffered \"[.[].name] | .[((index(\\\"$(pactl get-default-sink)\\\")+1)%length)]\" | xargs pactl set-default-sink",
     "on-click-right": "pavucontrol",
-    "tooltip-format": "{desc} // {volume}%",
+    "tooltip-format": "{desc} - {volume}",
   },
-
   "pulseaudio#mic": {
-    "format": "{format_source}",
-    "format-source": "AUDIO_IN: OK",
-    "format-source-muted": "AUDIO_IN: OFF",
+    "format": "<span font-size='x-large'>{format_source}</span>",
+    "format-source": "󰍬",
+    "format-source-muted": "󰍭",
     "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
     "on-click-middle": "$TERMINAL -e pulsemixer",
     "on-click-right": "pavucontrol",
-    "tooltip-format": "{desc} // {volume}%",
+    "tooltip-format": "{desc} - {volume}",
   },
-
-  "network": {
-    "format-wifi": "UPLINK: [OK] [{signalStrength}%]",
-    "format-ethernet": "UPLINK: ETH_LINK [OK]",
-    "format-disconnected": "UPLINK: NO_SIGNAL [ERR]",
-    "tooltip-format-wifi": "SSID: {essid}\nIP: {ipaddr}\nGW: {gwaddr}\nSTRENGTH: {signalStrength}%\nFREQ: {frequency}MHz",
-    "tooltip-format-ethernet": "IP: {ipaddr}\nGW: {gwaddr}",
-    "on-click": "foot -e nmtui",
-    "on-click-middle": "nm-connection-editor",
-  },
-
   "upower": {
-    "format": "POWER: {percentage}",
-    "format-alt": "PWR: {percentage} // {time}",
-    "show-icon": false,
+    "format": "",
+    "format-alt": "{percentage} {time}",
+    "icon-size": 15,
     "hide-if-empty": true,
     "tooltip": true,
-    "tooltip-format": "BATTERY_STATUS: {percentage}",
+    "tooltip-format": "{percentage}",
     "tooltip-spacing": 20,
-  },
-
-  "tray": {
-    "icon-size": 13,
-    "spacing": 7,
   },
 }
