@@ -69,7 +69,7 @@
     "break",
     {
       "type": "custom",
-      "format": " ─ [ SYSTEM_STATUS: NOMINAL ] ─ ",
+      "format": " ─ [ SYSTEM_STATUS :: NOMINAL ] ─ ",
       "color": "32",
     },
   ],
