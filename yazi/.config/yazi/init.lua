@@ -1,7 +1,7 @@
-require("full-border"):setup({
-	type = ui.Border.PLAIN,
-})
-require("git"):setup()
+-- require("full-border"):setup({
+-- 	type = ui.Border.PLAIN,
+-- })
+-- require("git"):setup()
 
 Header:children_add(function()
 	if ya.target_family() ~= "unix" then
