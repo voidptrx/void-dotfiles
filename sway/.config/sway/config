@@ -4,35 +4,21 @@ include ~/.config/sway/configs/variables
 include ~/.config/sway/configs/bindsym
 include /etc/sway/config.d/*
 
-## auto-start apps
-# Audio system (pipewire first, then dependents)
 exec pipewire
 exec pipewire-pulse
 exec wireplumber
-
-# Display & screen management
 exec kanshi
-
-# Brightness & color
-# exec gammastep-indicator
-
-# Input method
-exec fcitx5 -dr
-
-# Terminal server (may be used by other applications)
+exec gammastep
+exec gammastep-indicator
+exec nm-applet
 exec foot --server
-
-# Media
 exec playerctld daemon
-
-# Utils
 exec dunst
 exec autotiling
 exec swayosd-server
 exec kdeconnectd
-exec gammastep
+exec wl-paste --watch cliphist store
 
-# Last — delayed scripts
 exec --no-startup-id mpv $HOME/.config/sway/audio/pc_startup.ogg 2>/dev/null
 exec sleep 5 && $HOME/.config/sway/scripts/wallpaper.sh
 exec $HOME/.config/sway/scripts/brightness.sh
