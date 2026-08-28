@@ -10,6 +10,7 @@ return {
 			},
 			indent = { enabled = true },
 			input = { enabled = true },
+			image = { enabled = false },
 			picker = {
 				enabled = true,
 				sources = {
@@ -180,25 +181,25 @@ return {
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		opts = function()
-			local symbols = {
+			local icons = {
 				git = { added = "+", modified = "~", removed = "-" },
-				diagnostics = { Error = "ERR:", Warn = "WRN:", Hint = "HNT:", Info = "INF:" },
+				diagnostics = { Error = "X", Warn = "!", Hint = "?", Info = "i" },
 			}
 
 			local black_theme = {
 				normal = {
-					a = { fg = "#dcd7ba", bg = "#000000" },
-					b = { fg = "#dcd7ba", bg = "#000000" },
-					c = { fg = "#dcd7ba", bg = "#000000" },
+					a = { bg = "#000000", gui = "bold" },
+					b = { bg = "#000000" },
+					c = { bg = "#000000" },
 				},
-				insert = { a = { fg = "#76946a", bg = "#000000" } },
-				visual = { a = { fg = "#957fb8", bg = "#000000" } },
-				replace = { a = { fg = "#c0a36e", bg = "#000000" } },
-				command = { a = { fg = "#c34043", bg = "#000000" } },
+				insert = { a = { fg = "#76946a", bg = "#000000", gui = "bold" } },
+				visual = { a = { fg = "#957fb8", bg = "#000000", gui = "bold" } },
+				replace = { a = { fg = "#c0a36e", bg = "#000000", gui = "bold" } },
+				command = { a = { fg = "#c34043", bg = "#000000", gui = "bold" } },
 				inactive = {
-					a = { fg = "#727169", bg = "#000000" },
-					b = { fg = "#727169", bg = "#000000" },
-					c = { fg = "#727169", bg = "#000000" },
+					a = { bg = "#000000" },
+					b = { bg = "#000000" },
+					c = { bg = "#000000" },
 				},
 			}
 
@@ -206,7 +207,7 @@ return {
 				options = {
 					theme = black_theme,
 					globalstatus = true,
-					icons_enabled = false,
+					icons_enabled = true,
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
 					disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
@@ -216,81 +217,59 @@ return {
 						{
 							"mode",
 							fmt = function(str)
-								local modes = {
-									NORMAL = "DETECTIVE",
-									INSERT = "INLAND EMPIRE",
-									VISUAL = "LOGIC",
-									["V-LINE"] = "PERCEPTION",
-									["V-BLOCK"] = "SHIVERS",
-									REPLACE = "ELECTROCHEMISTRY",
-									COMMAND = "VOLITION",
-								}
-								return "[" .. (modes[str] or str) .. "]"
+								return str:lower()
 							end,
+							icon = { "" },
 							color = { gui = "bold" },
 						},
 					},
 					lualine_b = {
-						{ "filetype", padding = { left = 1, right = 1 } },
-						{ "filename", path = 4, file_status = true },
+						{
+							"filename",
+							file_status = true,
+							path = 4,
+							icon_only = true,
+							padding = { left = 1, right = 0 },
+						},
 					},
 					lualine_c = {
-						{
-							"branch",
-							fmt = function(str)
-								if str == nil or str == "" then
-									return "DETACHED_UNIT"
-								end
-								return "BRNCH:" .. str
-							end,
-							color = { fg = "#7e9cd8" },
-						},
+						{ "branch", color = { gui = "bold" } },
 						{
 							"diff",
-							symbols = symbols.git,
-							colored = true,
+							symbols = {
+								added = icons.git.added,
+								modified = icons.git.modified,
+								removed = icons.git.removed,
+							},
+							color = { gui = "bold" },
 						},
-					},
-					lualine_x = {
 						{
 							"diagnostics",
 							symbols = {
-								error = symbols.diagnostics.Error,
-								warn = symbols.diagnostics.Warn,
-								info = symbols.diagnostics.Info,
-								hint = symbols.diagnostics.Hint,
+								error = icons.diagnostics.Error,
+								warn = icons.diagnostics.Warn,
+								info = icons.diagnostics.Info,
+								hint = icons.diagnostics.Hint,
 							},
+							color = { gui = "bold" },
 						},
 					},
+					lualine_x = {},
 					lualine_y = {
 						{
 							function()
+								local msg = "No Active Lsp"
 								local clients = vim.lsp.get_clients({ bufnr = 0 })
-								if #clients == 0 then
-									return "[UPLINK: OFFLINE]"
+								if not clients or #clients == 0 then
+									return " " .. msg
 								end
-								local names = {}
-								for _, client in ipairs(clients) do
-									table.insert(names, client.name:upper())
-								end
-								return "[UPLINK: " .. table.concat(names, "|") .. "]"
+								return " " .. clients[1].name
 							end,
-							color = { fg = "#76946a" },
 						},
 					},
 					lualine_z = {
-						{
-							"location",
-							fmt = function(str)
-								return "LOC:" .. str
-							end,
-						},
-						{
-							"progress",
-							fmt = function(str)
-								return "PRG:" .. str
-							end,
-						},
+						{ "progress", color = { gui = "bold" } },
+						{ "location", color = { gui = "bold" } },
 					},
 				},
 			}

@@ -47,7 +47,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{
-				"mason.nvim",
+        "mason-org/mason.nvim",
 				opts = {
 					ui = {
 						icons = {

@@ -29,4 +29,14 @@ return {
 			vim.cmd.colorscheme("kanagawa-dragon")
 		end,
 	},
+	{
+		"danhat1020/silence.nvim",
+		config = function()
+			require("silence").setup({
+				transparent = false,
+				bold = true,
+			})
+			-- vim.cmd("colorscheme silence")
+		end,
+	},
 }
