@@ -3,7 +3,7 @@ include ~/.config/sway/configs/colorscheme
 # Assign windows to workspaces
 assign [app_id="librewolf"] workspace number 2
 assign [title="nvim"] workspace number 3
-assign [app_id="spotify"] workspace number 4
+assign [class="spotify"] workspace number 4
 assign [app_id="thunar"] workspace number 6
 assign [app_id="Thunderbird"] workspace number 7
 assign [class="steam"] workspace number 8
@@ -37,15 +37,15 @@ input "1739:0:Synaptics_TM3276-022" {
     middle_emulation enabled
 }
 
-seat * xcursor_theme Notwaita-Black 30
+# seat * xcursor_theme Notwaita-Black 30
 
 # Property Name          Border        BG            Text       Indicator   Child Border
-client.focused           $green        $green        $bg-color  $yellow     $blue
+# client.focused           $green        $green        $bg-color  $yellow     $blue
 client.focused_inactive  $dark-purple  $dark-purple  $fg-color  $bg-color   $bg-color
-client.unfocused         $dark-blue    $bg-color     $fg-color  $bg-color   $bg-color
-client.urgent            $red          $red          $bg-color  $red        $red
-client.placeholder       $bg-color     $bg-color     $fg-color  $bg-color   $bg-color
-client.background        $fg-color
+# client.unfocused         $dark-blue    $bg-color     $fg-color  $bg-color   $bg-color
+# client.urgent            $red          $red          $bg-color  $red        $red
+# client.placeholder       $bg-color     $bg-color     $fg-color  $bg-color   $bg-color
+# client.background        $fg-color
 
 # Font
-font pango:Terminess Nerd Font Mono 10
+font pango:Terminess Nerd Font Mono 11
