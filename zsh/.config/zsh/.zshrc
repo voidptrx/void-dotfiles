@@ -5,8 +5,11 @@ export DO_NOT_TRACK=1
 HISTFILE="$ZDOTDIR/.zhistory"
 HISTSIZE=10000
 SAVEHIST=10000
+setopt APPEND_HISTORY
 setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_SPACE
+setopt HIST_EXPIRE_DUPS_FIRST
+setopt HIST_FIND_NO_DUPS
 setopt SHARE_HISTORY
 
 # ── Completion ────────────────────────────────────────────────
@@ -35,9 +38,10 @@ bindkey -M viins '^P' paste-clipboard
 bindkey -M vicmd 'p' paste-clipboard
 
 # ── Environment ───────────────────────────────────────────────
-export EDITOR='nvim'
-export SUDO_EDITOR='nvim'
-export MANPAGER='nvim +Man!'
+export EDITOR="nvim"
+export VISUAL="nvim"
+export SUDO_EDITOR="nvim"
+export MANPAGER="nvim +Man!"
 
 # ── Aliases ───────────────────────────────────────────────────
 alias ls='ls --color=auto'
