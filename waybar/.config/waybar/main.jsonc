@@ -19,7 +19,7 @@
     "format": "<span font-size='large'></span>",
     "tooltip": false,
     "menu": "on-click",
-    "menu-file": "$HOME/.config/waybar/default/power_menu.xml",
+    "menu-file": "$HOME/.config/waybar/power_menu.xml",
     "menu-actions": {
       "shutdown": "loginctl poweroff",
       "reboot": "loginctl reboot",

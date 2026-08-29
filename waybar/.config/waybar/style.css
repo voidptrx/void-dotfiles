@@ -65,15 +65,14 @@ padding: 0px 10px 0px 10px;
   padding-right: 10px;
 }
 
- 
 #mpris {
   margin: 0px 5px;
 }
 
 #upower {
+  color: #dfdfdf;
   margin-right: 10px;
 }
-
 
 #pulseaudio.speaker,
 #pulseaudio.speaker.muted,
@@ -84,6 +83,7 @@ padding: 0px 10px 0px 10px;
 
 #pulseaudio.speaker {
   font-size: 13px;
+  color: #dfdfdf;
 }
 
 #pulseaudio.mic {
@@ -98,7 +98,7 @@ padding: 0px 10px 0px 10px;
 }
 
 #pulseaudio.mic.source-muted {
-  color: @fg-color;
+  color: #dfdfdf;
   font-size: 13px;
 }
 
