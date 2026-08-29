@@ -7,7 +7,7 @@
     "height": 16,
   },
   "display": {
-    "separator": " >> ",
+    "separator": " :: ",
     "color": {
       "keys": "38;5;242",
     },
@@ -16,7 +16,7 @@
     "break",
     {
       "type": "custom",
-      "format": " [ RCM_UNIT_SCAN :: SEQUENCE_START ] ",
+      "format": "─ [ SYSTEM_SCAN::SEQUENCE_START ] ─",
       "color": "34",
     },
     "break",
@@ -24,16 +24,19 @@
       "type": "host",
       "key": " MACHINE ",
       "format": "{family}",
+      "keyColor": "32",
     },
     {
       "type": "cpu",
       "key": " COMPUTE ",
       "format": "{name}",
+      "keyColor": "32",
     },
     {
       "type": "gpu",
       "key": " GRAPHIC ",
       "format": "{vendor} {name}",
+      "keyColor": "32",
     },
     "break",
     {
@@ -69,7 +72,7 @@
     "break",
     {
       "type": "custom",
-      "format": " ─ [ SYSTEM_STATUS :: NOMINAL ] ─ ",
+      "format": "─ [ SYSTEM_STATUS::NOMINAL ] ─",
       "color": "32",
     },
   ],
