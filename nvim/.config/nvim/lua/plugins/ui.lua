@@ -30,22 +30,22 @@ return {
 			words = { enabled = true },
 			dashboard = {
 				preset = {
-					header = [[
-╔╦═══════════════════════════════════════════════════╦╗
- ║║        >_ REVACHOL CENTRAL MAINFRAME _<         ║║
-║║   >_ RCM TERMINAL // PRECINCT 41 // UNIT 57 _<   ║║
- ╠╬═══════════════════════════════════════════════════╬╣
- ║║              THE WORLD IS ENDING.               ║║
- ║║                 FUCK THE WORLD                    ║║
- ║║               SUNRISE, PARABELLUM                 ║║
- ╠╬═══════════════════════════════════════════════════╬╣
-  ║║   [HOST: ThinkPad T480] [OS: Void Linux]           ║║
- ║║   [STATUS: DISCO ETERNAL]                        ║║
-  ║║  [PALE ENCROACHMENT: █████░░░░░ 50%]             ║║
-  ║║  [RCM UPLINK: OFFLINE]                          ║║
-  ║║  [USER: HARRIER // BADGE: LOST]                  ║║
- ╚╩═══════════════════════════════════════════════════╝
-]],
+-- 					header = [[
+-- ╔╦═══════════════════════════════════════════════════╦╗
+--  ║║        >_ REVACHOL CENTRAL MAINFRAME _<         ║║
+-- ║║   >_ RCM TERMINAL // PRECINCT 41 // UNIT 57 _<   ║║
+--  ╠╬═══════════════════════════════════════════════════╬╣
+--  ║║              THE WORLD IS ENDING.               ║║
+--  ║║                 FUCK THE WORLD                    ║║
+--  ║║               SUNRISE, PARABELLUM                 ║║
+--  ╠╬═══════════════════════════════════════════════════╬╣
+--   ║║   [HOST: ThinkPad T480] [OS: Void Linux]           ║║
+--  ║║   [STATUS: DISCO ETERNAL]                        ║║
+--   ║║  [PALE ENCROACHMENT: █████░░░░░ 50%]             ║║
+--   ║║  [RCM UPLINK: OFFLINE]                          ║║
+--   ║║  [USER: HARRIER // BADGE: LOST]                  ║║
+--  ╚╩═══════════════════════════════════════════════════╝
+-- ]],
           -- stylua: ignore
           keys = {
             { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
@@ -186,20 +186,22 @@ return {
 				diagnostics = { Error = "X", Warn = "!", Hint = "?", Info = "i" },
 			}
 
+			-- kanagawa-dragon palette
+			local bg = "#000000"
 			local black_theme = {
 				normal = {
-					a = { bg = "#000000", gui = "bold" },
-					b = { bg = "#000000" },
-					c = { bg = "#000000" },
+					a = { fg = "#c5c9c5", bg = bg, gui = "bold" }, -- dragonWhite
+					b = { bg = bg },
+					c = { bg = bg },
 				},
-				insert = { a = { fg = "#76946a", bg = "#000000", gui = "bold" } },
-				visual = { a = { fg = "#957fb8", bg = "#000000", gui = "bold" } },
-				replace = { a = { fg = "#c0a36e", bg = "#000000", gui = "bold" } },
-				command = { a = { fg = "#c34043", bg = "#000000", gui = "bold" } },
+				insert = { a = { fg = "#76946a", bg = bg, gui = "bold" } },
+				visual = { a = { fg = "#957fb8", bg = bg, gui = "bold" } },
+				replace = { a = { fg = "#c0a36e", bg = bg, gui = "bold" } },
+				command = { a = { fg = "#c34043", bg = bg, gui = "bold" } },
 				inactive = {
-					a = { bg = "#000000" },
-					b = { bg = "#000000" },
-					c = { bg = "#000000" },
+					a = { bg = bg },
+					b = { bg = bg },
+					c = { bg = bg },
 				},
 			}
 
@@ -227,7 +229,6 @@ return {
 						{
 							"filename",
 							file_status = true,
-							path = 4,
 							icon_only = true,
 							padding = { left = 1, right = 0 },
 						},
@@ -258,12 +259,14 @@ return {
 					lualine_y = {
 						{
 							function()
-								local msg = "No Active Lsp"
 								local clients = vim.lsp.get_clients({ bufnr = 0 })
 								if not clients or #clients == 0 then
-									return " " .. msg
+									return " No Active Lsp"
 								end
-								return " " .. clients[1].name
+								local names = vim.tbl_map(function(c)
+									return c.name
+								end, clients)
+								return " " .. table.concat(names, ", ")
 							end,
 						},
 					},
