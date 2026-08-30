@@ -108,7 +108,7 @@
     "format-muted": "<span font-size='x-large'>󰖁</span>",
     "format-icons": {
       "headphone": "󰋋",
-      "default": ["󰕿", "󰖀", "󱄠", "󰕾"],
+      "default": ["", "", ""],
     },
     "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
     "on-click-middle": "pactl --format=json list sinks short | jq -cM --unbuffered \"[.[].name] | .[((index(\\\"$(pactl get-default-sink)\\\")+1)%length)]\" | xargs pactl set-default-sink",
@@ -117,7 +117,7 @@
   },
   "pulseaudio#mic": {
     "format": "<span font-size='x-large'>{format_source}</span>",
-    "format-source": "󰍬",
+    "format-source": " ",
     "format-source-muted": "󰍭",
     "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle",
     "on-click-middle": "$TERMINAL -e pulsemixer",
