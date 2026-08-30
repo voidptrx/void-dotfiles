@@ -47,7 +47,7 @@ return {
 		"neovim/nvim-lspconfig",
 		dependencies = {
 			{
-        "mason-org/mason.nvim",
+				"mason-org/mason.nvim",
 				opts = {
 					ui = {
 						icons = {
@@ -125,6 +125,7 @@ return {
 
 			require("mason-tool-installer").setup({
 				ensure_installed = {
+					"marksman",
 					"lua-language-server",
 					"typescript-language-server",
 					"stylua",
