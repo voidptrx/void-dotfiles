@@ -48,6 +48,8 @@ alias ls='ls --color=auto'
 alias lsd='lsd -AFlgh --header'
 alias bigtime='bigtime --file simple -sdfi -F 2'
 alias rusty-rain='rusty-rain -g jap -s'
+alias searxng-up='docker compose --project-directory $HOME/searxng up -d'
+alias searxng-down='docker compose --project-directory $HOME/searxng down'
 
 # ── Functions ─────────────────────────────────────────────────
 timer() {
@@ -175,6 +177,6 @@ built_prompt() {
 
 # ── Autostart ────────────────────────────────────────────────
 fastfetch
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
