@@ -49,12 +49,8 @@
     "dynamic-order": ["title", "artist"],
     "dynamic-len": 50,
     "dynamic-separator": " // ",
-    "format": "[ {player_icon} {dynamic} ]",
-    "format-paused": " [ {status_icon} SYSTEM_STATUS::PAUSED ] ",
-    "player-icons": { "default": "󰐊" },
-    "status-icons": { "paused": "󰏤" },
-    // "artist-len": 40,
-    // "title-len": 40,
+    "format": "[ {dynamic} ]",
+    "format-paused": " [ SYSTEM_STATUS::PAUSED ] ",
     "ignored-players": ["firefox", "kdeconnect"],
   },
   //---------------
@@ -127,7 +123,7 @@
   "upower": {
     "format": "",
     "format-alt": "{percentage} {time}",
-    "icon-size": 15,
+    "icon-size": 18,
     "hide-if-empty": true,
     "tooltip": true,
     "tooltip-format": "{percentage}",
