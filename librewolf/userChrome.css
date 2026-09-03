@@ -3,16 +3,18 @@
 *::after {
   border-radius: 0 !important;
   font-family:
-    "Terminess Nerd Font Propo", "Noto Sans CJK JP SemiBold" !important;
-  /* font-weight: bold; */
+    "Terminess Nerd Font Mono", "Noto Sans CJK JP SemiBold" !important;
   font-size: 16px;
   color: #dcd7ba !important;
 }
+
 :root {
   --kanagawa-bone: #dcd7ba;
   --kanagawa-green: #76946a;
   --bg-black: #000000;
   --bg-dark-grey: #1a1a1a;
+  --window-controls-width: 83px;
+
   --toolbar-bgcolor: var(--bg-black) !important;
   --lwt-accent-color: var(--bg-black) !important;
   --tabpanel-background-color: var(--bg-black) !important;
@@ -25,73 +27,41 @@
   --toolbar-field-focus-border-color: var(--kanagawa-green) !important;
   --toolbar-field-background-color: var(--bg-black) !important;
 }
-#main-window[sizemode="maximized"] #titlebar {
-  height: calc(var(--tab-min-height) - 10px);
-}
-#main-window[sizemode="fullscreen"] {
-  height: 100vh !important;
-}
-#main-window {
-  height: calc(100% - var(--tab-min-height)) !important;
+
+/* Toolbox / toolbar backgrounds */
+#main-window,
+#navigator-toolbox,
+#nav-bar,
+#toolbar-menubar,
+#TabsToolbar {
   background-color: var(--bg-black) !important;
-  margin-bottom: calc(10px - var(--tab-min-height));
-}
-#main-window[sizemode="maximized"] #titlebar {
-  margin-bottom: calc(-16px - var(--tab-min-height));
-}
-#main-window #titlebar {
-  margin-bottom: calc(2px - var(--tab-min-height));
 }
 #navigator-toolbox {
-  display: block;
-  width: 100vw;
+  border: none !important;
 }
-#main-window[sizemode="fullscreen"] #nav-bar {
-  display: none;
+#nav-bar {
+  --toolbar-start-end-padding: 5px !important;
+  border: none !important;
 }
-#main-window[sizemode="normal"] #toolbar-menubar[autohide="true"] {
-  height: calc(var(--tab-min-height) + var(--space-above-tabbar)) !important;
-}
-#TabsToolbar {
-  display: grid;
-  position: fixed;
-  width: 100%;
-  bottom: 0;
-  grid-template-columns: repeat(3, auto);
-  background-color: var(--bg-black) !important;
-}
-#TabsToolbar .titlebar-spacer {
-  display: none;
-}
-#TabsToolbar .toolbar-items {
-  grid-column: 1 / 100;
-}
-#tabbrowser-tabs .tabbrowser-tab[selected="true"] .tab-background {
+
+/* Tabs */
+#tabbrowser-tabs .tabbrowser-tab[selected] .tab-background {
   border: 1px solid var(--kanagawa-green) !important;
   background-color: var(--bg-black) !important;
 }
-.tabbrowser-tab[selected="true"] .tab-label {
+.tabbrowser-tab[selected] .tab-label {
   color: var(--kanagawa-green) !important;
 }
-#main-window[privatebrowsingmode="temporary"] #TabsToolbar .toolbar-items {
-  margin-bottom: -25px;
-}
-.private-browsing-indicator {
-  grid-column: 99;
-}
-#TabsToolbar #window-controls,
-#TabsToolbar .titlebar-buttonbox-container {
-  grid-column: 100;
-}
-#main-window[sizemode="normal"]
-  #titlebar
-  #toolbar-menubar
-  .titlebar-buttonbox-container[skipintoolbarset="true"] {
+.tabbrowser-tab:not(:hover) .tab-close-button {
   display: none;
 }
-#main-window {
-  height: calc(100% - calc(var(--tab-min-height) + 8px)) !important;
+
+/* URL bar text'i ortala */
+#urlbar-input {
+  text-align: center !important;
 }
+
+/* URL bar dropdown */
 .urlbarView,
 .urlbarView-body-inner,
 .urlbarView-results,
@@ -107,8 +77,8 @@
   color: var(--kanagawa-bone) !important;
 }
 .urlbarView {
-  border: 1px solid var(--kanagawa-green) !important;
-  border-top: none !important;
+  /* border: 1px solid var(--kanagawa-green) !important; */
+  /* border-top: none !important; */
 }
 .urlbarView-row:hover > .urlbarView-row-inner,
 .urlbarView-row[selected] > .urlbarView-row-inner {
@@ -118,4 +88,41 @@
 #urlbar-results *,
 .urlbarView * {
   background-color: var(--bg-black) !important;
+}
+
+/* Move tab bar to the bottom */
+:root:not([inDOMFullscreen]) #browser,
+:root:not([inDOMFullscreen]) #customization-container {
+  margin-bottom: calc(var(--tab-min-height) + var(--tab-margin-block) * 2);
+}
+#TabsToolbar {
+  margin-bottom: calc(-1 * var(--tab-min-height) - var(--tab-margin-block) * 2);
+  transform: translateY(calc(100vh - var(--tab-min-height) - var(--tab-margin-block) * 2));
+}
+#TabsToolbar .titlebar-spacer {
+  width: 3px !important;
+}
+
+/* Titlebar / window controls */
+.browser-titlebar {
+  opacity: 1 !important;
+}
+#nav-bar-customization-target,
+#TabsToolbar-customization-target,
+#PanelUI-button,
+.urlbar-input-container {
+  :root[tabsintitlebar] & {
+    &:-moz-window-inactive {
+      opacity: var(--inactive-titlebar-opacity);
+    }
+  }
+}
+/* Back butonu solundaki CSD offset kaldırıldı, default'a dönüldü */
+:root:not([inFullscreen]) #nav-bar-customization-target {
+  margin-left: 0 !important;
+}
+.titlebar-buttonbox-container {
+  transform: translateY(calc(-100vh + var(--tab-min-height) + var(--tab-margin-block) + 2px));
+  width: var(--window-controls-width);
+  margin-right: calc(-1 * var(--window-controls-width));
 }
