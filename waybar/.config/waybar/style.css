@@ -125,7 +125,5 @@ padding: 0px 10px 0px 10px;
 
 #workspaces button.focused {
   font-weight: bold;
-  padding-top: 2px;
   color: @blue;
-  border-bottom: 2px solid @blue;
 }
