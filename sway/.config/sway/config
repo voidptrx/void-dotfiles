@@ -13,7 +13,7 @@ exec gammastep-indicator
 exec nm-applet
 exec foot --server
 exec playerctld daemon
-exec dunst
+exec fnott
 exec autotiling
 exec swayosd-server
 exec kdeconnectd

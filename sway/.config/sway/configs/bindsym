@@ -35,10 +35,10 @@
     bindsym $mod+less gaps inner current set 10
 
     # Toggle lock screen
-    bindsym $mod+Shift+x exec playerctl pause | exec $HOME/.config/sway/scripts/swaylock-corrupter.sh
+    bindsym $mod+Shift+x exec playerctl pause | exec $HOME/.config/sway/scripts/swaylock-corrupter
 
     # Exec powermenu
-    bindsym $mod+Shift+m exec nwg-bar -p 'left' -ml 10
+    bindsym $mod+Shift+m exec $HOME/.config/waybar/power_menu
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+m exec swaynag -t warning \
@@ -153,44 +153,21 @@ bindsym $mod+Shift+r mode "resize"
 #
 # Utils
 #
-    # PulseAudio controls
-    # bindsym XF86AudioMute exec pactl set-sink-mute @DEFAULT_SINK@ toggle
-    # bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5% 
-    # bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5% 
-    # bindsym XF86AudioMicMute exec pactl set-source-mute @DEFAULT_SOURCE@ toggle 
+    # PulseAudio + fnott OSD
+    bindsym XF86AudioRaiseVolume exec $HOME/.config/sway/scripts/volume-notify +5%
+    bindsym XF86AudioLowerVolume exec $HOME/.config/sway/scripts/volume-notify -5%
+    bindsym XF86AudioMute exec $HOME/.config/sway/scripts/volume-notify mute-toggle
+    bindsym XF86AudioMicMute exec $HOME/.config/sway/scripts/mic-notify
 
-    # Sink volume raise optionally with --device
-    bindsym XF86AudioRaiseVolume exec swayosd-client --output-volume 5 
-    # Sink volume lower optionally with --device
-    bindsym XF86AudioLowerVolume exec  swayosd-client --output-volume -5
-    # Sink volume toggle mute
-    bindsym XF86AudioMute exec swayosd-client --output-volume mute-toggle
-    # Source volume toggle mute
-    bindsym XF86AudioMicMute exec swayosd-client --input-volume mute-toggle
+    bindsym XF86MonBrightnessUp exec $HOME/.config/sway/scripts/brightness-notify raise
+    bindsym XF86MonBrightnessDown exec $HOME/.config/sway/scripts/brightness-notify lower
+
+    bindsym --release Caps_Lock exec $HOME/.config/sway/scripts/capslock-notify
 
     # Media controls
-    # bindsym XF86AudioPlay exec playerctl play-pause
-    # bindsym XF86AudioNext exec playerctl next
-    # bindsym XF86AudioPrev exec playerctl previous
-
-    # Play/Pause current player
-    bindsym XF86AudioPlay exec swayosd-client --playerctl play-pause
-    # Next song for current player
-    bindsym XF86AudioNext exec swayosd-client --playerctl next
-    # Previous song for current player
-    bindsym XF86AudioPrev exec swayosd-client --playerctl previous
-
-    # brightnessctl control
-    # bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
-    # bindsym XF86MonBrightnessUp exec brightnessctl set 5%+ 
-
-    # Brightness raise
-    bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
-    # Brightness lower
-    bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
-
-    # Capslock (If you don't want to use the backend)
-    bindsym --release Caps_Lock exec swayosd-client --caps-lock
+    bindsym XF86AudioPlay exec playerctl play-pause
+    bindsym XF86AudioNext exec playerctl next
+    bindsym XF86AudioPrev exec playerctl previous
 
     # Take screenshot
     bindsym $mod+Shift+p exec swayshot display
