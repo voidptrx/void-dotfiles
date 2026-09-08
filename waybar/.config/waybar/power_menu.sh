@@ -1,19 +1,46 @@
 #!/usr/bin/env bash
 
+set -euo pipefail
+
+readonly LOCK_SCRIPT="$HOME/.config/sway/scripts/swaylock-corrupter"
+
 options=(
-    "LOCK"
-    "LOGOUT"
-    "RESTART"
-    "POWER OFF"
+  "suspend"
+  "lock"
+  "logout"
+  "reboot"
+  "power off"
 )
 
-chosen=$(printf '%s\n' "${options[@]}" | fuzzel --dmenu --anchor=top-left --hide-prompt --lines=4 --width=12)
+lock_screen() {
+  playerctl pause 2>/dev/null || true
+  "$LOCK_SCRIPT"
+}
 
-# Perform the action based on user choice
+chosen=$(printf '%s\n' "${options[@]}" |
+  fuzzel --dmenu --anchor=top-left --hide-prompt \
+    --lines="${#options[@]}" --width=11) || exit 0
+
+[[ -z "$chosen" ]] && exit 0
+
 case "$chosen" in
-    "LOCK") playerctl pause | $HOME/.config/sway/scripts/swaylock-corrupter.sh ;;
-    "LOGOUT") swaymsg exit ;;
-    "REBOOT") loginctl reboot ;;
-    "POWER OFF") loginctl poweroff ;;
-    *) exit 1 ;;
+"suspend")
+  loginctl suspend
+  lock_screen
+  ;;
+"lock")
+  lock_screen
+  ;;
+"logout")
+  swaymsg exit
+  ;;
+"reboot")
+  loginctl reboot
+  ;;
+"power off")
+  loginctl poweroff
+  ;;
+*)
+  exit 1
+  ;;
 esac
