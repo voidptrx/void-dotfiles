@@ -1,16 +1,16 @@
 ignore-empty-password
 
-font=JetBrainsMono NFP
+font=Terminess Nerd Font Mono
 
 # Text Colors
 text-color=dcd7ba
-text-clear-color=16161d
+text-clear-color=000000
 text-caps-lock-color=c34043
-text-ver-color=16161d
-text-wrong-color=16161d
+text-ver-color=000000
+text-wrong-color=000000
 
 # Ring (indicator border)
-ring-color=16161d
+ring-color=000000
 ring-ver-color=76946a
 ring-clear-color=957fb8
 ring-wrong-color=c34043
@@ -19,4 +19,4 @@ ring-wrong-color=c34043
 key-hl-color=7e9cd8
 bs-hl-color=c0a36e
 separator-color=7e9cd8
-line-color=16161d
+line-color=000000
