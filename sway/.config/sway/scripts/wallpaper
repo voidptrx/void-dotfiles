@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 # Directory containing wallpapers
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"

@@ -17,8 +17,9 @@ exec fnott
 exec autotiling
 exec swayosd-server
 exec kdeconnectd
+exec kdeconnect-indicator
 exec wl-paste --watch cliphist store
 
 exec --no-startup-id mpv $HOME/.config/sway/audio/pc_startup.ogg 2>/dev/null
-exec sleep 5 && $HOME/.config/sway/scripts/wallpaper.sh
-exec $HOME/.config/sway/scripts/brightness.sh
+exec sleep 5 && $HOME/.config/sway/scripts/wallpaper
+exec $HOME/.config/sway/scripts/brightness
