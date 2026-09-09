@@ -12,7 +12,7 @@ window#osd {
   border: 2px solid @kngw-green;
   background: @kngw-bg-color;
   font-size: 11px;
-  font-family: JetBrainsMono NFM;
+  font-family: Terminess Nerd Font Mono;
 }
 window#osd #container {
   margin: 16px;
