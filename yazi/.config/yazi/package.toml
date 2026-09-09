@@ -30,8 +30,8 @@ hash = "869884767c2ef592bfb7f5764f8fcae3"
 
 [[plugin.deps]]
 use = "boydaihungst/mediainfo"
-rev = "d2dd310"
-hash = "565d2abf5c125be930ac342099bffd4c"
+rev = "f1cec0b"
+hash = "ba582ccda4ebc7c70bfe9a1496589b80"
 
 [[flavor.deps]]
 use = "dangooddd/kanagawa"
