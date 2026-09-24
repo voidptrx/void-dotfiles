@@ -10,11 +10,15 @@ dotfiles are the files that starts with a `.` (dot). This files are generally re
 | Text Editor         |        [nvim](https://github.com/neovim/neovim)         |
 | Shell               |           [zsh](https://zsh.sourceforge.io/)            |
 | App Launcher        |       [fuzzel](https://codeberg.org/dnkl/fuzzel)        |
-| File Manager        |         [yazi](https://github.com/sxyazi/yazi)          |
-| Notification Deamon |     [dunst](https://github.com/dunst-project/dunst)     |
+| File Manager        |         [elio](https://github.com/elio-fm/elio)         |
+| Notification Daemon |        [fnott](https://codeberg.org/dnkl/fnott)         |
 | Screen Locker       |       [swaylock](https://github.com/swaywm/sway)        |
 | System Info Tool    | [fastfetch](https://github.com/fastfetch-cli/fastfetch) |
 | Resource Monitor    |      [btop](https://github.com/aristocratos/btop)       |
+| On-Screen Display   |    [swayosd](https://github.com/ErikReider/SwayOSD)     |
+| Output Autoconfig   |        [kanshi](https://sr.ht/~emersion/kanshi/)        |
+| Night Light         |   [gammastep](https://gitlab.com/chinstrap/gammastep)   |
+| Web Browser         |           [librewolf](https://librewolf.net/)           |
 
 ## 🛠️ Installation & Management
 
