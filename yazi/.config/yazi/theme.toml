@@ -1,5 +1,0 @@
-[flavor]
-dark = "kanagawa-dragon"
-
-[indicator]
-padding = { open = "█", close = "█" }
