@@ -5,6 +5,13 @@ local icons = {
 	Info = "I:",
 }
 
+local prefixes = {
+	[vim.diagnostic.severity.ERROR] = "[E]",
+	[vim.diagnostic.severity.WARN] = "[W]",
+	[vim.diagnostic.severity.HINT] = "[H]",
+	[vim.diagnostic.severity.INFO] = "[I]",
+}
+
 vim.diagnostic.config({
 	signs = {
 		text = {
@@ -20,26 +27,18 @@ vim.diagnostic.config({
 	},
 	update_in_insert = false,
 	severity_sort = true,
-	float = {
-		border = "single",
-		source = "if_many",
-		format = function(diag)
-			if diag.source then
-				return string.format("[%s] %s", diag.source, diag.message)
-			end
-			return diag.message
-		end,
-	},
+	float = { border = "single", max_width = 80, wrap = true, source = "if_many" },
 	underline = { severity = { min = vim.diagnostic.severity.WARN } },
 	virtual_text = {
-		prefix = "[X]",
-	},
-	virtual_lines = false,
-	jump = {
-		on_jump = function()
-			vim.diagnostic.open_float()
+		spacing = 1,
+		prefix = function(diagnostic)
+			return prefixes[diagnostic.severity]
+		end,
+		format = function()
+			return ""
 		end,
 	},
+	virtual_lines = false, --{ current_line = true },
 })
 
 return {

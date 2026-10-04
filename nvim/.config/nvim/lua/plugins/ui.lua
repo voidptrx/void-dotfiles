@@ -15,7 +15,7 @@ return {
 				enabled = true,
 				sources = {
 					explorer = {
-						title = ">REVACHOL CENTRAL MAINFRAME<",
+						title = "< search >",
 						layout = {
 							preset = "sidebar",
 						},

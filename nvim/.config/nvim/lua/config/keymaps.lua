@@ -1,7 +1,7 @@
 local map = vim.keymap
 
 --------------------------------------------------------------------------------
--- ◢◤ CORE NAVIGATION & MOVEMENT ◢◤
+-- CORE NAVIGATION & MOVEMENT
 --------------------------------------------------------------------------------
 map.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
 map.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
@@ -13,7 +13,7 @@ map.set("n", "<up>", '<cmd>echo "[USE K!!]"<CR>')
 map.set("n", "<down>", '<cmd>echo "[USE J!!]"<CR>')
 
 --------------------------------------------------------------------------------
--- ◢◤ WINDOW & BUFFER MANAGEMENT ◢◤
+-- WINDOW & BUFFER MANAGEMENT
 --------------------------------------------------------------------------------
 map.set("n", "<C-h>", "<C-w>h", { desc = "Go to Left Window" })
 map.set("n", "<C-j>", "<C-w>j", { desc = "Go to Lower Window" })
@@ -34,7 +34,7 @@ map.set("n", "<leader>bo", function()
 end, { desc = "Delete Other Buffers" })
 
 --------------------------------------------------------------------------------
--- ◢◤ EDITING & LINE MANIPULATION ◢◤
+-- EDITING & LINE MANIPULATION
 --------------------------------------------------------------------------------
 map.set("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move Down" })
 map.set("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move Up" })
@@ -57,13 +57,15 @@ map.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Commen
 map.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Comment Above" })
 
 --------------------------------------------------------------------------------
--- ◢◤ SYSTEM & UTILS ◢◤
+-- SYSTEM & UTILS
 --------------------------------------------------------------------------------
 map.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File" })
 map.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
-
+map.set("n", "<leader>uC", function()
+	Snacks.picker.colorschemes()
+end)
 --------------------------------------------------------------------------------
--- ◢◤ DIAGNOSTIC NAVIGATION (STABILITY MONITOR) ◢◤
+-- DIAGNOSTIC NAVIGATION (STABILITY MONITOR)
 --------------------------------------------------------------------------------
 map.set("n", "]d", function()
 	vim.diagnostic.jump({ count = 1, float = true })
@@ -79,3 +81,7 @@ map.set("n", "[e", function()
 end, { desc = "Prev Error" })
 map.set("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line Diagnostics (Manual)" })
 map.set("n", "<leader>xd", vim.diagnostic.setqflist, { desc = "Diagnostic List (Quickfix)" })
+map.set("n", "<leader>dl", function()
+	local on = vim.diagnostic.config().virtual_lines
+	vim.diagnostic.config({ virtual_lines = not on and { current_line = true } or false })
+end, { desc = "Toggle virtual_lines" })

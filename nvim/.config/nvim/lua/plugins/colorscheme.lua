@@ -26,17 +26,39 @@ return {
 					}
 				end,
 			})
-			vim.cmd.colorscheme("kanagawa-dragon")
+			-- vim.cmd.colorscheme("kanagawa-dragon")
 		end,
 	},
 	{
 		"danhat1020/silence.nvim",
+		priority = 1000,
 		config = function()
 			require("silence").setup({
-				transparent = false,
+				transparent = true,
 				bold = true,
+				darker_comments = true,
 			})
-			-- vim.cmd("colorscheme silence")
+
+			local function fix_tabline()
+				local function get(name)
+					return vim.api.nvim_get_hl(0, { name = name, link = false })
+				end
+				local normal = get("Normal")
+				local comment = get("Comment")
+				local set = vim.api.nvim_set_hl
+
+				set(0, "TabLineFill", { bg = "NONE" })
+				set(0, "TabLine", { fg = comment.fg, bg = "NONE" })
+				set(0, "TabLineSel", { fg = comment.fg, bg = "NONE", bold = true })
+			end
+
+			vim.api.nvim_create_autocmd("ColorScheme", {
+				pattern = "silence",
+				callback = fix_tabline,
+			})
+
+			vim.cmd.colorscheme("silence")
+			fix_tabline()
 		end,
 	},
 }
