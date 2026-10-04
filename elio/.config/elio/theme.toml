@@ -85,3 +85,130 @@ color = "ansi-green"
 
 [classes.file]
 color = "ansi-white"
+
+[extensions.srt]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[extensions.vtt]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[extensions.ass]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[extensions.ssa]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[extensions.ttml]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[extensions.sbv]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[extensions.smi]
+class = "document"
+icon = "󰨖"
+color = "ansi-magenta"
+
+[directories."node_modules"]
+icon = "󰏗"
+color = "ansi-blue"
+
+[directories."tests"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."test"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."__tests__"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."scripts"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."build"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."dist"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories.".next"]
+icon = ""
+color = "ansi-blue"
+
+[directories.".nuxt"]
+icon = "󱄆"
+color = "ansi-blue"
+
+[directories.".svelte-kit"]
+icon = ""
+color = "ansi-blue"
+
+[directories.".astro"]
+icon = ""
+color = "ansi-blue"
+
+[directories."assets"]
+icon = "󰉏"
+color = "ansi-blue"
+
+[directories."coverage"]
+icon = "󰙨"
+color = "ansi-blue"
+
+[directories."tmp"]
+icon = "󰪺"
+color = "ansi-blue"
+
+[directories."temp"]
+icon = "󰪺"
+color = "ansi-blue"
+
+[directories."out"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."target"]
+icon = "󱧽"
+color = "ansi-blue"
+
+[directories."bin"]
+icon = "󱁿"
+color = "ansi-blue"
+
+[directories."lib"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."vendor"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."src"]
+icon = "󰉋"
+color = "ansi-blue"
+
+[directories."config"]
+icon = "󱁿"
+color = "ansi-blue"
+
+[directories."docs"]
+icon = "󱧷"
+color = "ansi-blue"
