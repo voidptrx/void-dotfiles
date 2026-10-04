@@ -48,6 +48,7 @@ alias ls='ls --color=auto'
 alias lsd='lsd -AFlgh --header'
 alias bigtime='bigtime --file simple -sdfi -F 2'
 alias rusty-rain='rusty-rain -g jap -s'
+alias mcat='mcat -t kanagawa'
 alias searxng-up='docker compose --project-directory $HOME/searxng up -d'
 alias searxng-down='docker compose --project-directory $HOME/searxng down'
 
