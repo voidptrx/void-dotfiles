@@ -5,6 +5,6 @@ set $up k
 set $right l
 set $term footclient
 set $menu fuzzel
-set $browser librewolf
+set $browser $HOME/.local/share/appimages/librewolf.AppImage
 set $file_manager thunar
 set $editor nvim
