@@ -22,7 +22,7 @@
     "dynamic-len": 50,
     "dynamic-separator": " // ",
     "format": "[ {dynamic} ]",
-    "format-paused": " [ SYSTEM_STATUS::PAUSED ] ",
+    "format-paused": " [ system_status::paused ] ",
     "ignored-players": ["firefox", "kdeconnect"],
   },
   "clock": {
