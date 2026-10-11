@@ -15,7 +15,7 @@ return {
 				enabled = true,
 				sources = {
 					explorer = {
-						title = "< search >",
+						title = "[ search ]",
 						layout = {
 							preset = "sidebar",
 						},
@@ -190,7 +190,7 @@ return {
 			local bg = "#000000"
 			local black_theme = {
 				normal = {
-					a = { fg = "#c5c9c5", bg = bg, gui = "bold" }, -- dragonWhite
+					a = { fg = "#dcd7ba", bg = bg, gui = "bold" },
 					b = { bg = bg },
 					c = { bg = bg },
 				},
@@ -234,7 +234,7 @@ return {
 						},
 					},
 					lualine_c = {
-						{ "branch", color = { gui = "bold" } },
+						{ "branch", icon = { "" }, color = { gui = "bold" } },
 						{
 							"diff",
 							symbols = {

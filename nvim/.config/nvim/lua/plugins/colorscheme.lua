@@ -26,7 +26,7 @@ return {
 					}
 				end,
 			})
-			-- vim.cmd.colorscheme("kanagawa-dragon")
+			vim.cmd.colorscheme("kanagawa-dragon")
 		end,
 	},
 	{
@@ -57,8 +57,8 @@ return {
 				callback = fix_tabline,
 			})
 
-			vim.cmd.colorscheme("silence")
-			fix_tabline()
+			-- vim.cmd.colorscheme("silence")
+			-- fix_tabline()
 		end,
 	},
 }
