@@ -1,0 +1,174 @@
+#let horizontalrule = line(start: (25%,0%), end: (75%,0%))
+
+#show terms: it => {
+  it.children
+    .map(child => [
+      #strong[#child.term]
+      #block(inset: (left: 1.5em, top: -0.4em))[#child.description]
+      ])
+    .join()
+}
+
+#set table(
+  inset: 6pt,
+  stroke: none
+)
+
+#show figure.where(
+  kind: table
+): set figure.caption(position: $if(table-caption-position)$$table-caption-position$$else$top$endif$)
+
+#show figure.where(
+  kind: image
+): set figure.caption(position: $if(figure-caption-position)$$figure-caption-position$$else$bottom$endif$)
+
+$if(template)$
+#import "$template$": conf
+$else$
+$template.typst()$
+$endif$
+
+$if(smart)$
+$else$
+#set smartquote(enabled: false)
+
+$endif$
+// ============================================================
+//  Kanagawa accents — colors only, no layout / background changes.
+//  Hues are the dragon palette, nudged darker for contrast on white.
+//  Comment out any rule you don't want.
+// ============================================================
+#let kg = (
+  yellow: rgb("#77713f"),
+  blue: rgb("#4d699b"),
+  teal: rgb("#3f7a90"),
+  green: rgb("#6f894e"),
+  pink: rgb("#b35b79"),
+  orange: rgb("#b85c00"),
+  violet: rgb("#624c83"),
+  aqua: rgb("#597b75"),
+  red: rgb("#c84053"),
+  gray: rgb("#6d6d6a"),
+)
+
+// external links (internal refs / outline entries are left alone)
+#show link: it => if type(it.dest) == str { text(fill: kg.teal, it) } else { it }
+
+// `inline code`
+#show raw.where(block: false): set text(fill: kg.orange)
+
+// headings
+#show heading.where(level: 1): set text(fill: kg.yellow)
+#show heading.where(level: 2): set text(fill: kg.teal)
+#show heading.where(level: 3): set text(fill: kg.green)
+#show heading.where(level: 4): set text(fill: kg.pink)
+
+// blockquotes, captions, footnote markers
+#show quote: set text(fill: kg.gray)
+#show figure.caption: set text(fill: kg.gray)
+#show footnote: set text(fill: kg.orange)
+
+// list markers (same glyphs as typst defaults, just colored)
+#set list(marker: (text(fill: kg.orange)[•], text(fill: kg.aqua)[‣], text(fill: kg.pink)[–]))
+#set enum(numbering: n => text(fill: kg.orange)[#n.])
+
+// table header row
+#show table.header: set text(fill: kg.yellow)
+
+// citations / bibliography references
+#show cite: set text(fill: kg.violet)
+
+// horizontal rule
+#let horizontalrule = line(start: (25%,0%), end: (75%,0%), stroke: 0.6pt + kg.red)
+
+$for(header-includes)$
+$header-includes$
+
+$endfor$
+#show: doc => conf(
+$if(title)$
+  title: [$title$],
+$endif$
+$if(subtitle)$
+  subtitle: [$subtitle$],
+$endif$
+$if(author)$
+  authors: (
+$for(author)$
+$if(author.name)$
+    ( name: [$author.name$],
+      affiliation: [$author.affiliation$],
+      email: [$author.email$] ),
+$else$
+    ( name: [$author$],
+      affiliation: "",
+      email: "" ),
+$endif$
+$endfor$
+    ),
+$endif$
+$if(keywords)$
+  keywords: ($for(keywords)$$keyword$$sep$,$endfor$),
+$endif$
+$if(date)$
+  date: [$date$],
+$endif$
+$if(lang)$
+  lang: "$lang$",
+$endif$
+$if(region)$
+  region: "$region$",
+$endif$
+$if(abstract)$
+  abstract: [$abstract$],
+$endif$
+$if(margin)$
+  margin: ($for(margin/pairs)$$margin.key$: $margin.value$,$endfor$),
+$endif$
+$if(papersize)$
+  paper: "$papersize$",
+$endif$
+$if(mainfont)$
+  font: ("$mainfont$",),
+$endif$
+$if(fontsize)$
+  fontsize: $fontsize$,
+$endif$
+$if(section-numbering)$
+  sectionnumbering: "$section-numbering$",
+$endif$
+  pagenumbering: $if(page-numbering)$"$page-numbering$"$else$none$endif$,
+  cols: $if(columns)$$columns$$else$1$endif$,
+  doc,
+)
+
+$for(include-before)$
+$include-before$
+
+$endfor$
+$if(toc)$
+#outline(
+  title: auto,
+  depth: $toc-depth$
+);
+$endif$
+
+$body$
+
+$if(citations)$
+$if(csl)$
+
+#set bibliography(style: "$csl$")
+$elseif(bibliographystyle)$
+
+#set bibliography(style: "$bibliographystyle$")
+$endif$
+$if(bibliography)$
+
+#bibliography($for(bibliography)$"$bibliography$"$sep$,$endfor$)
+$endif$
+$endif$
+$for(include-after)$
+
+$include-after$
+$endfor$
