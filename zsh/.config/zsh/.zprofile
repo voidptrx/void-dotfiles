@@ -23,8 +23,8 @@ export XDG_CURRENT_DESKTOP=sway
 
 # Fcitx5
 export XMODIFIERS="@im=fcitx"
-export QT_IM_MODULE="fcitx"
-export GTK_IM_MODULE="fcitx"
+# export QT_IM_MODULE="fcitx"
+# export GTK_IM_MODULE="fcitx"
 
 # XDG Base Dir
 export XDG_CONFIG_HOME="$HOME/.config"
