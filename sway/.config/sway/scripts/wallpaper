@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Directory containing wallpapers
 WALLPAPER_DIR="$HOME/Pictures/Wallpapers"
@@ -8,7 +8,7 @@ wallpapers=($WALLPAPER_DIR/*)
 
 while true; do
   # Select a random wallpaper from the list
-  random_wallpaper="${wallpapers[RANDOM%${#wallpapers[@]}]}"
+  random_wallpaper="${wallpapers[RANDOM % ${#wallpapers[@]}]}"
 
   # Set the wallpaper using swaymsg command
   swaymsg output "*" bg "$random_wallpaper" fit

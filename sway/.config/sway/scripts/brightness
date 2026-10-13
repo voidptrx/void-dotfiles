@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 STEP_DELAY=0.1
 STEP_SIZE=1
