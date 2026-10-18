@@ -1,128 +1,75 @@
+/* Square corners + current fonts */
 *,
 *::before,
 *::after {
   border-radius: 0 !important;
   font-family:
-    "Terminess Nerd Font Mono", "Noto Sans CJK JP SemiBold" !important;
+    "Terminess Nerd Font Mono",
+    "Noto Sans CJK JP SemiBold" !important;
   font-size: 16px;
-  color: #dcd7ba !important;
 }
 
 :root {
-  --kanagawa-bone: #dcd7ba;
-  --kanagawa-green: #76946a;
-  --bg-black: #000000;
-  --bg-dark-grey: #1a1a1a;
-  --window-controls-width: 83px;
+  /* Kanagawa */
+  --kg-bg: #000000;
+  --kg-surface: #1f1f28;
+  --kg-fg: #dcd7ba;
+  --kg-green: #76946a;
 
-  --toolbar-bgcolor: var(--bg-black) !important;
-  --lwt-accent-color: var(--bg-black) !important;
-  --tabpanel-background-color: var(--bg-black) !important;
-  --arrowpanel-background: var(--bg-black) !important;
-  --arrowpanel-border-color: var(--kanagawa-green) !important;
-  --lwt-toolbar-field-background-color: var(--bg-black) !important;
-  --lwt-toolbar-field-color: var(--kanagawa-bone) !important;
-  --toolbarbutton-icon-fill: var(--kanagawa-bone) !important;
-  --lwt-toolbarbutton-icon-fill: var(--kanagawa-bone) !important;
-  --toolbar-field-focus-border-color: var(--kanagawa-green) !important;
-  --toolbar-field-background-color: var(--bg-black) !important;
+  /* Main browser colors */
+  --lwt-accent-color: var(--kg-bg) !important;
+  --toolbar-bgcolor: var(--kg-bg) !important;
+  --toolbar-color: var(--kg-fg) !important;
+  --lwt-text-color: var(--kg-fg) !important;
+  --tabpanel-background-color: var(--kg-bg) !important;
+
+  /* Toolbar / urlbar */
+  --toolbar-field-background-color: var(--kg-bg) !important;
+  --toolbar-field-color: var(--kg-fg) !important;
+  --lwt-toolbar-field-background-color: var(--kg-bg) !important;
+  --lwt-toolbar-field-color: var(--kg-fg) !important;
+  --lwt-toolbar-field-focus-background-color: var(--kg-bg) !important;
+  --lwt-toolbar-field-focus-color: var(--kg-fg) !important;
+  --toolbar-field-focus-border-color: var(--kg-green) !important;
+
+  /* Panels / menus */
+  --arrowpanel-background: var(--kg-bg) !important;
+  --arrowpanel-color: var(--kg-fg) !important;
+  --arrowpanel-border-color: var(--kg-green) !important;
+
+  /* Icons */
+  --toolbarbutton-icon-fill: var(--kg-fg) !important;
+  --lwt-toolbarbutton-icon-fill: var(--kg-fg) !important;
 }
 
-/* Toolbox / toolbar backgrounds */
-#main-window,
+/* Toolbar backgrounds */
 #navigator-toolbox,
 #nav-bar,
 #toolbar-menubar,
 #TabsToolbar {
-  background-color: var(--bg-black) !important;
-}
-#navigator-toolbox {
-  border: none !important;
-}
-#nav-bar {
-  --toolbar-start-end-padding: 5px !important;
-  border: none !important;
+  background-color: var(--kg-bg) !important;
+  color: var(--kg-fg) !important;
 }
 
-/* Tabs */
-#tabbrowser-tabs .tabbrowser-tab[selected] .tab-background {
-  border: 1px solid var(--kanagawa-green) !important;
-  background-color: var(--bg-black) !important;
+/* Vertical tabs — Kanagawa Sumi Ink 0 */
+#sidebar-main,
+#sidebar-container {
+  background-color: var(--kg-bg) !important;
 }
+
+/* Selected tab text */
 .tabbrowser-tab[selected] .tab-label {
-  color: var(--kanagawa-green) !important;
-}
-.tabbrowser-tab:not(:hover) .tab-close-button {
-  display: none;
+  color: var(--kg-green) !important;
 }
 
-/* URL bar text'i ortala */
+/* Urlbar text centered */
 #urlbar-input {
   text-align: center !important;
+  color: var(--kg-fg) !important;
 }
 
-/* URL bar dropdown */
-.urlbarView,
-.urlbarView-body-inner,
-.urlbarView-results,
-.urlbarView-row,
-.urlbarView-row-inner,
-.urlbarView-no-wrap,
-.urlbarView-url,
-.urlbarView-title,
-.search-panel-container,
-#urlbar-results,
-#urlbar-panel {
-  background-color: var(--bg-black) !important;
-  color: var(--kanagawa-bone) !important;
-}
-.urlbarView {
-  /* border: 1px solid var(--kanagawa-green) !important; */
-  /* border-top: none !important; */
-}
+/* Urlbar suggestions */
 .urlbarView-row:hover > .urlbarView-row-inner,
 .urlbarView-row[selected] > .urlbarView-row-inner {
-  background-color: var(--bg-dark-grey) !important;
-}
-#urlbar *,
-#urlbar-results *,
-.urlbarView * {
-  background-color: var(--bg-black) !important;
-}
-
-/* Move tab bar to the bottom */
-:root:not([inDOMFullscreen]) #browser,
-:root:not([inDOMFullscreen]) #customization-container {
-  margin-bottom: calc(var(--tab-min-height) + var(--tab-margin-block) * 2);
-}
-#TabsToolbar {
-  margin-bottom: calc(-1 * var(--tab-min-height) - var(--tab-margin-block) * 2);
-  transform: translateY(calc(100vh - var(--tab-min-height) - var(--tab-margin-block) * 2));
-}
-#TabsToolbar .titlebar-spacer {
-  width: 3px !important;
-}
-
-/* Titlebar / window controls */
-.browser-titlebar {
-  opacity: 1 !important;
-}
-#nav-bar-customization-target,
-#TabsToolbar-customization-target,
-#PanelUI-button,
-.urlbar-input-container {
-  :root[tabsintitlebar] & {
-    &:-moz-window-inactive {
-      opacity: var(--inactive-titlebar-opacity);
-    }
-  }
-}
-/* Back butonu solundaki CSD offset kaldırıldı, default'a dönüldü */
-:root:not([inFullscreen]) #nav-bar-customization-target {
-  margin-left: 0 !important;
-}
-.titlebar-buttonbox-container {
-  transform: translateY(calc(-100vh + var(--tab-min-height) + var(--tab-margin-block) + 2px));
-  width: var(--window-controls-width);
-  margin-right: calc(-1 * var(--window-controls-width));
+  background-color: var(--kg-surface) !important;
 }
