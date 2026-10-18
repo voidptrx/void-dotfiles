@@ -1,17 +1,79 @@
+# #!/usr/bin/env bash
+#
+# if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
+#   swaylock --help 2>&1 | sed -e 's/swaylock/swaylock-corrupter/g' -e '/--image/d' 1>&2
+# else
+#   DISPLAYS="$(swaymsg -t get_outputs -p | grep "Output" | awk '{print $2}')"
+#   BASE_FILE="${TMPDIR:-/tmp/ss}"
+#
+#   for display in $DISPLAYS; do
+#     FILE="${BASE_FILE}${display}.png"
+#     grim -o "$display" "$FILE"
+#     corrupter "$FILE" "$FILE"
+#     args="$args -i ${display}:${FILE}"
+#   done
+#
+#   swaylock $args "$@"
+# fi
+
 #!/usr/bin/env bash
 
-if [ "$1" = "--help" ] || [ "$1" = "-h" ]; then
-  swaylock --help 2>&1 | sed -e 's/swaylock/swaylock-corrupter/g' -e '/--image/d' 1>&2
-else
-  DISPLAYS="$(swaymsg -t get_outputs -p | grep "Output" | awk '{print $2}')"
-  BASE_FILE="${TMPDIR:-/tmp/ss}"
+set -euo pipefail
+umask 077
 
-  for display in $DISPLAYS; do
-    FILE="${BASE_FILE}${display}.png"
-    grim -o "$display" "$FILE"
-    corrupter "$FILE" "$FILE"
-    args="$args -i ${display}:${FILE}"
-  done
-
-  swaylock $args "$@"
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  swaylock --help
+  exit
 fi
+
+lock_plain() {
+  swaylock -f -c 000000 "$@"
+}
+
+# Pause media before locking
+playerctl pause 2>/dev/null || true
+
+# Use the session's private runtime directory
+if [[ -z "${XDG_RUNTIME_DIR:-}" ||
+  ! -d "$XDG_RUNTIME_DIR" ||
+  ! -w "$XDG_RUNTIME_DIR" ]]; then
+  lock_plain "$@"
+  exit
+fi
+
+tmpdir=$(mktemp -d \
+  "$XDG_RUNTIME_DIR/swaylock-corrupter.XXXXXXXX") || {
+  lock_plain "$@"
+  exit
+}
+
+trap 'rm -rf -- "$tmpdir"' EXIT
+
+# Detect displays
+mapfile -t displays < <(
+  swaymsg -t get_outputs -p |
+    awk '$1 == "Output" {print $2}'
+)
+
+if ((${#displays[@]} == 0)); then
+  lock_plain "$@"
+  exit
+fi
+
+args=()
+
+for i in "${!displays[@]}"; do
+  display="${displays[$i]}"
+  file="$tmpdir/$i.png"
+
+  if ! grim -o "$display" "$file" ||
+    ! corrupter "$file" "$file"; then
+    lock_plain "$@"
+    exit
+  fi
+
+  args+=(-i "$display:$file")
+done
+
+# Wait until the compositor confirms locking
+swaylock -f "${args[@]}" "$@"

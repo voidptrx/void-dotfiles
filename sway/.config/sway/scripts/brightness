@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
 
-STEP_DELAY=0.1
-STEP_SIZE=1
+BACKLIGHT=/sys/class/backlight/intel_backlight
+CHECK_INTERVAL=300
+LAPTOP_DELAY=0.1
+MONITOR_DELAY=0.5
+MONITOR_STEP=5
+TOLERANCE=3
 
 get_profile() {
-  hour=$(date +%H)
-  case $hour in
+  case $(date +%H) in
   22 | 23 | 00 | 01 | 02 | 03 | 04 | 05 | 06) echo 10 ;;
   07 | 08) echo 35 ;;
   09 | 10) echo 55 ;;
@@ -18,52 +21,74 @@ get_profile() {
 }
 
 get_laptop() {
-  brightness=$(cat /sys/class/backlight/intel_backlight/brightness)
-  max=$(cat /sys/class/backlight/intel_backlight/max_brightness)
-  echo $((brightness * 100 / max))
+  local current max
+
+  IFS= read -r current 2>/dev/null <"$BACKLIGHT/brightness" || return 1
+  IFS= read -r max 2>/dev/null <"$BACKLIGHT/max_brightness" || return 1
+  [[ $current =~ ^[0-9]+$ && $max =~ ^[0-9]+$ ]] || return 1
+  ((max > 0)) || return 1
+
+  printf '%d\n' "$((current * 100 / max))"
 }
 
 get_monitor() {
-  ddcutil getvcp 10 --brief 2>/dev/null | awk '{print $4}'
+  local label code type current max
+
+  read -r label code type current max <<<"$(ddcutil getvcp 10 --brief 2>/dev/null)"
+  [[ $label == VCP && $code == 10 && $type == C && $current =~ ^[0-9]+$ ]] || return 1
+
+  printf '%s\n' "$current"
+}
+
+needs_update() {
+  (($1 < $2 - TOLERANCE || $1 > $2 + TOLERANCE))
 }
 
 transition_laptop() {
-  local target=$1
-  cur=$(get_laptop)
-  while [ "$cur" -ne "$target" ]; do
-    [ "$cur" -lt "$target" ] && cur=$((cur + STEP_SIZE)) || cur=$((cur - STEP_SIZE))
-    brightnessctl set "${cur}%" >/dev/null 2>&1
-    sleep $STEP_DELAY
+  local current=$1 target=$2
+
+  while ((current != target)); do
+    if ((current < target)); then
+      ((current += 1))
+    else
+      ((current -= 1))
+    fi
+
+    brightnessctl set "${current}%" >/dev/null 2>&1
+    sleep "$LAPTOP_DELAY"
   done
 }
 
 transition_monitor() {
-  local target=$1
-  cur=$(get_monitor)
-  [ -z "$cur" ] && return
+  local current=$1 target=$2
 
-  while [ $((cur - target)) -gt 2 ] || [ $((target - cur)) -gt 2 ]; do
-    [ "$cur" -lt "$target" ] && cur=$((cur + 5)) || cur=$((cur - 5))
-    ddcutil setvcp 10 "$cur" >/dev/null 2>&1
-    sleep 0.5
+  while ((current != target)); do
+    if ((current < target)); then
+      ((current += MONITOR_STEP))
+      ((current > target)) && current=$target
+    else
+      ((current -= MONITOR_STEP))
+      ((current < target)) && current=$target
+    fi
+
+    ddcutil setvcp 10 "$current" >/dev/null 2>&1
+    sleep "$MONITOR_DELAY"
   done
-  ddcutil setvcp 10 "$target" >/dev/null 2>&1
 }
 
-last=""
-while true; do
+while :; do
   target=$(get_profile)
-  cur_laptop=$(get_laptop)
-  cur_monitor=$(get_monitor)
-  echo "$(date): target=$target last=$last cur_laptop=$cur_laptop cur_monitor=$cur_monitor" >&2
+  laptop=$(get_laptop) || laptop=
+  monitor=$(get_monitor) || monitor=
 
-  if [ "$target" != "$last" ] ||
-    [ $((cur_laptop - target)) -gt 3 ] || [ $((target - cur_laptop)) -gt 3 ] ||
-    { [ -n "$cur_monitor" ] && { [ $((cur_monitor - target)) -gt 3 ] || [ $((target - cur_monitor)) -gt 3 ]; }; }; then
-    echo "$(date): triggering transition" >&2
-    transition_laptop "$target" &
-    transition_monitor "$target" &
-    last=$target
+  if [[ -n $laptop ]] && needs_update "$laptop" "$target"; then
+    transition_laptop "$laptop" "$target" &
   fi
-  sleep 300
+
+  if [[ -n $monitor ]] && needs_update "$monitor" "$target"; then
+    transition_monitor "$monitor" "$target" &
+  fi
+
+  wait
+  sleep "$CHECK_INTERVAL"
 done

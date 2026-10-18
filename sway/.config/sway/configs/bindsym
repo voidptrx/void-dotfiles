@@ -35,10 +35,10 @@
     bindsym $mod+less gaps inner current set 10
 
     # Toggle lock screen
-    bindsym $mod+Shift+x exec playerctl pause | exec $HOME/.config/sway/scripts/swaylock-corrupter
+    bindsym $mod+Shift+x exec $HOME/.config/sway/scripts/swaylock-corrupter
 
     # Exec powermenu
-    bindsym $mod+Shift+m exec $HOME/.config/waybar/power_menu
+    bindsym $mod+Shift+m exec $HOME/.config/waybar/power_menu.sh
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+m exec swaynag -t warning \
