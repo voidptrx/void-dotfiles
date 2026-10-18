@@ -30,43 +30,56 @@ return {
 			words = { enabled = true },
 			dashboard = {
 				preset = {
--- 					header = [[
--- ╔╦═══════════════════════════════════════════════════╦╗
---  ║║        >_ REVACHOL CENTRAL MAINFRAME _<         ║║
--- ║║   >_ RCM TERMINAL // PRECINCT 41 // UNIT 57 _<   ║║
---  ╠╬═══════════════════════════════════════════════════╬╣
---  ║║              THE WORLD IS ENDING.               ║║
---  ║║                 FUCK THE WORLD                    ║║
---  ║║               SUNRISE, PARABELLUM                 ║║
---  ╠╬═══════════════════════════════════════════════════╬╣
---   ║║   [HOST: ThinkPad T480] [OS: Void Linux]           ║║
---  ║║   [STATUS: DISCO ETERNAL]                        ║║
---   ║║  [PALE ENCROACHMENT: █████░░░░░ 50%]             ║║
---   ║║  [RCM UPLINK: OFFLINE]                          ║║
---   ║║  [USER: HARRIER // BADGE: LOST]                  ║║
---  ╚╩═══════════════════════════════════════════════════╝
--- ]],
-          -- stylua: ignore
-          keys = {
-            { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.dashboard.pick('files')" },
-            { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
-            { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.dashboard.pick('live_grep')" },
-            { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
-            { icon = " ", key = "c", desc = "Config",
-              action = function()
-                local real_path = vim.fn.resolve(vim.fn.stdpath("config"))
-                vim.api.nvim_set_current_dir(real_path)
-                Snacks.dashboard.pick('files', {
-                  cwd = real_path,
-                  follow = true,
-                  hidden = true
-                })
-              end
-            },
-            { icon = " ", key = "s", desc = "Restore Session", section = "session" },
-            { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
-            { icon = " ", key = "q", desc = "Quit", action = ":qa" },
-          },
+					header = (function()
+						local v = vim.version()
+						return ([[
+ │ ╲ ││
+ ││╲╲││
+ ││ ╲ │
+
+ ネオヴィム
+NVIM v%d.%d.%d
+ ]]):format(v.major, v.minor, v.patch)
+					end)(),
+					-- stylua: ignore,
+					keys = {
+						{
+							icon = " ",
+							key = "f",
+							desc = "Find File",
+							action = ":lua Snacks.dashboard.pick('files')",
+						},
+						{ icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+						{
+							icon = " ",
+							key = "g",
+							desc = "Find Text",
+							action = ":lua Snacks.dashboard.pick('live_grep')",
+						},
+						{
+							icon = " ",
+							key = "r",
+							desc = "Recent Files",
+							action = ":lua Snacks.dashboard.pick('oldfiles')",
+						},
+						{
+							icon = " ",
+							key = "c",
+							desc = "Config",
+							action = function()
+								local real_path = vim.fn.resolve(vim.fn.stdpath("config"))
+								vim.api.nvim_set_current_dir(real_path)
+								Snacks.dashboard.pick("files", {
+									cwd = real_path,
+									follow = true,
+									hidden = true,
+								})
+							end,
+						},
+						{ icon = " ", key = "s", desc = "Restore Session", section = "session" },
+						{ icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
+						{ icon = " ", key = "q", desc = "Quit", action = ":qa" },
+					},
 				},
 				formats = {
 					key = function(item)
@@ -77,7 +90,28 @@ return {
 					{ section = "header" },
 					{ icon = " ", title = "Keymaps", section = "keys", indent = 2, padding = 1 },
 					{ icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
-					{ icon = " ", title = "Projects", section = "projects", limit = 5, indent = 2, padding = 1 },
+					{
+						icon = " ",
+						title = "Projects",
+						section = "projects",
+						limit = 5,
+						indent = 2,
+						padding = 1,
+						filter = function(dir)
+							local home = vim.fn.expand("~")
+							local path = vim.fs.normalize(dir)
+
+							for _, root in ipairs({
+								home .. "/Projects",
+								home .. "/Documents",
+							}) do
+								if vim.startswith(path, root .. "/") then
+									return true
+								end
+							end
+							return false
+						end,
+					},
 				},
 			},
 		},

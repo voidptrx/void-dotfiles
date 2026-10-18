@@ -5,6 +5,7 @@ local colors = {
 	important = "#957fb8",
 	warning = "#c0a36e",
 	caution = "#c34043",
+	example = "#76946a",
 }
 
 function BlockQuote(el)
@@ -30,7 +31,7 @@ function BlockQuote(el)
 	end
 
 	local title = kind:sub(1, 1):upper() .. kind:sub(2):lower()
-	local open = string.format(
+	local open = kind:lower() == "example" and "#kg-example[\n\n" or string.format(
 		'#block(width: 100%%, inset: (left: 10pt, y: 6pt), stroke: (left: 2.5pt + rgb("%s")))'
 			.. '[#text(weight: "bold", fill: rgb("%s"))[%s]\n\n',
 		col, col, title
@@ -45,6 +46,86 @@ function BlockQuote(el)
 	end
 	out:insert(pandoc.RawBlock("typst", "]"))
 	return out
+end
+
+-- Existing lesson notes use a standalone Example: paragraph followed by the
+-- example itself. Give that pair the same presentation as [!EXAMPLE] callouts.
+function Blocks(blocks)
+	if FORMAT ~= "typst" then
+		return nil
+	end
+	local out = pandoc.List()
+	local i = 1
+	while i <= #blocks do
+		local block = blocks[i]
+		local next_block = blocks[i + 1]
+		local label = block.t == "Para" and pandoc.utils.stringify(block.content) or ""
+		if (label == "Example:" or label == "Examples:")
+			and next_block and (next_block.t == "Para" or next_block.t == "Plain") then
+			out:insert(pandoc.RawBlock("typst", "#kg-example[\n\n"))
+			out:insert(next_block)
+			out:insert(pandoc.RawBlock("typst", "]"))
+			i = i + 2
+		else
+			out:insert(block)
+			i = i + 1
+		end
+	end
+	return out
+end
+
+function Table(el)
+	if FORMAT ~= "typst" then
+		return nil
+	end
+	local rows = {}
+	for _, row in ipairs(el.head.rows) do rows[#rows + 1] = row end
+	local body_rows = 0
+	for _, body in ipairs(el.bodies) do
+		for _, row in ipairs(body.head) do rows[#rows + 1] = row end
+		for _, row in ipairs(body.body) do
+			rows[#rows + 1] = row
+			body_rows = body_rows + 1
+		end
+	end
+	for _, row in ipairs(el.foot.rows) do rows[#rows + 1] = row end
+
+	-- Give Japanese noun phrases room in Part / Role analysis tables.
+	local header = el.head.rows[1]
+	if #el.colspecs == 2 and header and #header.cells == 2
+		and pandoc.utils.stringify(header.cells[1].contents) == "Part"
+		and pandoc.utils.stringify(header.cells[2].contents) == "Role" then
+		el.colspecs = { { el.colspecs[1][1], 0.5 }, { el.colspecs[2][1], 0.5 } }
+	end
+
+	-- Keep a small analysis table together, but allow tall/rich cells to flow.
+	-- Row count alone is insufficient: even a two-row table can be very tall.
+	local compact = body_rows <= 5 and #rows <= 7 and #el.colspecs <= 4
+	local total = utf8.len(pandoc.utils.stringify(el.caption)) or 0
+	for _, row in ipairs(rows) do
+		for _, cell in ipairs(row.cells) do
+			local size = utf8.len(pandoc.utils.stringify(cell.contents)) or 0
+			total = total + size
+			if size > 120 or cell.row_span > 1 then compact = false end
+			for _, block in ipairs(cell.contents) do
+				if block.t ~= "Para" and block.t ~= "Plain" then compact = false end
+				block:walk({
+					Image = function() compact = false end,
+					Note = function() compact = false end,
+					RawInline = function() compact = false end,
+					Math = function() compact = false end,
+				})
+			end
+		end
+	end
+	if compact and total <= 400 then
+		return {
+			pandoc.RawBlock("typst", "#block(breakable: false)[\n\n"),
+			el,
+			pandoc.RawBlock("typst", "]"),
+		}
+	end
+	return el
 end
 ]==]
 
@@ -85,7 +166,7 @@ local function export_pdf(buf, open)
 			"--lua-filter",
 			ensure_filter(),
 			"-V",
-			"mainfont=Terminess Nerd Font Propo",
+			"mainfont=Noto Sans CJK JP",
 			"--template",
 			template,
 		},

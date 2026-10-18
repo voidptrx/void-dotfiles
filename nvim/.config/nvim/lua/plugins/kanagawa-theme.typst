@@ -14,6 +14,20 @@
   stroke: none
 )
 
+// Keep a standalone example label with the following example paragraph.
+// The heading's normal stickiness then keeps heading + label + example together.
+#show par: it => {
+  if it.body == [Example:] or it.body == [Examples:] {
+    block(sticky: true, above: it.spacing, below: it.spacing, it)
+  } else {
+    it
+  }
+}
+
+// Pandoc wraps tables in figures. Long tables must remain free to paginate.
+// The Lua filter groups only compact, plain-text tables in an outer block.
+#show figure.where(kind: table): set block(breakable: true)
+
 #show figure.where(
   kind: table
 ): set figure.caption(position: $if(table-caption-position)$$table-caption-position$$else$top$endif$)
@@ -50,6 +64,25 @@ $endif$
   red: rgb("#c84053"),
   gray: rgb("#6d6d6a"),
 )
+
+// A quiet example callout: one thin rule, no background, and a short label.
+// The Pandoc filter uses this for both Example: paragraphs and [!EXAMPLE].
+#let kg-example(body) = layout(size => {
+  let content = [
+    #block(sticky: true, above: 0pt, below: 0.35em)[
+      #text(weight: "bold", fill: kg.teal)[Example]
+    ]
+    #body
+  ]
+  let height = measure(content, width: size.width - 10pt).height + 6pt
+  block(
+    width: 100%,
+    inset: (left: 10pt, y: 3pt),
+    stroke: (left: 1pt + kg.teal),
+    breakable: height > (12em).to-absolute(),
+    content,
+  )
+})
 
 // external links (internal refs / outline entries are left alone)
 #show link: it => if type(it.dest) == str { text(fill: kg.teal, it) } else { it }
