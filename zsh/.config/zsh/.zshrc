@@ -49,8 +49,8 @@ alias lsd='lsd -AFlgh --header'
 alias bigtime='bigtime --file simple -sdfi -F 2'
 alias rusty-rain='rusty-rain -g jap -s'
 alias mcat='mcat -t kanagawa'
-alias searxng-up='docker compose --project-directory $HOME/searxng up -d'
-alias searxng-down='docker compose --project-directory $HOME/searxng down'
+alias searxng-up='docker compose --project-directory $HOME/Projects/searxng up -d'
+alias searxng-down='docker compose --project-directory $HOME/Projects/searxng down'
 
 # ── Functions ─────────────────────────────────────────────────
 timer() {
@@ -59,10 +59,14 @@ timer() {
 
 # topgrade command with ssh
 tgs() {
-  eval $(ssh-agent)
-  trap 'ssh-agent -k > /dev/null; unset SSH_AUTH_SOCK SSH_AGENT_PID; echo "[-] SSH Agent closed."' EXIT INT TERM
-  ssh-add ~/.ssh/id_ed25519 || { echo "[-] Failed to add key, exiting."; return 1; }
-  topgrade "$@"
+  (
+    eval "$(ssh-agent -s)" >/dev/null || exit 1
+    trap 'ssh-agent -k >/dev/null 2>&1' EXIT
+
+    ssh-add "$HOME/.ssh/id_ed25519" || exit 1
+
+    topgrade "$@"
+  )
 }
 
 function paste-clipboard() {
@@ -71,15 +75,12 @@ function paste-clipboard() {
 }
 
 # ── Prompt ────────────────────────────────────────────────────
-autoload -U colors && colors
-autoload -Uz vcs_info add-zsh-hook
+autoload -Uz vcs_info
 setopt PROMPT_SUBST
 
 zstyle ':vcs_info:git:*' enable git
 zstyle ':vcs_info:git:*' formats '%b'
 zstyle ':vcs_info:git:*' actionformats '%b|%a'
-
-add-zsh-hook precmd precmd
 
 last_status=0
 
@@ -125,7 +126,7 @@ built_prompt() {
     p+="%B%F{white}:%b%F{$retc}%~%B%F{green}]%b%f"
 
     # Date
-    p+="$(prompt_wrapper $retc '' $(date +%X))"
+    # p+="$(prompt_wrapper $retc '' $(date +%X))"
 
     # Virtual Env
     if [[ -n "$VIRTUAL_ENV" ]]; then
@@ -177,7 +178,7 @@ built_prompt() {
 }
 
 # ── Autostart ────────────────────────────────────────────────
-fastfetch
+# fastfetch
 source /usr/share/zsh/plugins/zsh-history-substring-search/zsh-history-substring-search.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

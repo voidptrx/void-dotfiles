@@ -3,7 +3,6 @@ typeset -U path
 path=(
   "$HOME/.local/bin"
   "$HOME/.cargo/bin"
-  "$HOME/go"
   "$HOME/go/bin"
   $path
 )
