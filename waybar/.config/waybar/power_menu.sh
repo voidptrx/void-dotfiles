@@ -13,7 +13,6 @@ options=(
 )
 
 lock_screen() {
-  playerctl pause 2>/dev/null || true
   "$LOCK_SCRIPT"
 }
 
@@ -25,8 +24,7 @@ chosen=$(printf '%s\n' "${options[@]}" |
 
 case "$chosen" in
 "suspend")
-  loginctl suspend
-  lock_screen
+  lock_screen && loginctl suspend
   ;;
 "lock")
   lock_screen

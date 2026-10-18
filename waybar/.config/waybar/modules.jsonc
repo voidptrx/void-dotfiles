@@ -2,7 +2,7 @@
   "custom/power": {
     "format": "<span font-size='large'></span>",
     "tooltip": false,
-    "on-click": "$HOME/.config/waybar/power_menu",
+    "on-click": "$HOME/.config/waybar/power_menu.sh",
   },
   "sway/workspaces": {
     "format": "{icon}",

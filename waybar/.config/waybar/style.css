@@ -54,17 +54,6 @@ tooltip {
     color: @red;
 }
 
-#custom-logout,
-#custom-reboot,
-#custom-shutdown {
-padding: 0px 10px 0px 10px;
-}
-
-#custom-lock {
-  padding-left: 20px;
-  padding-right: 10px;
-}
-
 #mpris {
   margin: 0px 5px;
 }
