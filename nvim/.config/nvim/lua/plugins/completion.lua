@@ -43,6 +43,20 @@ return {
 					},
 				},
 				menu = {
+					auto_show = function()
+						local ft = vim.bo.filetype
+
+						local text_filetypes = {
+							markdown = true,
+							text = true,
+							asciidoc = true,
+							tex = true,
+							gitcommit = true,
+						}
+
+						return not text_filetypes[ft]
+					end,
+
 					draw = {
 						treesitter = { "lsp" },
 					},
@@ -85,6 +99,13 @@ return {
 
 			keymap = {
 				preset = "enter",
+
+				["<C-space>"] = false,
+				["<C-l>"] = {
+					"show",
+					"show_documentation",
+					"hide_documentation",
+				},
 				["<C-y>"] = { "select_and_accept" },
 			},
 		},

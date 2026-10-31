@@ -214,40 +214,63 @@ NVIM v%d.%d.%d
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons" },
+
 		opts = function()
 			local icons = {
-				git = { added = "+", modified = "~", removed = "-" },
-				diagnostics = { Error = "X", Warn = "!", Hint = "?", Info = "i" },
+				git = {
+					added = "+",
+					modified = "~",
+					removed = "-",
+				},
+				diagnostics = {
+					Error = "x",
+					Warn = "!",
+					Info = "i",
+					Hint = "·",
+				},
 			}
 
-			-- kanagawa-dragon palette
-			local bg = "#000000"
-			local black_theme = {
-				normal = {
-					a = { fg = "#dcd7ba", bg = bg, gui = "bold" },
-					b = { bg = bg },
-					c = { bg = bg },
-				},
-				insert = { a = { fg = "#76946a", bg = bg, gui = "bold" } },
-				visual = { a = { fg = "#957fb8", bg = bg, gui = "bold" } },
-				replace = { a = { fg = "#c0a36e", bg = bg, gui = "bold" } },
-				command = { a = { fg = "#c34043", bg = bg, gui = "bold" } },
-				inactive = {
-					a = { bg = bg },
-					b = { bg = bg },
-					c = { bg = bg },
-				},
-			}
+			local function theme()
+				local colors = require("lualine.utils.loader").load_theme("auto")
+
+				local normal = vim.api.nvim_get_hl(0, {
+					name = "Normal",
+					link = false,
+				})
+
+				local bg = normal.bg and string.format("#%06x", normal.bg) or "NONE"
+
+				local seen = {}
+
+				for _, mode in pairs(colors) do
+					for section, color in pairs(mode) do
+						if type(color) == "table" and not seen[color] then
+							seen[color] = true
+
+							if section == "a" and color.bg ~= "NONE" then
+								color.fg = color.bg or color.fg
+							end
+
+							color.bg = bg
+						end
+					end
+				end
+
+				return colors
+			end
 
 			return {
 				options = {
-					theme = black_theme,
+					theme = theme,
 					globalstatus = true,
 					icons_enabled = true,
 					component_separators = { left = "", right = "" },
 					section_separators = { left = "", right = "" },
-					disabled_filetypes = { statusline = { "dashboard", "alpha", "starter" } },
+					disabled_filetypes = {
+						statusline = { "dashboard", "alpha", "starter" },
+					},
 				},
+
 				sections = {
 					lualine_a = {
 						{
@@ -256,9 +279,9 @@ NVIM v%d.%d.%d
 								return str:lower()
 							end,
 							icon = { "" },
-							color = { gui = "bold" },
 						},
 					},
+
 					lualine_b = {
 						{
 							"filename",
@@ -267,8 +290,9 @@ NVIM v%d.%d.%d
 							padding = { left = 1, right = 0 },
 						},
 					},
+
 					lualine_c = {
-						{ "branch", icon = { "" }, color = { gui = "bold" } },
+						{ "branch", icon = { "" } },
 						{
 							"diff",
 							symbols = {
@@ -276,7 +300,6 @@ NVIM v%d.%d.%d
 								modified = icons.git.modified,
 								removed = icons.git.removed,
 							},
-							color = { gui = "bold" },
 						},
 						{
 							"diagnostics",
@@ -286,27 +309,32 @@ NVIM v%d.%d.%d
 								info = icons.diagnostics.Info,
 								hint = icons.diagnostics.Hint,
 							},
-							color = { gui = "bold" },
 						},
 					},
+
 					lualine_x = {},
+
 					lualine_y = {
 						{
 							function()
 								local clients = vim.lsp.get_clients({ bufnr = 0 })
-								if not clients or #clients == 0 then
-									return " No Active Lsp"
+
+								if #clients == 0 then
+									return ""
 								end
+
 								local names = vim.tbl_map(function(c)
 									return c.name
 								end, clients)
+
 								return " " .. table.concat(names, ", ")
 							end,
 						},
 					},
+
 					lualine_z = {
-						{ "progress", color = { gui = "bold" } },
-						{ "location", color = { gui = "bold" } },
+						{ "progress" },
+						{ "location" },
 					},
 				},
 			}

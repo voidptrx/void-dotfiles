@@ -120,6 +120,8 @@ return {
 				},
 				ts_ls = {},
 				marksman = {},
+				bashls = {},
+				jsonls = {},
 			}
 
 			require("mason-tool-installer").setup({
@@ -130,6 +132,8 @@ return {
 					"stylua",
 					"shfmt",
 					"prettier",
+					"bash-language-server",
+					"json-lsp",
 				},
 			})
 

@@ -53,6 +53,10 @@ map.set("x", ">", ">gv")
 map.set("n", "gco", "o<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Comment Below" })
 map.set("n", "gcO", "O<esc>Vcx<esc><cmd>normal gcc<cr>fxa<bs>", { desc = "Comment Above" })
 
+-- Search and Replace
+map.set("n", "<leader>sR", ":%s///gc<Left><Left><Left><Left>", {
+	desc = "Search and replace with confirmation",
+})
 --------------------------------------------------------------------------------
 -- SYSTEM & UTILS
 --------------------------------------------------------------------------------
@@ -60,7 +64,7 @@ map.set({ "i", "x", "n", "s" }, "<C-s>", "<cmd>w<cr><esc>", { desc = "Save File"
 map.set("n", "<leader>qq", "<cmd>qa<cr>", { desc = "Quit All" })
 map.set("n", "<leader>uC", function()
 	Snacks.picker.colorschemes()
-end)
+end, { desc = "Change colorscheme" })
 --------------------------------------------------------------------------------
 -- DIAGNOSTIC NAVIGATION (STABILITY MONITOR)
 --------------------------------------------------------------------------------
