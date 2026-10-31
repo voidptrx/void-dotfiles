@@ -1,0 +1,62 @@
+#!/bin/sh
+set -eu
+
+config_dir=${XDG_CONFIG_HOME:-"$HOME/.config"}
+theme_dir=$config_dir/theme
+
+. "$theme_dir/palette.sh"
+
+# Foot
+cat >"$theme_dir/foot.ini" <<END
+[colors-dark]
+background=$BG
+foreground=$FG
+regular0=$C0
+regular1=$C1
+regular2=$C2
+regular3=$C3
+regular4=$C4
+regular5=$C5
+regular6=$C6
+regular7=$C7
+bright0=$C8
+bright1=$C9
+bright2=$C10
+bright3=$C11
+bright4=$C12
+bright5=$C13
+bright6=$C14
+bright7=$C15
+END
+
+# Fuzzel
+cat >"$theme_dir/fuzzel.ini" <<END
+[colors]
+background=${BG}ff
+prompt=${C2}ff
+input=${FG}ff
+text=${FG}ff
+match=${C2}ff
+selection=${C2}ff
+selection-text=${BG}ff
+selection-match=${BG}ff
+border=${C2}ff
+END
+
+# Sway
+cat >"$theme_dir/sway.conf" <<END
+set \$theme_bg #$BG
+set \$theme_fg #$FG
+set \$theme_accent #$C2
+set \$theme_muted #$C8
+END
+
+# Waybar
+cat >"$theme_dir/waybar.css" <<END
+@define-color theme_bg #$BG;
+@define-color theme_fg #$FG;
+@define-color theme_accent #$C2;
+@define-color theme_muted #$C8;
+@define-color theme_red #$C1;
+@define-color theme_blue #$C4;
+END

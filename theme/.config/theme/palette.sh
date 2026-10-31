@@ -1,0 +1,24 @@
+# Black-adapted Kanagawa Dragon
+
+BG=000000
+FG=adb3ad
+
+# ANSI 0–7
+C0=000000
+C1=b7554d
+C2=738364
+C3=b59e6b
+C4=708f9d
+C5=8d798e
+C6=758f8d
+C7=b8ae75
+
+# ANSI 8–15
+C8=5A5953
+C9=dd4153
+C10=6c966c
+C11=deb05e
+C12=5ea1bd
+C13=7b6f96
+C14=60948a
+C15=adb3ad

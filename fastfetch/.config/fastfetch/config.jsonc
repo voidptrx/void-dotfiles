@@ -55,7 +55,7 @@
     },
     {
       "type": "shell",
-      "key": " LOGIC   ",
+      "key": " SHELL   ",
       "keyColor": "35",
     },
     {
@@ -73,6 +73,9 @@
       "type": "custom",
       "format": "─ [ SYSTEM_STATUS::NOMINAL ] ─",
       "color": "32",
+    },
+    {
+      "type": "colors",
     },
   ],
 }
