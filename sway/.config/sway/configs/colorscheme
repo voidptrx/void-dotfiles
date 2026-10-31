@@ -1,15 +1,6 @@
-# Kanagawa Color Scheme
-set $bg-color      #16161d
-set $fg-color      #dcd7ba
-
-set $green         #76946a
-set $red           #c34043
-set $blue          #7e9cd8
-set $yellow        #c0a36e
-set $purple        #957fb8
-
-set $dark-blue     #54546d
-set $dark-green    #4f5b45
-set $dark-red      #8c373a
-set $dark-yellow   #7f6e42
-set $dark-purple   #5c517a
+# Kanagawa Dragon Color Scheme
+set $bg-color    #181616
+set $fg-color    #c5c9c5
+set $black       #0d0c0c
+set $green       #8a9a7b
+set $red         #c4746e

@@ -1,26 +1,37 @@
+include ~/.config/sway/configs/variables
 include ~/.config/sway/configs/basic
 include ~/.config/sway/configs/output
-include ~/.config/sway/configs/variables
 include ~/.config/sway/configs/bindsym
 include /etc/sway/config.d/*
 
+# D-Bus environment
+exec dbus-update-activation-environment WAYLAND_DISPLAY XDG_RUNTIME_DIR XDG_CURRENT_DESKTOP SWAYSOCK
+
+# Audio
 exec pipewire
-exec pipewire-pulse
 exec wireplumber
-exec kanshi
-exec gammastep
-exec gammastep-indicator
-exec nm-applet
+exec pipewire-pulse
+
+# Input & terminal
+exec fcitx5 -d
 exec foot --server
-exec playerctld daemon
-exec fnott
+
+# Display
+exec kanshi
+exec gammastep-indicator
 exec autotiling
+
+# Desktop services
+exec fnott
 exec swayosd-server
+exec wl-paste --watch cliphist store
+exec playerctld daemon
+
+# Network & connectivity
+exec nm-applet
 exec kdeconnectd
 exec kdeconnect-indicator
-exec wl-paste --watch cliphist store
-exec fcitx5 -d
 
-exec --no-startup-id mpv $HOME/.config/sway/audio/pc_startup.ogg 2>/dev/null
+# Startup
 exec sleep 5 && $HOME/.config/sway/scripts/wallpaper
-exec $HOME/.config/sway/scripts/brightness
+exec --no-startup-id mpv $HOME/.config/sway/audio/pc_startup.ogg 2>/dev/null

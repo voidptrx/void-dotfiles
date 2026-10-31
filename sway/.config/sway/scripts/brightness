@@ -1,94 +1,15 @@
 #!/usr/bin/env bash
 
-BACKLIGHT=/sys/class/backlight/intel_backlight
-CHECK_INTERVAL=300
-LAPTOP_DELAY=0.1
-MONITOR_DELAY=0.5
-MONITOR_STEP=5
-TOLERANCE=3
-
-get_profile() {
-  case $(date +%H) in
-  22 | 23 | 00 | 01 | 02 | 03 | 04 | 05 | 06) echo 10 ;;
-  07 | 08) echo 35 ;;
-  09 | 10) echo 55 ;;
-  11 | 12 | 13 | 14 | 15) echo 100 ;;
-  16 | 17) echo 90 ;;
-  18 | 19) echo 40 ;;
-  20) echo 30 ;;
-  21) echo 20 ;;
-  esac
-}
-
-get_laptop() {
-  local current max
-
-  IFS= read -r current 2>/dev/null <"$BACKLIGHT/brightness" || return 1
-  IFS= read -r max 2>/dev/null <"$BACKLIGHT/max_brightness" || return 1
-  [[ $current =~ ^[0-9]+$ && $max =~ ^[0-9]+$ ]] || return 1
-  ((max > 0)) || return 1
-
-  printf '%d\n' "$((current * 100 / max))"
-}
-
-get_monitor() {
-  local label code type current max
-
-  read -r label code type current max <<<"$(ddcutil getvcp 10 --brief 2>/dev/null)"
-  [[ $label == VCP && $code == 10 && $type == C && $current =~ ^[0-9]+$ ]] || return 1
-
-  printf '%s\n' "$current"
-}
-
-needs_update() {
-  (($1 < $2 - TOLERANCE || $1 > $2 + TOLERANCE))
-}
-
-transition_laptop() {
-  local current=$1 target=$2
-
-  while ((current != target)); do
-    if ((current < target)); then
-      ((current += 1))
-    else
-      ((current -= 1))
-    fi
-
-    brightnessctl set "${current}%" >/dev/null 2>&1
-    sleep "$LAPTOP_DELAY"
-  done
-}
-
-transition_monitor() {
-  local current=$1 target=$2
-
-  while ((current != target)); do
-    if ((current < target)); then
-      ((current += MONITOR_STEP))
-      ((current > target)) && current=$target
-    else
-      ((current -= MONITOR_STEP))
-      ((current < target)) && current=$target
-    fi
-
-    ddcutil setvcp 10 "$current" >/dev/null 2>&1
-    sleep "$MONITOR_DELAY"
-  done
-}
-
-while :; do
-  target=$(get_profile)
-  laptop=$(get_laptop) || laptop=
-  monitor=$(get_monitor) || monitor=
-
-  if [[ -n $laptop ]] && needs_update "$laptop" "$target"; then
-    transition_laptop "$laptop" "$target" &
-  fi
-
-  if [[ -n $monitor ]] && needs_update "$monitor" "$target"; then
-    transition_monitor "$monitor" "$target" &
-  fi
-
-  wait
-  sleep "$CHECK_INTERVAL"
-done
+case "$1" in
+up)
+  swayosd-client --brightness raise
+  ddcutil setvcp 10 + 5
+  ;;
+down)
+  swayosd-client --brightness lower
+  ddcutil setvcp 10 - 5
+  ;;
+*)
+  exit 1
+  ;;
+esac

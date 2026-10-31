@@ -169,10 +169,9 @@ bindsym $mod+Shift+r mode "resize"
     # Previous song for current player
     bindsym XF86AudioPrev exec swayosd-client --playerctl previous
 
-    # Brightness raise
-    bindsym XF86MonBrightnessUp exec swayosd-client --brightness raise
-    # Brightness lower
-    bindsym XF86MonBrightnessDown exec swayosd-client --brightness lower
+    # Brightness control
+    bindsym --no-repeat $mod+Ctrl+j exec ~/.config/sway/scripts/brightness down
+    bindsym --no-repeat $mod+Ctrl+k exec ~/.config/sway/scripts/brightness up
 
     # Capslock (If you don't want to use the backend)
     bindsym --release Caps_Lock exec swayosd-client --caps-lock
