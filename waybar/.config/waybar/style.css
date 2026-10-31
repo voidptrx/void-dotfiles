@@ -1,12 +1,4 @@
-/* kanagawa color scheme */
-@define-color bg-color #000000;
-@define-color fg-color #dcd7ba;
-@define-color green #76946a;
-@define-color red #c34043;
-@define-color blue #7e9cd8;
-@define-color yellow #c0a36e;
-@define-color purple #957fb8;
-@define-color grey #54546d;
+@import "../theme/waybar.css";
 
 /* Global Styles */
 * {
@@ -16,8 +8,8 @@
 
 /* Waybar */
 #waybar {
-  background: @bg-color;
-  color: @fg-color;
+  background: @theme_bg;
+  color: @theme_fg;
 }
 
 /* Tooltips */
@@ -44,22 +36,26 @@ tooltip {
 
 /* Specific Module Styling */
 #custom-power {
-  color: @green;
+  color: @theme_accent;
   margin: 0px 0px 0px 10px;
   padding-left: 0px;
   border-radius: 0px;
 }
 
 #custom-power:hover {
-    color: @red;
+    color: @theme_red;
 }
 
 #mpris {
   margin: 0px 5px;
 }
 
+#mpris.playing{
+  color: @theme_accent;
+}
+
 #upower {
-  color: #dfdfdf;
+  color: @theme_fg;
   margin-right: 10px;
 }
 
@@ -72,47 +68,48 @@ tooltip {
 
 #pulseaudio.speaker {
   font-size: 13px;
-  color: #dfdfdf;
+  color: @theme_fg;
 }
 
 #pulseaudio.mic {
-  color: @red;
+  color: @theme_red;
   min-width: 13px;
   font-size: 13px;
 }
 
 #pulseaudio.speaker.muted {
-  color: @red;
+  color: @theme_red;
   font-size: 13px;
 }
 
 #pulseaudio.mic.source-muted {
-  color: #dfdfdf;
+  color: @theme_fg;
   font-size: 13px;
 }
 
 #upower.charging {
-  color: @green;
+  color: @theme_accent;
 }
 
-#workspaces {
-  margin: 0px 0px 0px 5px;
-  padding: 0px;
-  font-size: 15px;
-}
-
+/* Workspaces */
 #workspaces button {
-  padding: 0px;
+  padding: 0;
   min-width: 17px;
-  color: @fg-color;
-  border-radius: 0px;
+  color: @theme_fg;
+  background: transparent;
+  border-radius: 0;
 }
 
 #workspaces button.empty {
-  color: @grey;
+  color: @theme_muted;
 }
 
 #workspaces button.focused {
   font-weight: bold;
-  color: @blue;
+  color: @theme_accent;
+  border-bottom: 2px solid @theme_accent;
+}
+
+#workspaces button.urgent {
+  color: @theme_red;
 }

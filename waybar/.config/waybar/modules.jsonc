@@ -5,10 +5,8 @@
     "on-click": "$HOME/.config/waybar/power_menu.sh",
   },
   "sway/workspaces": {
-    "format": "{icon}",
-    "on-click": "activate",
+    "format": "{value}",
     "all-outputs": true,
-    "sort-by-number": true,
     "persistent-workspaces": {
       "1": [],
       "2": [],
