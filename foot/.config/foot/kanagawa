@@ -1,45 +1,45 @@
 ## kanagawa-dark
-#[colors-dark]
-#foreground=c5c9c5
-#background=000000
-
-#regular0=0d0c0c
-#regular1=c4746e
-#regular2=8a9a7b
-#regular3=c4b28a
-#regular4=8ba4b0
-#regular5=a292a3
-#regular6=8ea4a2
-#regular7=c8c093
-
-#bright0=a6a69c
-#bright1=e46876
-#bright2=87a987
-#bright3=e6c384
-#bright4=7fb4ca
-#bright5=938aa9
-#bright6=7aa89f
-#bright7=c5c9c5
-
-## Kanagawa
 [colors-dark]
-foreground=dcd7ba
+foreground=adb3ad
 background=000000
 
-regular0=16161d
-regular1=c34043
-regular2=76946a
-regular3=c0a36e
-regular4=7e9cd8
-regular5=957fb8
-regular6=6a9589
-regular7=c8c093
+regular0=000000
+regular1=b7554d
+regular2=738364
+regular3=b59e6b
+regular4=708f9d
+regular5=8d798e
+regular6=758f8d
+regular7=b8ae75
 
-bright0=727169
-bright1=e82424
-bright2=98bb6c
-bright3=e6c384
-bright4=7fb4ca
-bright5=938aa9
-bright6=7aa89f
-bright7=dcd7ba
+bright0=909084
+bright1=dd4153
+bright2=6c966c
+bright3=deb05e
+bright4=5ea1bd
+bright5=7b6f96
+bright6=60948a
+bright7=adb3ad
+
+## Kanagawa
+# [colors-dark]
+# foreground=dcd7ba
+# background=000000
+#
+# regular0=16161d
+# regular1=c34043
+# regular2=76946a
+# regular3=c0a36e
+# regular4=7e9cd8
+# regular5=957fb8
+# regular6=6a9589
+# regular7=c8c093
+#
+# bright0=727169
+# bright1=e82424
+# bright2=98bb6c
+# bright3=e6c384
+# bright4=7fb4ca
+# bright5=938aa9
+# bright6=7aa89f
+# bright7=dcd7ba
