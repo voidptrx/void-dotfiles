@@ -49,6 +49,7 @@ set \$theme_bg #$BG
 set \$theme_fg #$FG
 set \$theme_accent #$C2
 set \$theme_muted #$C8
+set \$theme_red #$C1
 END
 
 # Waybar
