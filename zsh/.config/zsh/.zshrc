@@ -37,6 +37,9 @@ zle -N paste-clipboard
 bindkey -M viins '^P' paste-clipboard
 bindkey -M vicmd 'p' paste-clipboard
 
+zle -N custom_clear_widget
+bindkey '^L' custom_clear_widget
+
 # ── Environment ───────────────────────────────────────────────
 export EDITOR="nvim"
 export VISUAL="nvim"
@@ -44,13 +47,15 @@ export SUDO_EDITOR="nvim"
 export MANPAGER="nvim +Man!"
 
 # ── Aliases ───────────────────────────────────────────────────
-alias ls='ls --color=auto'
-alias lsd='lsd -AFlgh --header'
+# alias ls='ls --color=auto'
+# alias lsd='lsd -AFlgh --header'
+alias ls="lsd"
 alias bigtime='bigtime --file simple -sdfi -F 2'
 alias rusty-rain='rusty-rain -g jap -s'
 alias mcat='mcat -t kanagawa'
 alias searxng-up='docker compose --project-directory $HOME/Projects/searxng up -d'
 alias searxng-down='docker compose --project-directory $HOME/Projects/searxng down'
+alias clear=neoclear
 
 # ── Functions ─────────────────────────────────────────────────
 timer() {
@@ -71,6 +76,11 @@ tgs() {
 
 function paste-clipboard() {
   LBUFFER+="$(wl-paste --no-newline)"
+  zle redisplay
+}
+
+custom_clear_widget(){
+  clear
   zle redisplay
 }
 
