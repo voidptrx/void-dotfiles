@@ -1,24 +1,39 @@
-# Black-adapted Kanagawa Dragon
-
+# Kanagawa Dragon
 BG=000000
-FG=adb3ad
-
-# ANSI 0–7
-C0=000000
-C1=b7554d
-C2=738364
-C3=b59e6b
-C4=708f9d
-C5=8d798e
-C6=758f8d
-C7=b8ae75
-
-# ANSI 8–15
+FG=c5c9c5
+C0=0d0c0c
+C1=c4746e
+C2=8a9a7b
+C3=c4b28a
+C4=8ba4b0
+C5=a292a3
+C6=8ea4a2
+C7=c8c093
 C8=5A5953
-C9=dd4153
-C10=6c966c
-C11=deb05e
-C12=5ea1bd
-C13=7b6f96
-C14=60948a
-C15=adb3ad
+C9=e46876
+C10=87a987
+C11=e6c384
+C12=7fb4ca
+C13=938aa9
+C14=7aa89f
+C15=c5c9c5
+
+# # Matrix Theme
+# BG=000000
+# FG=20ab45
+# C0=000000
+# C1=208a3d
+# C2=20ab45
+# C3=32b950
+# C4=285935
+# C5=208a3d
+# C6=43c65f
+# C7=43c65f
+# C8=285935
+# C9=20ab45
+# C10=00ff00
+# C11=43c65f
+# C12=208a3d
+# C13=32b950
+# C14=43c65f
+# C15=ffffff
