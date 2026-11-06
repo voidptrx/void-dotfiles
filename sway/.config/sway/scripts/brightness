@@ -9,6 +9,10 @@ down)
   swayosd-client --brightness lower
   ddcutil setvcp 10 - 5
   ;;
+reset)
+  swayosd-client --brightness 50
+  ddcutil setvcp 10 50
+  ;;
 *)
   exit 1
   ;;

@@ -3,7 +3,7 @@
     bindsym $mod+q exec $term
 
     # Kill focused window
-    bindsym $mod+c kill
+    bindsym $mod+Shift+q kill
 
     # Start your launcher
     bindsym $mod+r exec $menu
@@ -30,15 +30,15 @@
     # Reload the configuration file
     bindsym $mod+Shift+c reload
 
-    # Toggle outer gas
-    bindsym $mod+greater gaps inner current set -10
-    bindsym $mod+less gaps inner current set 10
+    # Adjust inner gaps
+    bindsym $mod+less gaps inner current minus 10
+    bindsym $mod+greater gaps inner current plus 10
 
     # Toggle lock screen
     bindsym $mod+Shift+x exec $HOME/.config/sway/scripts/swaylock-corrupter
 
     # Exec powermenu
-    bindsym $mod+Shift+m exec $HOME/.config/waybar/power_menu.sh
+    bindsym $mod+Shift+m exec $HOME/.config/sway/scripts/power_menu
 
     # Exit sway (logs you out of your Wayland session)
     bindsym $mod+m exec swaynag -t warning \
@@ -172,6 +172,7 @@ bindsym $mod+Shift+r mode "resize"
     # Brightness control
     bindsym --no-repeat $mod+Ctrl+j exec ~/.config/sway/scripts/brightness down
     bindsym --no-repeat $mod+Ctrl+k exec ~/.config/sway/scripts/brightness up
+    bindsym --no-repeat $mod+Ctrl+r exec ~/.config/sway/scripts/brightness reset
 
     # Capslock (If you don't want to use the backend)
     bindsym --release Caps_Lock exec swayosd-client --caps-lock
