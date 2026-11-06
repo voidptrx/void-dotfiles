@@ -1,115 +1,117 @@
-@import "../theme/waybar.css";
+@import url("../theme/waybar.css");
 
-/* Global Styles */
 * {
-  font-family: Terminess Nerd Font Propo;
-  font-size: 14px;
+  font-family: "Terminess Nerd Font Mono";
+  font-size: 12px;
+  min-height: 0;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  text-shadow: none;
 }
 
-/* Waybar */
-#waybar {
+window#waybar {
   background: @theme_bg;
   color: @theme_fg;
 }
 
-/* Tooltips */
-tooltip {
-  color: @fg-color;
-  background: @bg-color;
-  border: 2px solid @blue;
+#workspaces {
+  margin-left: 10px;
 }
 
-/* Modules */
-#tray,
-#clock,
-#mpris,
-#upower,
-#workspaces,
-#pulseaudio.speaker,
-#pulseaudio.speaker.muted,
-#pulseaudio.mic,
-#pulseaudio.mic.source-muted,
-#custom-weather {
-  margin: 0px 2px;
-  padding: 2px;
-}
-
-/* Specific Module Styling */
-#custom-power {
-  color: @theme_accent;
-  margin: 0px 0px 0px 10px;
-  padding-left: 0px;
-  border-radius: 0px;
-}
-
-#custom-power:hover {
-    color: @theme_red;
-}
-
-#mpris {
-  margin: 0px 5px;
-}
-
-#mpris.playing{
-  color: @theme_accent;
-}
-
-#upower {
-  color: @theme_fg;
-  margin-right: 10px;
-}
-
-#pulseaudio.speaker,
-#pulseaudio.speaker.muted,
-#pulseaudio.mic,
-#pulseaudio.mic.source-muted {
-  margin: 0px 5px;
-}
-
-#pulseaudio.speaker {
-  font-size: 13px;
-  color: @theme_fg;
-}
-
-#pulseaudio.mic {
-  color: @theme_red;
-  min-width: 13px;
-  font-size: 13px;
-}
-
-#pulseaudio.speaker.muted {
-  color: @theme_red;
-  font-size: 13px;
-}
-
-#pulseaudio.mic.source-muted {
-  color: @theme_fg;
-  font-size: 13px;
-}
-
-#upower.charging {
-  color: @theme_accent;
-}
-
-/* Workspaces */
 #workspaces button {
-  padding: 0;
-  min-width: 17px;
+  min-width: 0;
+  padding: 0 6px;
   color: @theme_fg;
   background: transparent;
-  border-radius: 0;
+  background-image: none;
+  border-bottom: 1px solid transparent;
 }
 
-#workspaces button.empty {
+#workspaces button.empty:not(.focused) {
   color: @theme_muted;
 }
 
 #workspaces button.focused {
-  font-weight: bold;
   color: @theme_accent;
-  border-bottom: 2px solid @theme_accent;
+  border-bottom:2px solid @theme_accent;
+  font-weight: bold;
 }
 
 #workspaces button.urgent {
   color: @theme_red;
+}
+
+#workspaces button:hover {
+  color: @theme_accent;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+}
+
+#mode {
+  padding: 0 8px;
+  color: @theme_accent;
+}
+
+#mpris {
+  padding: 0 7px;
+  color: @theme_fg;
+}
+
+#mpris.paused {
+  color: @theme_muted;
+}
+
+#clock,
+#network,
+#pulseaudio,
+#battery,
+#tray {
+  padding: 0 7px;
+}
+
+#clock {
+  font-weight: bold;
+}
+
+#network.disconnected {
+  color: @theme_bg;
+  background: @theme_accent;
+}
+
+#network.disabled {
+  color: @theme_muted;
+}
+
+#pulseaudio.muted {
+  color: @theme_muted;
+}
+
+#battery.charging {
+  color: @theme_accent;
+}
+
+#battery.warning:not(.charging) {
+  font-weight: bold;
+  border-bottom: 1px solid @theme_accent;
+}
+
+#battery.critical:not(.charging) {
+  color: @theme_bg;
+  background: @theme_accent;
+  font-weight: bold;
+}
+
+#tray {
+  margin-right: 10px;
+}
+
+tooltip {
+  background: @theme_bg;
+  border: 1px solid @theme_muted;
+}
+
+tooltip label {
+  color: @theme_fg;
 }

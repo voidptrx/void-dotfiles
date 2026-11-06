@@ -1,16 +1,13 @@
 {
   "include": ["modules.jsonc"],
-  "reload_style_on_change": true,
-  "height": 30,
+  "layer": "top",
+  "position": "top",
+  "height": 28,
+  "spacing": 0,
   "fixed-center": true,
+  "reload_style_on_change": true,
   "output": "Lenovo Group Limited L27m-30 UPB67FNK",
-  "modules-left": ["custom/power", "sway/workspaces", "mpris"],
+  "modules-left": ["sway/workspaces", "sway/mode", "mpris"],
   "modules-center": ["clock"],
-  "modules-right": [
-    // "custom/weather",
-    "tray",
-    "pulseaudio#speaker",
-    "pulseaudio#mic",
-    "upower",
-  ],
+  "modules-right": ["network", "pulseaudio", "battery", "tray"],
 }
