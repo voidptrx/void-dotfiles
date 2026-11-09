@@ -55,7 +55,22 @@ alias rusty-rain='rusty-rain -g jap -s'
 alias mcat='mcat -t kanagawa'
 alias searxng-up='docker compose --project-directory $HOME/Projects/searxng up -d'
 alias searxng-down='docker compose --project-directory $HOME/Projects/searxng down'
-alias clear=neoclear
+alias clear='neoclear \
+  -d top \
+  -t 1100 \
+  -f 350 \
+  --fade-steps 14 \
+  --fps 60 \
+  -c "#00ff41" \
+  --head-color "#72f58d" \
+  --colormode truecolor \
+  --trail 16 \
+  --rest 0.25 \
+  --speed 0 \
+  -s 4 \
+  --stagger 0.85 \
+  --glitch 0.06 \
+  --chars FF66-FF9D'
 
 # ── Functions ─────────────────────────────────────────────────
 timer() {
